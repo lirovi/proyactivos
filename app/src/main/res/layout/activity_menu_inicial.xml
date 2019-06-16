@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Vistas.MenuInicialActivity"
+    android:background="@color/colorPrimaryLight">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <include layout="@layout/actionbar_toolbar"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            >
+
+            <ImageView
+                android:layout_width="298dp"
+                android:layout_height="160dp"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/activo_fijo_menu_principal"
+                android:contentDescription="TODO" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:fillViewport="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/paddin_horizontal_login">
+
+
+
+                <Button
+                    android:id="@+id/gServidor"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/heigtButtom_MenuPrincipal"
+                    android:text="@string/textButtom_gestionServidor"
+                    android:theme="@style/RaisedButtonDark"
+                    android:onClick="goShowGesServer"
+
+                    android:layout_marginTop="@dimen/topmargin_buttom_menu"
+                    />
+                <Button
+                    android:id="@+id/gActivos"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/heigtButtom_MenuPrincipal"
+                    android:text="@string/textButtom_gestionarActivos"
+                    android:theme="@style/RaisedButtonDark"
+                    android:onClick="goShowContainer2"
+                    android:layout_marginTop="@dimen/topmargin_buttom_menu"
+                    />
+                <Button
+                    android:id="@+id/gInventario"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/heigtButtom_MenuPrincipal"
+                    android:text="@string/textButtom_gestionarInventario"
+                    android:theme="@style/RaisedButtonDark"
+                    android:onClick="goShowContainer3"
+                    android:layout_marginTop="@dimen/topmargin_buttom_menu"
+                    />
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Vistas.ObtenerDataActivity">
+
+    <include layout="@layout/actionbar_toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/activity_vertical_margin"
+            android:orientation="vertical"
+            >
+           <fr.ganfra.materialspinner.MaterialSpinner
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:id="@+id/spinnerdpto"
+               app:ms_arrowColor="#077077"
+               app:ms_arrowSize="16dp"
+               app:ms_floatingLabelColor="#A9A9A9"
+               app:ms_floatingLabelText="Seleccione Dpto."
+               app:ms_hint="Porfavor Seleccione Dpto."
+               app:ms_multiline="true"
+
+
+               />
+
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerunidad"
+                app:ms_arrowColor="#077077"
+                app:ms_arrowSize="16dp"
+                app:ms_floatingLabelColor="#A9A9A9"
+                app:ms_floatingLabelText="Seleccione Unidad."
+                app:ms_hint="Porfavor Seleccione Unidad"
+                app:ms_multiline="true"
+
+
+                />
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerfuncionario"
+                app:ms_arrowColor="#077077"
+                app:ms_arrowSize="16dp"
+                app:ms_floatingLabelColor="#A9A9A9"
+                app:ms_floatingLabelText="Seleccione Funcionario"
+                app:ms_hint="Porfavor Seleccione Funcionario"
+                app:ms_multiline="true"
+
+
+                />
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnertipoequipo"
+                app:ms_arrowColor="#077077"
+                app:ms_arrowSize="16dp"
+                app:ms_floatingLabelColor="#A9A9A9"
+                app:ms_floatingLabelText="Seleccione Tipo Equipo"
+                app:ms_hint="Porfavor Seleccione Tipo Equipo"
+                app:ms_multiline="true"
+
+
+                />
+
+
+
+            <Button
+                android:id="@+id/unete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_button_getdata"
+                android:theme="@style/RaisedButtonDark"
+                />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

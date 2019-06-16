@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">MisActivos</string>
+    <string name="title_activity_ref">RefActivity</string>
+    <string name="hint_name">Nombre de usuario</string>
+    <string name="hint_pasword">Contraseña</string>
+    <string name="hint_login">login</string>
+    <string name="text_button_login">Login</string>
+    <string name="dontHaveAccount">¿No tienes cuenta?,</string>
+    <string name="createHere">Crea una aquí</string>
+    <string name="hint_email">Correo</string>
+    <string name="hint_user">Usuario</string>
+    <string name="hint_confirm_password">Confirmar contraseña</string>
+    <string name="hint_name_create_account">Nombre</string>
+    <string name="text_button_join_us">Unete</string>
+    <string name="toolbar_tittle_createAccount">Crear Cuenta</string>
+    <string name="username_card">LImber Rojas</string>
+    <string name="first_word_card">Hace</string>
+    <string name="time_card">4 días</string>
+    <string name="likeNUmber_card">10 Me Gusta</string>
+    <string name="tab_home">Home</string>
+    <string name="tab_search">Buscar</string>
+    <string name="tab_profile">Yo</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textButtom_gestionServidor">Gestionar Servidor</string>
+    <string name="textButtom_gestionarActivos">Gestionar Activos</string>
+    <string name="textButtom_gestionarInventario">Gestionar Inventario</string>
+    <string name="text_button_getdataserver">Obteber Datos del Servidor</string>
+    <string name="text_button_updatedataserver">Actualizar Datos al Servidor</string>
+    <string name="text_button_getdata">Cargar Datos Seleccionados</string>
+    <string name="toolbar_tittle_obtenerDatos">Obtener datos del Servidor</string>
+    <string name="toolbar_tittle_gestionservidor">Gestión Servidor</string>
+    <string name="toolbar_tittle_menuinicial">Menú principal</string>
+</resources>
