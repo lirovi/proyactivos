@@ -127,12 +127,12 @@ public class ObtenerDataActivity extends AppCompatActivity {
             listItem.add(i);
         }*/
         listItem.add("Ejecutivo");
-        listItem.add("Departamento Contabilidad");
-        listItem.add("Departamento Agua Potable");
-        listItem.add("Departamento Alcantarillado");
-        listItem.add("Departamento Control Calidad");
-        listItem.add("Departamento Comercial");
-        listItem.add("Departamento Informática");
+        listItem.add("Departamentos Contabilidad");
+        listItem.add("Departamentos Agua Potable");
+        listItem.add("Departamentos Alcantarillado");
+        listItem.add("Departamentos Control Calidad");
+        listItem.add("Departamentos Comercial");
+        listItem.add("Departamentos Informática");
 
 
         listItemUnidad.add("Gerencia General");

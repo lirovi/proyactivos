@@ -59,7 +59,7 @@
                     android:layout_height="@dimen/heigtButtom_MenuPrincipal"
                     android:text="@string/textButtom_gestionarActivos"
                     android:theme="@style/RaisedButtonDark"
-                    android:onClick="goShowContainer2"
+                    android:onClick="goShowGesActivos"
                     android:layout_marginTop="@dimen/topmargin_buttom_menu"
                     />
                 <Button

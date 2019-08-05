@@ -32,7 +32,9 @@
         <activity android:name=".Vistas.ContainerActivity" />
         <activity android:name=".Vistas.MenuInicialActivity" />
         <activity android:name=".Vistas.GestionServidorActivity" />
-        <activity android:name=".Vistas.ObtenerDataActivity"></activity>
+        <activity android:name=".Vistas.ObtenerDataActivity" />
+        <activity android:name=".Vistas.CreateActivoActivity" />
+        <activity android:name=".Vistas.GestionActivosActivity"></activity>
     </application>
 
 </manifest>

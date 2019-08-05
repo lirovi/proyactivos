@@ -4,14 +4,11 @@ import java.io.Serializable;
 
 public class Activos implements Serializable {
     private String Codigo;
-    private String CODIGO_TARIJA;
     private Integer CORRELATIVO;
     private String TIPO;
     private String DESCRIPCION;
     private String UNIDAD;
-    private Integer CANTIDAD;
     private String FECHA_INGRESO;
-    private String FECHA_ACTIVACION;
     private Float VALOR;
     private Float VALOR_RESIDUAL;
     private String ESTADO_FISICO;
@@ -27,35 +24,19 @@ public class Activos implements Serializable {
     private String MARCA;
     private String MODELO;
     private String PLACA;
-    private String ACTA_RECEPCION;
-    private Integer GESTION_ACTA;
-    private String NOTA_INGRESO;
-    private Integer GESTION_NOTA;
     private String BAJA;
     private Integer GESTION_BAJA;
     private String UBI_GEOGRAFICA;
-    private String SECTOR;
-    private Integer CORR_ITEM;
-    private String FECHA_PREVENTIVO;
     private String ORIGEN;
-    private String HOJA_RUTA;
-    private String PROGRAMA;
-    private String PROYECTO;
-    private String ESPECIFICACIONES;
-    private Integer PREVENTIVO;
-    private Integer IMPRESION;
 
     public Activos()
     {
         this.Codigo = Codigo;
-        this.CODIGO_TARIJA = CODIGO_TARIJA;
         this.CORRELATIVO = CORRELATIVO;
         this.TIPO = TIPO;
         this.DESCRIPCION = DESCRIPCION;
         this.UNIDAD = UNIDAD;
-        this.CANTIDAD = CANTIDAD;
         this.FECHA_INGRESO = FECHA_INGRESO;
-        this.FECHA_ACTIVACION = FECHA_ACTIVACION;
         this.VALOR = VALOR;
         this.VALOR_RESIDUAL = VALOR_RESIDUAL;
         this.ESTADO_FISICO = ESTADO_FISICO;
@@ -71,23 +52,10 @@ public class Activos implements Serializable {
         this.MARCA = MARCA;
         this.MODELO = MODELO;
         this.PLACA = PLACA;
-        this.ACTA_RECEPCION = ACTA_RECEPCION;
-        this.GESTION_ACTA = GESTION_ACTA;
-        this.NOTA_INGRESO = NOTA_INGRESO;
-        this.GESTION_NOTA = GESTION_NOTA;
         this.BAJA = BAJA;
         this.GESTION_BAJA = GESTION_BAJA;
         this.UBI_GEOGRAFICA = UBI_GEOGRAFICA;
-        this.SECTOR = SECTOR;
-        this.CORR_ITEM = CORR_ITEM;
-        this.FECHA_PREVENTIVO = FECHA_PREVENTIVO;
         this.ORIGEN = ORIGEN;
-        this.HOJA_RUTA = HOJA_RUTA;
-        this.PROGRAMA = PROGRAMA;
-        this.PROYECTO = PROYECTO;
-        this.ESPECIFICACIONES = ESPECIFICACIONES;
-        this.PREVENTIVO = PREVENTIVO;
-        this.IMPRESION = IMPRESION;
     }
 
 
@@ -100,13 +68,6 @@ public class Activos implements Serializable {
         Codigo = codigo;
     }
 
-    public String getCODIGO_TARIJA() {
-        return CODIGO_TARIJA;
-    }
-
-    public void setCODIGO_TARIJA(String CODIGO_TARIJA) {
-        this.CODIGO_TARIJA = CODIGO_TARIJA;
-    }
 
     public Integer getCORRELATIVO() {
         return CORRELATIVO;
@@ -140,14 +101,6 @@ public class Activos implements Serializable {
         this.UNIDAD = UNIDAD;
     }
 
-    public Integer getCANTIDAD() {
-        return CANTIDAD;
-    }
-
-    public void setCANTIDAD(Integer CANTIDAD) {
-        this.CANTIDAD = CANTIDAD;
-    }
-
     public String getFECHA_INGRESO() {
         return FECHA_INGRESO;
     }
@@ -156,13 +109,6 @@ public class Activos implements Serializable {
         this.FECHA_INGRESO = FECHA_INGRESO;
     }
 
-    public String getFECHA_ACTIVACION() {
-        return FECHA_ACTIVACION;
-    }
-
-    public void setFECHA_ACTIVACION(String FECHA_ACTIVACION) {
-        this.FECHA_ACTIVACION = FECHA_ACTIVACION;
-    }
 
     public Float getVALOR() {
         return VALOR;
@@ -284,38 +230,6 @@ public class Activos implements Serializable {
         this.PLACA = PLACA;
     }
 
-    public String getACTA_RECEPCION() {
-        return ACTA_RECEPCION;
-    }
-
-    public void setACTA_RECEPCION(String ACTA_RECEPCION) {
-        this.ACTA_RECEPCION = ACTA_RECEPCION;
-    }
-
-    public Integer getGESTION_ACTA() {
-        return GESTION_ACTA;
-    }
-
-    public void setGESTION_ACTA(Integer GESTION_ACTA) {
-        this.GESTION_ACTA = GESTION_ACTA;
-    }
-
-    public String getNOTA_INGRESO() {
-        return NOTA_INGRESO;
-    }
-
-    public void setNOTA_INGRESO(String NOTA_INGRESO) {
-        this.NOTA_INGRESO = NOTA_INGRESO;
-    }
-
-    public Integer getGESTION_NOTA() {
-        return GESTION_NOTA;
-    }
-
-    public void setGESTION_NOTA(Integer GESTION_NOTA) {
-        this.GESTION_NOTA = GESTION_NOTA;
-    }
-
     public String getBAJA() {
         return BAJA;
     }
@@ -340,84 +254,12 @@ public class Activos implements Serializable {
         this.UBI_GEOGRAFICA = UBI_GEOGRAFICA;
     }
 
-    public String getSECTOR() {
-        return SECTOR;
-    }
-
-    public void setSECTOR(String SECTOR) {
-        this.SECTOR = SECTOR;
-    }
-
-    public Integer getCORR_ITEM() {
-        return CORR_ITEM;
-    }
-
-    public void setCORR_ITEM(Integer CORR_ITEM) {
-        this.CORR_ITEM = CORR_ITEM;
-    }
-
-    public String getFECHA_PREVENTIVO() {
-        return FECHA_PREVENTIVO;
-    }
-
-    public void setFECHA_PREVENTIVO(String FECHA_PREVENTIVO) {
-        this.FECHA_PREVENTIVO = FECHA_PREVENTIVO;
-    }
-
     public String getORIGEN() {
         return ORIGEN;
     }
 
     public void setORIGEN(String ORIGEN) {
         this.ORIGEN = ORIGEN;
-    }
-
-    public String getHOJA_RUTA() {
-        return HOJA_RUTA;
-    }
-
-    public void setHOJA_RUTA(String HOJA_RUTA) {
-        this.HOJA_RUTA = HOJA_RUTA;
-    }
-
-    public String getPROGRAMA() {
-        return PROGRAMA;
-    }
-
-    public void setPROGRAMA(String PROGRAMA) {
-        this.PROGRAMA = PROGRAMA;
-    }
-
-    public String getPROYECTO() {
-        return PROYECTO;
-    }
-
-    public void setPROYECTO(String PROYECTO) {
-        this.PROYECTO = PROYECTO;
-    }
-
-    public String getESPECIFICACIONES() {
-        return ESPECIFICACIONES;
-    }
-
-    public void setESPECIFICACIONES(String ESPECIFICACIONES) {
-        this.ESPECIFICACIONES = ESPECIFICACIONES;
-    }
-
-    public Integer getPREVENTIVO() {
-        return PREVENTIVO;
-    }
-
-    public void setPREVENTIVO(Integer PREVENTIVO) {
-        this.PREVENTIVO = PREVENTIVO;
-    }
-
-    public Integer getIMPRESION() {
-        return IMPRESION;
-    }
-
-    public void setIMPRESION(Integer IMPRESION) {
-        this.IMPRESION = IMPRESION;
     }
 
 

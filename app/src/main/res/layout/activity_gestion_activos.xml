@@ -1,9 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Vistas.GestionActivosActivity">
+    tools:context=".Vistas.GestionActivosActivity"
+    android:background="@color/colorPrimary">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/actionbar_toolbar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:padding="@dimen/paddin_horizontal_login"
+        android:layout_gravity="center_horizontal"
+
+        >
+
+        <ImageView
+            android:layout_width="299dp"
+            android:layout_height="149dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/visualizacion_datos"
+            android:contentDescription="TODO" />
+
+
+        <Button
+            android:id="@+id/createActivos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_button_getdataserver"
+            android:theme="@style/RaisedButtonDark"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:onClick="goShowRegistroActivos"
+            />
+
+
+        <ImageView
+            android:layout_width="299dp"
+            android:layout_height="149dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/actualiza_datos"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:contentDescription="TODO" />
+
+
+        <Button
+            android:id="@+id/updateActivos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_button_updatedataserver"
+            android:theme="@style/RaisedButtonDark"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:onClick="goShowUpdateActivos"
+            />
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

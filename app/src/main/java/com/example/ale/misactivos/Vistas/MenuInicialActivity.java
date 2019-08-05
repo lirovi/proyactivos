@@ -22,8 +22,8 @@ public class MenuInicialActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-    public void goShowContainer2(View view){
-        Intent intent= new Intent(this,ContainerActivity.class);
+    public void goShowGesActivos(View view){
+        Intent intent= new Intent(this,GestionActivosActivity.class);
         startActivity(intent);
 
     }
