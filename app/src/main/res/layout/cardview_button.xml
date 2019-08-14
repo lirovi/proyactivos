@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/pictureCardview"
+    android:layout_width="@dimen/width_bottonCardview"
+    android:layout_height="@dimen/height_bottonCardview"
+    cardview:cardCornerRadius="@dimen/cornerradios_cardview"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imagenCardViewButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_imageBottonCardview"
+            android:background="@drawable/fondo_boton_crud"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/background_card"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/userNameCardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/username_Bottoncard"
+
+                android:textColor="@color/design_default_color_primary_dark"
+                android:textSize="@dimen/textsise_tittleBotton"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+</android.support.v7.widget.CardView>

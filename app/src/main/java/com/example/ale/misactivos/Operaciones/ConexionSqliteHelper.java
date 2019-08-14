@@ -1,26 +1,25 @@
-package com.example.ale.misactivos.entidades;
+package com.example.ale.misactivos.Operaciones;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
+import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class Sqlite_helper extends SQLiteOpenHelper {
+public class ConexionSqliteHelper extends SQLiteOpenHelper {
 
     private Context mContext;
 
-    public Sqlite_helper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public ConexionSqliteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CreaTablas.CREAR_TABLA_CAMBIOS);
         db.execSQL(CreaTablas.CREAR_TABLA_USUARIOS);
         db.execSQL(CreaTablas.CREAR_TABLA_PROFESIONES);
-        db.execSQL(CreaTablas.CREAR_TABLA_TIPOSDOCUMENTOS);
+        db.execSQL(CreaTablas.CREAR_TABLA_TIPODOCUMENTOS);
         db.execSQL(CreaTablas.CREAR_TABLA_CARGOS);
         db.execSQL(CreaTablas.CREAR_TABLA_FUNCIONARIOS);
         db.execSQL(CreaTablas.CREAR_TABLA_ACTIVOS);
@@ -35,6 +34,10 @@ public class Sqlite_helper extends SQLiteOpenHelper {
         db.execSQL(CreaTablas.CREAR_TABLA_DETINGRESOS);
         db.execSQL(CreaTablas.CREAR_TABLA_CUSTODIAS);
         db.execSQL(CreaTablas.CREAR_TABLA_DETCUSTODIAS);
+        db.execSQL(CreaTablas.CREAR_TABLA_TIPOPROFESIONES);
+        db.execSQL(CreaTablas.CREAR_TABLA_OBSERVACIONES);
+        db.execSQL(CreaTablas.CREAR_TABLA_ESTADOS);
+        db.execSQL(CreaTablas.CREAR_TABLA_MOTIVOS);
 
     }
 
@@ -53,37 +56,17 @@ public class Sqlite_helper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS activos");
         db.execSQL("DROP TABLE IF EXISTS cargos");
         db.execSQL("DROP TABLE IF EXISTS funcionarios");
-        db.execSQL("DROP TABLE IF EXISTS tiposdocumentos");
+        db.execSQL("DROP TABLE IF EXISTS tipodocumentos");
         db.execSQL("DROP TABLE IF EXISTS profesiones");
         db.execSQL("DROP TABLE IF EXISTS departamentos");
         db.execSQL("DROP TABLE IF EXISTS edificios");
         db.execSQL("DROP TABLE IF EXISTS oficinas");
+        db.execSQL("DROP TABLE IF EXISTS tipoprofesiones");
+        db.execSQL("DROP TABLE IF EXISTS observaciones");
+        db.execSQL("DROP TABLE IF EXISTS estados");
+        db.execSQL("DROP TABLE IF EXISTS motivos");
         onCreate(db);
     }
 
-    public void abrirdb(){
-        this.getWritableDatabase();
-    }
-    public void cerrardb(){
-        this.close();
-    }
 
-    public void insertarReg(String nom, String ape, String usu, String pas){
-        ContentValues reg= new ContentValues();
-        reg.put("Nombre",nom);
-        reg.put("Apellido",ape);
-        reg.put("Usuario",usu);
-        reg.put("Password",pas);
-        this.getWritableDatabase().insert("usuarios",null,reg);
-    }
-
-    public Cursor verificaUssPas(String usu, String pas) throws SQLException{
-        Cursor mcursor=null;
-        mcursor=this.getReadableDatabase().query("usuarios", new String[]{"id",
-                "Nombre","Apellido","usuario","Password"},"Usuario like '"+usu+"'  " +
-                "and Password like '"+pas+"'",null,null,null,null);
-
-        return mcursor;
-
-    }
 }

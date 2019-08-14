@@ -57,4 +57,20 @@
     <string name="text_button_registrar_activo">Registrar Activo</string>
     <string name="toolbar_tittle_createActivo">Crear Activo</string>
     <string name="toolbar_tittle_gestionactivos">Gestión Activos</string>
+    <string name="hint_apellido">Apellido</string>
+    <string name="text_button_crearEdificio">Crear Edificio</string>
+    <string name="textButtom_gestionCruds">Gestionar CRUDS</string>
+    <string name="textButtom_gesOficina">Crud Oficina</string>
+    <string name="textButtom_gesDpto">Gestion Departamento</string>
+    <string name="textButtom_gesEdificio">Gestion Edificio</string>
+    <string name="textButtom_gesProfesion">Gestion Profesion</string>
+    <string name="textButtom_gesObs">Gestion Observacion</string>
+    <string name="textButtom_gesEstado">Gestion Estados Activo</string>
+    <string name="textButtom_gesMotivo">Gestion Motivo</string>
+    <string name="textButtom_gesTipoDoc">Gestion Tipo Documentos</string>
+    <string name="textButtom_gesCargo">Gestion Cargo</string>
+    <string name="textButtom_gesActivos">Gestion Activos</string>
+    <string name="textButtom_gesTipoProfesion">Gestion Tipo Profesion</string>
+    <string name="textButtom_gesFuncionario">Gestion Funcionarios</string>
+    <string name="username_Bottoncard">Edificios</string>
 </resources>

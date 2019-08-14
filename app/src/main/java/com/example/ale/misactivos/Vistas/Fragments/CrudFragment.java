@@ -21,10 +21,10 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class CrudFragment extends Fragment {
 
 
-    public HomeFragment() {
+    public CrudFragment() {
         // Required empty public constructor
     }
 
@@ -33,8 +33,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_home, container, false);
-        showToolbar(getResources().getString(R.string.tab_home),false,view);
+        View view=inflater.inflate(R.layout.fragment_crud, container, false);
+        showToolbar("CRUDS",false,view);
         RecyclerView picturesRecycler= view.findViewById(R.id.pictureRecycler);
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

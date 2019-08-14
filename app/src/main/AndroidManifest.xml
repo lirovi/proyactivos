@@ -34,7 +34,10 @@
         <activity android:name=".Vistas.GestionServidorActivity" />
         <activity android:name=".Vistas.ObtenerDataActivity" />
         <activity android:name=".Vistas.CreateActivoActivity" />
-        <activity android:name=".Vistas.GestionActivosActivity"></activity>
+        <activity android:name=".Vistas.GestionActivosActivity" />
+        <activity android:name=".Operaciones.CrudLogin" />
+        <activity android:name=".Vistas.EdificiosActivity" />
+        <activity android:name=".Vistas.GestionCrudsActivity"></activity>
     </application>
 
 </manifest>

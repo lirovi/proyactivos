@@ -1,11 +1,11 @@
 package com.example.ale.misactivos.entidades;
 
-public class Tiposdocumentos {
+public class Tipodocumentos {
     private int id;
     private String nombredoc;
     private String sigla;
 
-    public Tiposdocumentos(int id, String nombredoc, String sigla) {
+    public Tipodocumentos(int id, String nombredoc, String sigla) {
         this.id = id;
         this.nombredoc = nombredoc;
         this.sigla = sigla;

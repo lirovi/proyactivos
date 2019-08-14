@@ -4,7 +4,7 @@
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pictureCardview"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_cardview"
+    android:layout_height="@dimen/height_imagecardview"
     cardview:cardCornerRadius="@dimen/cornerradios_cardview"
     android:layout_marginBottom="@dimen/activity_vertical_margin"
     >

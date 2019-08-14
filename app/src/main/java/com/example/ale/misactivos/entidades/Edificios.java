@@ -1,12 +1,17 @@
 package com.example.ale.misactivos.entidades;
 
-public class Edificios {
+import java.io.Serializable;
+
+public class Edificios  {
     private int id;
     private String nombreedificio;
 
     public Edificios(int id, String nombreedificio) {
         this.id = id;
         this.nombreedificio = nombreedificio;
+    }
+    public Edificios() {
+
     }
 
     public int getId() {

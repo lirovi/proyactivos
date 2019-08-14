@@ -4,15 +4,15 @@ public class Usuarios {
     private int id ;
     private String nombre;
     private String apellido;
-    private String usuaario;
+    private String usuario;
     private String password;
 
-    public Usuarios(int id, String nombre, String apellido, String usuaario, String password) {
-        this.id = id;
+    public Usuarios(/*int id, String nombre, String apellido, String usuario, String password*/) {
+       /* this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.usuaario = usuaario;
-        this.password = password;
+        this.usuario = usuario;
+        this.password = password;*/
     }
 
     public int getId() {
@@ -39,12 +39,12 @@ public class Usuarios {
         this.apellido = apellido;
     }
 
-    public String getUsuaario() {
-        return usuaario;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setUsuaario(String usuaario) {
-        this.usuaario = usuaario;
+    public void setUsuario(String usuaario) {
+        this.usuario = usuaario;
     }
 
     public String getPassword() {

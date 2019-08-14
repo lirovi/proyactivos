@@ -42,6 +42,15 @@
                 android:padding="@dimen/paddin_horizontal_login">
 
 
+                <Button
+                    android:id="@+id/gCruds"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/heigtButtom_MenuPrincipal"
+                    android:text="@string/textButtom_gestionCruds"
+                    android:theme="@style/RaisedButtonDark"
+                    android:onClick="goShowGesCruds"
+
+                    />
 
                 <Button
                     android:id="@+id/gServidor"

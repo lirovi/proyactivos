@@ -17,6 +17,12 @@
     <dimen name="timecard_marginleft_card">5dp</dimen>
     <dimen name="like_margintop_card">10sp</dimen>
     <dimen name="bottombar_height">70dp</dimen>
-    <dimen name="topmargin_buttom_menu">20dp</dimen>
+    <dimen name="topmargin_buttom_menu">15dp</dimen>
     <dimen name="heigtButtom_MenuPrincipal">60dp</dimen>
+    <dimen name="heigtButtom_MenuCruds">50dp</dimen>
+    <dimen name="topmargin_buttomCruds">5dp</dimen>
+    <dimen name="width_bottonCardview">160dp</dimen>
+    <dimen name="height_bottonCardview">170dp</dimen>
+    <dimen name="height_imageBottonCardview">150dp</dimen>
+    <dimen name="textsise_tittleBotton">18sp</dimen>
 </resources>

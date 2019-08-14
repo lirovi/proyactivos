@@ -17,6 +17,11 @@ public class MenuInicialActivity extends AppCompatActivity {
         showToolbar(getResources().getString(R.string.toolbar_tittle_menuinicial),true);
     }
 
+    public void goShowGesCruds(View view){
+        Intent intent= new Intent(this,GestionCrudsActivity.class);
+        startActivity(intent);
+
+    }
     public void goShowGesServer(View view){
         Intent intent= new Intent(this,GestionServidorActivity.class);
         startActivity(intent);
