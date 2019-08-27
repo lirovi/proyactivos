@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
        boolean verifica = verificaUssPas(etUsu.getText().toString(), etPas.getText().toString());
           if(verifica){
             Intent intent= new Intent(this,MenuInicialActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
        }else{
             Toast.makeText(getApplicationContext(),"Usuario o Contraseña Incorrecto",Toast.LENGTH_LONG).show();
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public boolean verificaUssPas(String usu, String pas) throws SQLException {
-        Toast.makeText(getApplicationContext(),"Usuario:"+usu+"; Passwped:"+pas,Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(),"Usuario:"+usu+"; Passwped:"+pas,Toast.LENGTH_LONG).show();
         SQLiteDatabase db=basedatos.getReadableDatabase();
          Cursor mcursor=null;
        mcursor=db.query("usuarios", new String[]{"id",
@@ -64,5 +65,8 @@ public class LoginActivity extends AppCompatActivity {
             db.close();
             return false;
         }
+    }
+    public boolean validapas(String pass){
+        return pass.length()>=4;
     }
 }

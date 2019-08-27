@@ -39,7 +39,7 @@ public class GestionCrudsActivity extends AppCompatActivity {
 
     }
     public void goShowGesTipoProfesion(View view){
-        Intent intent= new Intent(this,EdificiosActivity.class);
+        Intent intent= new Intent(this,ProfesionesActivity.class);
         startActivity(intent);
 
     }
@@ -68,7 +68,7 @@ public class GestionCrudsActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void goShowGesProfesion(View view){
-        Intent intent= new Intent(this,EdificiosActivity.class);
+        Intent intent= new Intent(this,ProfesionesActivity.class);
         startActivity(intent);
     }
     public void goShowGesActivos(View view){

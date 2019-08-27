@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.ale.misactivos.R;
+import com.example.ale.misactivos.Vistas.Fragments.CrudFragment;
 import com.example.ale.misactivos.Vistas.Fragments.HomeFragment;
 import com.example.ale.misactivos.Vistas.Fragments.ProfileFragment;
 import com.example.ale.misactivos.Vistas.Fragments.SearchFragment;
@@ -27,6 +28,7 @@ public class ContainerActivity extends AppCompatActivity {
                 switch (tabId){
 
                     case R.id.home:
+
                         HomeFragment homeFragment=new HomeFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

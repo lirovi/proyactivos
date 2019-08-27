@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ale.misactivos.Adapter.MenuPictureAdapterRecyclerView;
 import com.example.ale.misactivos.Adapter.PictureAdapterRecyclerView;
+import com.example.ale.misactivos.Model.MenuPicture;
 import com.example.ale.misactivos.Model.Picture;
 import com.example.ale.misactivos.R;
 
@@ -33,7 +35,7 @@ public class CrudFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_crud, container, false);
+        View view=inflater.inflate(R.layout.cardview_button, container, false);
         showToolbar("CRUDS",false,view);
         RecyclerView picturesRecycler= view.findViewById(R.id.pictureRecycler);
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getContext());
@@ -41,17 +43,17 @@ public class CrudFragment extends Fragment {
 
         picturesRecycler.setLayoutManager(linearLayoutManager);
 
-        PictureAdapterRecyclerView pictureAdapterRecyclerView= new PictureAdapterRecyclerView(buildPicture(),R.layout.cardview_picture,getActivity());
-        picturesRecycler.setAdapter(pictureAdapterRecyclerView);
+        MenuPictureAdapterRecyclerView menupictureAdapterRecyclerView= new MenuPictureAdapterRecyclerView(buildPicture(),R.layout.fragment_crud,getActivity());
+        picturesRecycler.setAdapter(menupictureAdapterRecyclerView);
 
         return view;
     }
 
-    public ArrayList<Picture> buildPicture(){
-        ArrayList<Picture> pictures=new ArrayList<>();
-        pictures.add(new Picture("http://www.thewebfoto.com/old/images/paisajes04.jpg","Limber Rojas","5 Dias", "8 Me Gusta"));
-        pictures.add(new Picture("http://www.thewebfoto.com/old/images/paisajes05.jpg","Gadiel Rojas","3 Dias", "9 Me Gusta"));
-        pictures.add(new Picture("https://www.dzoom.org.es/wp-content/uploads/2017/07/seebensee-2384369-810x540.jpg1","Matias Rojas","7 Dias", "10 Me Gusta"));
+    public ArrayList<MenuPicture> buildPicture(){
+        ArrayList<MenuPicture> pictures=new ArrayList<>();
+        pictures.add(new MenuPicture("http://www.thewebfoto.com/old/images/paisajes04.jpg","Limber Rojas"));
+        pictures.add(new MenuPicture("http://www.thewebfoto.com/old/images/paisajes05.jpg","Gadiel Rojas"));
+        pictures.add(new MenuPicture("https://www.dzoom.org.es/wp-content/uploads/2017/07/seebensee-2384369-810x540.jpg1","Alejandro Rojas"));
         return pictures;
         //http://www.thewebfoto.com/old/images/paisajes04.jpg
         //http://www.thewebfoto.com/old/images/paisajes05.jpg

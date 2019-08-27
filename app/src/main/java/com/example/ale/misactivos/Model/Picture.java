@@ -44,4 +44,5 @@ public class Picture {
     public void setLikeNumber(String likeNumber) {
         this.likeNumber = likeNumber;
     }
+
 }
