@@ -5,38 +5,25 @@
     android:id="@+id/pictureCardviewButton"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    cardview:cardCornerRadius="@dimen/cornerradios_cardview"
-
-    >
-
+    cardview:cardCornerRadius="@dimen/cornerradios_cardview">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical"
-
-            >
+            android:background="@color/colorPrimary">
 
             <ImageView
                 android:id="@+id/imagenCardViewButton"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:src="@drawable/ico_edificio"
+
+
 
                 android:scaleType="centerCrop"
                 android:layout_gravity="center"/>
-            <!-- android:background="@drawable/fondo_boton_crud" -->
-           <!-- <TextView
-                android:id="@+id/tvCardViewButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/username_Bottoncard"
-
-                android:textColor="@color/design_default_color_primary_dark"
-                android:textSize="@dimen/textsise_tittleBotton"
-                android:textStyle="bold" /> -->
 
 
         </LinearLayout>

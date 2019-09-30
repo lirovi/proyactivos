@@ -3,12 +3,25 @@ package com.example.ale.misactivos.entidades;
 public class Oficinas {
     private int id;
     private String nombreoficina;
-    private int dptoid;
+    private int oficinaid;
+   private String estado;
 
-    public Oficinas(int id, String nombreoficina, int dptoid) {
+    public Oficinas(int id, String nombreoficina, int oficinaid, String estado) {
         this.id = id;
         this.nombreoficina = nombreoficina;
-        this.dptoid = dptoid;
+        this.oficinaid = oficinaid;
+        this.estado= estado;
+    }
+    public Oficinas(int id, String nombreoficina, int oficinaid) {
+        this.id = id;
+        this.nombreoficina = nombreoficina;
+        this.oficinaid = oficinaid;
+
+    }
+    public Oficinas(String nombreoficina, int oficinaid) {
+
+        this.nombreoficina = nombreoficina;
+        this.oficinaid = oficinaid;
     }
 
     public int getId() {
@@ -27,11 +40,19 @@ public class Oficinas {
         this.nombreoficina = nombreoficina;
     }
 
-    public int getDptoid() {
-        return dptoid;
+    public int getOficinaid() {
+        return oficinaid;
     }
 
-    public void setDptoid(int dptoid) {
-        this.dptoid = dptoid;
+    public void setOficinaid(int oficinaid) {
+        this.oficinaid = oficinaid;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

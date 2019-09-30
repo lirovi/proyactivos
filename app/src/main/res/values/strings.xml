@@ -73,4 +73,14 @@
     <string name="textButtom_gesTipoProfesion">Gestion Tipo Profesion</string>
     <string name="textButtom_gesFuncionario">Gestion Funcionarios</string>
     <string name="username_Bottoncard">Edificios</string>
+    <string name="hint_sigla_d">Sigla tipo documento</string>
+    <string name="hint_nombre_d">Nombre</string>
+    <string name="hint_apeu_d">Primer Apellido</string>
+    <string name="hint_aped_d">Segundo Apellido</string>
+    <string name="hint_dir_d">Dirección Vivienda</string>
+    <string name="hint_cargo_d">Cargo que ocupa</string>
+    <string name="hint_prof_d">Profesión</string>
+    <string name="hint_nrodoc_d">Número Documento</string>
+    <string name="hint_nacionalidad_d">Nacionalidad</string>
+    <string name="hint_tel_d">Teléfono</string>
 </resources>

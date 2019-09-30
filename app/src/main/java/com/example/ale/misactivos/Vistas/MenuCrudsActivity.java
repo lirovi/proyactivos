@@ -26,6 +26,8 @@ public class MenuCrudsActivity extends AppCompatActivity {
         showToolbar("Gestión CRUDs", true);
 
     gridView=findViewById(R.id.gvNombres);
+
+    //arrays de imagenes para el menu grid
     final List<Integer> nombres= new ArrayList<>();
         nombres.add(R.drawable.ico_edificio);
         nombres.add(R.drawable.ico_dpto);
@@ -47,40 +49,36 @@ public class MenuCrudsActivity extends AppCompatActivity {
             //Toast.makeText(MenuCrudsActivity.this, id + "- Hiciste click en "+ nombres.get(pos),Toast.LENGTH_SHORT).show();
             switch(( int ) id){
                 case 0:
-                    intent = new Intent(MenuCrudsActivity.this, EdificiosActivity.class );
-                    startActivity(intent);
+                    intent = new Intent(MenuCrudsActivity.this, CrudEdificioActivity.class );
                     break;
                 case 1:
-                    intent = new Intent(MenuCrudsActivity.this, EdificiosActivity.class );
-                    startActivity(intent);
-                    break;
+                    intent = new Intent(MenuCrudsActivity.this, CrudEdificioActivity.class );
+                   break;
                 case 2:
-                    intent = new Intent(MenuCrudsActivity.this, EdificiosActivity.class );
-                    startActivity(intent);
+                    intent = new Intent(MenuCrudsActivity.this, CrudEdificioActivity.class );
                     break;
                 case 3:
-                    intent = new Intent(MenuCrudsActivity.this, EdificiosActivity.class );
+                    intent = new Intent(MenuCrudsActivity.this, CrudEdificioActivity.class );
                     startActivity(intent);
                     break;
                 case 4:
-                     intent = new Intent(MenuCrudsActivity.this, EdificiosActivity.class );
-                    startActivity(intent);
+                     intent = new Intent(MenuCrudsActivity.this, CrudEdificioActivity.class );
                     break;
                 case 5:
-                    intent = new Intent(MenuCrudsActivity.this, EdificiosActivity.class );
-                    startActivity(intent);
+                    intent = new Intent(MenuCrudsActivity.this, CrudProfesionesActivity.class );
                     break;
                 case 6:
-                     intent = new Intent(MenuCrudsActivity.this, EdificiosActivity.class );
-                    startActivity(intent);
+                     intent = new Intent(MenuCrudsActivity.this, CrudProfesionesActivity.class );
+                    break;
                 case 7:
-                    intent = new Intent(MenuCrudsActivity.this, EdificiosActivity.class );
-                    startActivity(intent);
+                    intent = new Intent(MenuCrudsActivity.this, CrudEdificioActivity.class );
+
                     break;
                     default:
                         Toast.makeText(MenuCrudsActivity.this, "Actividad no encontrada",Toast.LENGTH_SHORT).show();
                         break;
             }
+            startActivity(intent);
         }
     });
 

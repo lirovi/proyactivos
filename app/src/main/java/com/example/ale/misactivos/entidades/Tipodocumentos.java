@@ -4,7 +4,12 @@ public class Tipodocumentos {
     private int id;
     private String nombredoc;
     private String sigla;
+    private String estado;
 
+    public Tipodocumentos(String nombredoc, String sigla) {
+        this.nombredoc = nombredoc;
+        this.sigla = sigla;
+    }
     public Tipodocumentos(int id, String nombredoc, String sigla) {
         this.id = id;
         this.nombredoc = nombredoc;
@@ -33,5 +38,13 @@ public class Tipodocumentos {
 
     public void setSigla(String sigla) {
         this.sigla = sigla;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

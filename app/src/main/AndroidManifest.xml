@@ -9,17 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Vistas.MenuCrudsActivity"></activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Vistas.CrudTipoDocumentoActivity">
+
+        </activity>
+        <activity android:name=".Vistas.CrudFuncionarioActivity" >
+
+        </activity>
+        <activity android:name=".Vistas.CrudOficinaActivity"></activity>
+        <activity android:name=".Vistas.CrudEdificioActivity" />
+        <activity android:name=".Vistas.ActualizaServerActivity" />
+        <activity android:name=".Vistas.MenuCrudsActivity" />
+        <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Vistas.CreateAccountActivity"
             android:parentActivityName=".LoginActivity">
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
@@ -35,9 +46,9 @@
         <activity android:name=".Vistas.CreateActivoActivity" />
         <activity android:name=".Vistas.GestionActivosActivity" />
         <activity android:name=".Operaciones.CrudLogin" />
-        <activity android:name=".Vistas.EdificiosActivity" />
         <activity android:name=".Vistas.GestionCrudsActivity" />
-        <activity android:name=".Vistas.ProfesionesActivity" />
+        <activity android:name=".Vistas.CrudProfesionesActivity" />
+        <activity android:name=".Vistas.CrudEstadosActivity" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

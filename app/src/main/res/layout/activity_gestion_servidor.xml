@@ -6,15 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Vistas.GestionServidorActivity"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimaryLight">
 
     <include layout="@layout/actionbar_toolbar"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="20dp"
         android:padding="@dimen/paddin_horizontal_login"
+        android:background="@color/colorPrimary"
         android:layout_gravity="center_horizontal"
 
         >
@@ -22,6 +26,7 @@
             <ImageView
                 android:layout_width="299dp"
                 android:layout_height="149dp"
+                android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/visualizacion_datos"
                 android:contentDescription="TODO" />
@@ -43,7 +48,7 @@
                 android:layout_height="149dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/actualiza_datos"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_marginmedio"
                 android:contentDescription="TODO" />
 
 

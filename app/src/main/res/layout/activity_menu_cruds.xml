@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight"
     tools:context=".Vistas.MenuCrudsActivity">
 
     <include layout="@layout/actionbar_toolbar"/>
@@ -13,7 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10dp"
-        android:background="#5588"
+
         >
 
         <ImageView
@@ -35,8 +36,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:columnWidth="120dp"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
+        android:verticalSpacing="20dp"
+        android:horizontalSpacing="20dp"
         android:stretchMode="columnWidth"
         android:numColumns="auto_fit"
         android:gravity="center"

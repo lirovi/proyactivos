@@ -23,7 +23,7 @@ public class GestionServidorActivity extends AppCompatActivity {
 
 
     public void goShowUpdateServer(View view){
-        Intent intent= new Intent(this,CreateAccountActivity.class);
+        Intent intent= new Intent(this,ActualizaServerActivity.class);
         startActivity(intent);
     }
     public void showToolbar(String tittle, boolean upButton){

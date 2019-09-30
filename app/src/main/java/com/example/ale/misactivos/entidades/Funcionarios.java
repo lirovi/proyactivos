@@ -14,6 +14,25 @@ public class Funcionarios {
     private String nacionalidad;
     private String sexo;
 
+    public Funcionarios(int id, String nombre, String apellidou) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidou = apellidou;
+    }
+    public Funcionarios( String nombre, String apellidou, String apellidod, String direccion, String telefono, String cargoid, String profesionid, String tipodocid, String nrodoc, String nacionalidad, String sexo) {
+
+        this.nombre = nombre;
+        this.apellidou = apellidou;
+        this.apellidod = apellidod;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.cargoid = cargoid;
+        this.profesionid = profesionid;
+        this.tipodocid = tipodocid;
+        this.nrodoc = nrodoc;
+        this.nacionalidad = nacionalidad;
+        this.sexo = sexo;
+    }
     public Funcionarios(int id, String nombre, String apellidou, String apellidod, String direccion, String telefono, String cargoid, String profesionid, String tipodocid, String nrodoc, String nacionalidad, String sexo) {
         this.id = id;
         this.nombre = nombre;

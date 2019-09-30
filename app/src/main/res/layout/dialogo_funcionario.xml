@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/colorPrimaryLight"
+    >
+
+    <TextView
+        android:id="@+id/tvTitulo_d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:gravity="center"
+        android:text="NUEVO REGISTRO"
+
+        android:textColor="@color/editTextColor"
+        android:textSize="24sp" />
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/EditTextDialogo">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/etNombre_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_nombre_d"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/EditTextDialogo">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/etApellidou_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_apeu_d"
+
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/EditTextDialogo">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/etApellidod_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_aped_d"
+
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/EditTextDialogo">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/etDireccion_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_dir_d"
+
+                />
+        </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/EditTextDialogo">
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/etTelefono_d"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_tel_d"
+
+            />
+    </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/EditTextDialogo">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/etCargo_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_cargo_d"
+
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/EditTextDialogo">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/etProfesion_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_prof_d"
+
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spinnerTipoDoc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/EditTextDialogo">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/etNroDoc_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_nrodoc_d"
+
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/EditTextDialogo">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/etNacionalidad_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_nacionalidad_d"
+
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvSexo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sexo:"
+            />
+        <Spinner
+            android:id="@+id/spinnerSexo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp">
+
+            <Button
+                android:id="@+id/d_agregar"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:theme="@style/RaisedButtonDark"
+                android:text="agregar" />
+
+            <Button
+                android:id="@+id/d_cancelar"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:theme="@style/RaisedButtonDark"
+                android:layout_marginLeft="60dp"
+                android:text="cancelar" />
+        </LinearLayout>
+        <requestFocus />
+    </LinearLayout>
+</ScrollView>
+
+</LinearLayout>

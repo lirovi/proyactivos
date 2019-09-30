@@ -24,30 +24,17 @@
            <fr.ganfra.materialspinner.MaterialSpinner
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:id="@+id/spinnerdpto"
+               android:id="@+id/spinnerEdificio"
                app:ms_arrowColor="#077077"
                app:ms_arrowSize="16dp"
                app:ms_floatingLabelColor="#A9A9A9"
-               app:ms_floatingLabelText="Seleccione Dpto."
-               app:ms_hint="Porfavor Seleccione Dpto."
+               app:ms_floatingLabelText="Seleccione Edificio."
+               app:ms_hint="Porfavor Seleccione Edificio."
                app:ms_multiline="true"
 
 
                />
 
-            <fr.ganfra.materialspinner.MaterialSpinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinnerunidad"
-                app:ms_arrowColor="#077077"
-                app:ms_arrowSize="16dp"
-                app:ms_floatingLabelColor="#A9A9A9"
-                app:ms_floatingLabelText="Seleccione Unidad."
-                app:ms_hint="Porfavor Seleccione Unidad"
-                app:ms_multiline="true"
-
-
-                />
             <fr.ganfra.materialspinner.MaterialSpinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,7 +65,7 @@
 
 
             <Button
-                android:id="@+id/unete"
+                android:id="@+id/cargaDatos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_button_getdata"
