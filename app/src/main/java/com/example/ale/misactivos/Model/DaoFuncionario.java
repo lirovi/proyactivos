@@ -11,12 +11,14 @@ import com.example.ale.misactivos.entidades.Funcionarios;
 
 import java.util.ArrayList;
 
+import static com.example.ale.misactivos.Operaciones.CreaTablas.NOMBREDB;
+
 public class DaoFuncionario {
     ConexionSqliteHelper conexion;
     ArrayList<Funcionarios> lista= new ArrayList<Funcionarios>();
     Funcionarios fu;
     Context ct;
-    String nombreBD="DBActivoss";
+    String nombreBD=NOMBREDB;
 
     public DaoFuncionario(Context c) {
         this.ct = c;
@@ -117,12 +119,36 @@ public class DaoFuncionario {
         }
         return lista;
     }
+    public ArrayList<Funcionarios> verFuncionariosXfiltro(String codedificios){
+        Cursor cursor;
+        try{
+            SQLiteDatabase db=conexion.getReadableDatabase();
+            lista.clear();
+            cursor= db.rawQuery("SELECT personas.* " +
+                                     "from efectos_custodia , personas " +
+                                     "where efectos_custodia.funcionario=personas.documento " +
+                                     "and efectos_custodia.edificio="+codedificios,null);
+            if(cursor!=null && cursor.getCount()>0){
+                cursor.moveToFirst();
+                do{
+                    lista.add(new Funcionarios(cursor.getInt(0),cursor.getString(1),cursor.getString(2)));
+
+                }while(cursor.moveToNext());
+
+            }
+            db.close();
+            cursor.close();
+        } catch (Exception e) {
+            Log.e("MYDB", "Error al listar Funcionarios - verTodos");
+        }
+        return lista;
+    }
 
     public Funcionarios verUno(int position){
         Cursor cursor;
         try{
             SQLiteDatabase db=conexion.getReadableDatabase();
-            cursor= db.rawQuery("select * from Funcionarios",null);
+            cursor= db.rawQuery("select * from Funcionarios where estado='A'",null);
             cursor.moveToPosition(position);
             fu=new Funcionarios(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
             db.close();

@@ -7,6 +7,6 @@
     <color name="editColorWhite">#FFFF</color>
     <color name="editTextColorBlack">#000000</color>
     <color name="background_card">#53292929</color>
-    <color name="editTextColorHint">#53BEBCBC</color>
+    <color name="editTextColorHint">#EB142D77</color>
     <color name="editTextColor">#040F64</color>
 </resources>

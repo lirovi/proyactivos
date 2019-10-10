@@ -2,8 +2,11 @@ package com.example.ale.misactivos.Vistas;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -12,35 +15,38 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ale.misactivos.Adapter.AdaptadorEdificio;
-import com.example.ale.misactivos.Model.DaoEdificios;
+import com.example.ale.misactivos.Adapter.AdaptadorCargo;
+import com.example.ale.misactivos.Adapter.AdaptadorEstados;
+import com.example.ale.misactivos.Model.DaoCargos;
+import com.example.ale.misactivos.Model.DaoEstado;
 import com.example.ale.misactivos.Model.Validar;
 import com.example.ale.misactivos.R;
-import com.example.ale.misactivos.entidades.Edificios;
-
+import com.example.ale.misactivos.entidades.Cargos;
+import com.example.ale.misactivos.entidades.Estados;
 
 import java.util.ArrayList;
 
-public class CrudEdificioActivity extends AppCompatActivity {
-    DaoEdificios dao;
-    AdaptadorEdificio adapter;
-    ArrayList<Edificios> lista=new ArrayList<>();
+public class CrudCargosActivity extends AppCompatActivity {
+
+    DaoCargos dao;
+    AdaptadorCargo adapter;
+    ArrayList<Cargos> lista=new ArrayList<>();
     ListView list;
-    Edificios e;
+    Cargos c;
     Button agregar,guardar,cancelar;
-    EditText codedit,nombredit;
+    EditText nombredit;
     TextView tituloform, nombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_edificio);
+        setContentView(R.layout.layout_cargos);
 
-        dao = new DaoEdificios( this);
-
+        dao = new DaoCargos( this);
+        //lista=new ArrayList();
         lista=dao.verTodos();
-        adapter=new AdaptadorEdificio(lista,dao,this);
-        list= findViewById(R.id.listEdificios);
+        adapter=new AdaptadorCargo(lista,dao,this);
+        list= findViewById(R.id.listCargos);
         agregar=findViewById(R.id.btnAdd);
 
         list.setAdapter(adapter);
@@ -56,25 +62,24 @@ public class CrudEdificioActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //dialogo de agregar
                 Context context;
-                final Dialog dialog= new Dialog(CrudEdificioActivity.this);
+                final Dialog dialog= new Dialog(CrudCargosActivity.this);
                 dialog.setTitle("Nuevo registro");
                 dialog.setCancelable(true);
-                dialog.setContentView(R.layout.dialogo_edificio);
+                dialog.setContentView(R.layout.dialogo);
                 dialog.show();
-                codedit= dialog.findViewById(R.id.etCodigo_d);
                 nombredit= dialog.findViewById(R.id.etNombre_d);
                 tituloform=dialog.findViewById(R.id.tvTitulo_d);
                 guardar =  dialog.findViewById(R.id.d_agregar);
                 cancelar = dialog.findViewById(R.id.d_cancelar);
-                tituloform.setText("NUEVO REGISTRO EDIFICIO");
+                tituloform.setText("NUEVO REGISTRO DE CARGOS");
                 guardar.setText("Agregar");
                 guardar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try{
-                            if(Validar.ValidaTexto(nombredit.getText().toString().trim())&& Validar.ValidaTexto(codedit.getText().toString().trim())) {
-                                e = new Edificios(codedit.getText().toString(),nombredit.getText().toString());
-                                dao.insertar(e);
+                            if(Validar.ValidaTexto(nombredit.getText().toString().trim())) {
+                                c = new Cargos(nombredit.getText().toString());
+                                dao.insertar(c);
                                 lista = dao.verTodos();
                                 adapter.notifyDataSetChanged();
                             }else{
@@ -92,7 +97,7 @@ public class CrudEdificioActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-                Toast.makeText(CrudEdificioActivity.this,"Añadiendo registro: "+nombredit.getText(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(CrudCargosActivity.this,"Añadiendo registro: "+nombredit.getText(),Toast.LENGTH_SHORT).show();
             }
         });
 

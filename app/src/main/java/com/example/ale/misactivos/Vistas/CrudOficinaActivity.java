@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,34 +23,42 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ale.misactivos.Adapter.AdaptadorCargo;
 import com.example.ale.misactivos.Adapter.AdaptadorOficina;
 import com.example.ale.misactivos.Adapter.AdaptadorEdificio;
+import com.example.ale.misactivos.Model.DaoCargos;
 import com.example.ale.misactivos.Model.DaoEdificios;
 import com.example.ale.misactivos.Model.DaoOficina;
 import com.example.ale.misactivos.Model.Validar;
 import com.example.ale.misactivos.Operaciones.ConexionSqliteHelper;
 import com.example.ale.misactivos.R;
+import com.example.ale.misactivos.entidades.Cargos;
 import com.example.ale.misactivos.entidades.Edificios;
 import com.example.ale.misactivos.entidades.Oficinas;
 
 
 import java.util.ArrayList;
 
+import fr.ganfra.materialspinner.MaterialSpinner;
+
 public class CrudOficinaActivity extends AppCompatActivity {
-    String nombreDB = "DBActivos";
     DaoOficina dao;
-    DaoEdificios daoed;
+    DaoEdificios daoEdificios;
+
     AdaptadorOficina adapter;
-    AdaptadorEdificio adaptered;
     ArrayList<Oficinas> lista = new ArrayList<>();
-    ArrayList<String> listaed = new ArrayList<>();
+
     ListView list;
-    Edificios e;
-    Oficinas of;
+    Oficinas o;
+    Spinner spIdEdificio;
+
+    ArrayList<String> listItemEdificios = new ArrayList<>();
+    ArrayAdapter<String> adapterEdificios;
+
     Button agregar, guardar, cancelar;
     EditText nombredit;
-    Spinner spIdEdificio;
-    TextView tituloform, nombre;
+    TextView tituloform;
+    String codedificioedit = "-";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,115 +66,95 @@ public class CrudOficinaActivity extends AppCompatActivity {
         setContentView(R.layout.layout_oficina);
 
         dao = new DaoOficina(this);
-        //daoed =new DaoEdificios(this);
-
+        daoEdificios = new DaoEdificios(this);
+        //lista=new ArrayList();
         lista = dao.verTodos();
         adapter = new AdaptadorOficina(lista, dao, this);
-        //adaptered=new AdaptadorEdificio(listaed,daoed,this);
-        list = findViewById(R.id.listOf);
-        Log.i("Datos:", String.valueOf(lista.size()));
+        list = findViewById(R.id.listOficina);
         agregar = findViewById(R.id.btnAdd);
 
+        listItemEdificios.add("Seleccione");
+        CargarSpiEdificios();
+
+       // adapterEdificios = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, listItemEdificios);
+        //adapterEdificios.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         list.setAdapter(adapter);
-       /* list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // para hacer llamada desde la lista
 
             }
-        });*/
+        });
+
+
         agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //dialogo de agregar
                 Context context;
-                listaed = cargardatosedificio();
-                final AlertDialog.Builder dialog= new AlertDialog.Builder(CrudOficinaActivity.this);
-                final View sView = getLayoutInflater().inflate(R.layout.dialogo_oficina,null);
-                dialog.setTitle("Nuevo reegistro Oficina");
+                AlertDialog.Builder mBuilder= new AlertDialog.Builder(CrudOficinaActivity.this);
+                View mView=getLayoutInflater().inflate(R.layout.dialogo_oficina,null);
+                //mBuilder.setTitle("Nuevo registro");
+                nombredit=mView.findViewById(R.id.etNombreOficina_d);
+                spIdEdificio = mView.findViewById(R.id.spIdEdificio_d);
+                tituloform=mView.findViewById(R.id.tvTitulo_d);
 
-                //enlazamos variable nombredit con edit text del dialogo
-                nombredit = sView.findViewById(R.id.etNombre_d);
+                adapterEdificios= new ArrayAdapter<String>(CrudOficinaActivity.this,android.R.layout.simple_list_item_1, listItemEdificios);
+                adapterEdificios.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spIdEdificio.setAdapter(adapterEdificios);
 
-                //enlazamos variable spIdEdificio con spinner del dialogo
-                spIdEdificio = sView.findViewById(R.id.spIdedif_d);
-
-                ArrayAdapter<String> adapteredif = new ArrayAdapter<String>(CrudOficinaActivity.this,
-                                                        android.R.layout.simple_spinner_item, listaed);
-                adapteredif.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spIdEdificio.setAdapter(adapteredif);
-
-
-                tituloform = sView.findViewById(R.id.tvTitulo_d);
-                guardar = sView.findViewById(R.id.d_agregar);
-                cancelar = sView.findViewById(R.id.d_cancelar);
-                tituloform.setText("NUEVO REGISTRO DE DPTO");
-                guardar.setText("Agregar");
-
-
-                guardar.setOnClickListener(new View.OnClickListener() {
+                mBuilder.setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        try {
-                            if (Validar.ValidaTexto(nombredit.getText().toString().trim())) {
-                                of= new Oficinas(nombredit.getText().toString(), ( int ) spIdEdificio.getSelectedItemId());
-                                dao.insertar(of);
-                                lista = dao.verTodos();
-                                adapter.notifyDataSetChanged();
-                            } else {
-                                Toast.makeText(getApplication(), "Verifique los datos", Toast.LENGTH_SHORT).show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(!spIdEdificio.getSelectedItem().toString().equalsIgnoreCase("Seleccione")){
+                            String selected[] =  (spIdEdificio.getSelectedItem().toString().split("-"));
+                            codedificioedit=selected[1];
+                            Toast.makeText(getApplicationContext(), "Datos Selecionado: "+selected[1]+"-"+nombredit.getText(), Toast.LENGTH_SHORT).show();
+                            try{
+                                if(Validar.ValidaTexto(nombredit.getText().toString().trim())) {
+                                    o = new Oficinas(nombredit.getText().toString(),codedificioedit);
+                                    dao.insertar(o);
+                                    lista = dao.verTodos();
+                                    adapter.notifyDataSetChanged();
+                                }else{
+                                    Toast.makeText(getApplication(),"Verifique los datos",Toast.LENGTH_SHORT).show();
+                                }
+                                dialog.dismiss();
+                            }catch (Exception e){
+                                Toast.makeText(getApplication(),"Error",Toast.LENGTH_SHORT).show();
                             }
-
-                            //mdialog.dismiss();
-                        } catch (Exception e) {
-                            Toast.makeText(getApplication(), "Error", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
                         }
                     }
                 });
-                cancelar.setOnClickListener(new View.OnClickListener() {
+
+                mBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-
-                        //dialog.dismiss;
-                        //mdialog.dismiss();
-
-
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
 
                     }
                 });
-                //Toast.makeText(CrudOficinaActivity.this, "Añadiendo registro: " + nombredit.getText(), Toast.LENGTH_SHORT).show();
-                dialog.setView(sView);
-                AlertDialog dialog1 = dialog.create();
-                dialog1.show();
+                mBuilder.setView(mView);
+                AlertDialog dialog=mBuilder.create();
+                dialog.show();
+
             }
         });
 
     }
+        private void CargarSpiEdificios () {
+            ArrayList<Edificios> edi = daoEdificios.verTodos();
 
-    private ArrayList<String> cargardatosedificio() {
-        ArrayList<String> lista = new ArrayList<String>();
-        //e = new Edificios();
-        ConexionSqliteHelper conex = new ConexionSqliteHelper(getApplicationContext(), nombreDB, null, 1);
-        SQLiteDatabase db = conex.getReadableDatabase();
-        try {
-            Cursor cursor = db.rawQuery("Select nombreedificio from edificios", null);
-            if (cursor.getCount() > 0) {
-                cursor.moveToFirst();
-
-                lista.add("Seleccione Edificio...");
-                do {
-
-                   lista.add(cursor.getString(0));
-                    //Log.i("MYDB",""+e.getId());
-                    Log.i("MYDB",""+cursor.getString(0));
-
-                } while (cursor.moveToNext());
-            }else{
-                Toast.makeText(this, "Realizar registro edificios ",Toast.LENGTH_LONG).show();
+            if (edi.size() > 0) {
+                for (int i = 0; i < edi.size(); i++) {
+                    //Log.i("MyDB",edi.get(i).getCodigo()+"-"+edi.get(i).getNombreedificio()+"-"+edi.get(i).getEstado());
+                    listItemEdificios.add(edi.get(i).getId() + "-" + edi.get(i).getCodigo() + "-" + edi.get(i).getNombreedificio());
+                }
+            } else {
+                Toast.makeText(this, "No existen datos de edificio", Toast.LENGTH_LONG).show();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return lista;
     }
-}
+

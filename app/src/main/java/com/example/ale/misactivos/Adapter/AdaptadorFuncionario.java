@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,18 +26,19 @@ import com.example.ale.misactivos.entidades.Oficinas;
 
 import java.util.ArrayList;
 
+import fr.ganfra.materialspinner.MaterialSpinner;
+
 public class AdaptadorFuncionario extends BaseAdapter {
     ArrayList<Funcionarios> lista;
     DaoFuncionario daof;
     Funcionarios fu;
     Activity a;
-    EditText nombredit,apeuedit,apededit,diredit,teledit,cargoedit,profedit,nrodocedit,nacionaedit;
-    Spinner spIdTipodoc,sexoedit;
+    EditText nombredit,apeuedit,apededit,diredit,teledit,nrodocedit,nacionaedit;
     TextView tituloform;
     TextView nombre,apeu,aped,direc,telef,cargoid,profesionid,nrodoc,nac,sexo,id_func,idTipoDoc;
-
+    RadioButton rbM,rbF,rbO;
     Button guardar,cancelar;
-    Spinner spineer_id_tipodocedit;
+    MaterialSpinner spCargoedit,spTipodocedit,spProfedit;
     int id=0;
 
     public AdaptadorFuncionario(ArrayList<Funcionarios> lista, DaoFuncionario dao, Activity a) {
@@ -113,19 +115,21 @@ public class AdaptadorFuncionario extends BaseAdapter {
                 final Dialog dialog= new Dialog(a);
                 dialog.setTitle("Editar registro");
                 dialog.setCancelable(true);
-                dialog.setContentView(R.layout.dialogo_funcionario);
+                dialog.setContentView(R.layout.dialogo_funcionarioedit);
                 dialog.show();
                 nombredit = dialog.findViewById(R.id.etNombre_d);
                 apeuedit  = dialog.findViewById(R.id.etApellidou_d);
                 apededit = dialog.findViewById(R.id.etApellidod_d);
-                diredit = dialog.findViewById(R.id.etDireccion_d);
-                cargoedit = dialog.findViewById(R.id.etCargo_d);
-                profedit = dialog.findViewById(R.id.etProfesion_d);
-                spIdTipodoc = dialog.findViewById(R.id.spinnerTipoDoc);
+                diredit = dialog.findViewById(R.id.etDireccionf_d);
+                spCargoedit = dialog.findViewById(R.id.spCargof_d);
+                spProfedit = dialog.findViewById(R.id.spProfesionf_d);
+                spTipodocedit = dialog.findViewById(R.id.spTipoDocf_d);
                 nrodocedit = dialog.findViewById(R.id.etNroDoc_d);
                 nacionaedit = dialog.findViewById(R.id.etNacionalidad_d);
-                sexoedit = dialog.findViewById(R.id.spinnerSexo);
-                teledit= dialog.findViewById(R.id.etTelefono_d);
+                rbM = dialog.findViewById(R.id.rbMasc);
+                rbF = dialog.findViewById(R.id.rbFem);
+                rbO=dialog.findViewById(R.id.rbOtro);
+                teledit= dialog.findViewById(R.id.etTelefonof_d);
                 tituloform=dialog.findViewById(R.id.tvTitulo_d);
                 guardar =  dialog.findViewById(R.id.d_agregar);
                 cancelar = dialog.findViewById(R.id.d_cancelar);
@@ -138,11 +142,11 @@ public class AdaptadorFuncionario extends BaseAdapter {
                 apededit.setText(fu.getApellidod());
                 diredit.setText(fu.getDireccion());
                 teledit.setText(fu.getTelefono());
-                cargoedit.setText(fu.getCargoid());
-                profedit.setText(fu.getProfesionid());
+                //cargoedit.setText(fu.getCargoid());
+                //profedit.setText(fu.getProfesionid());
                 nrodocedit.setText(fu.getNrodoc());
                 nacionaedit.setText(fu.getNacionalidad());
-                sexoedit.setSelection(1);
+                //sexoedit.setSelection(1);
 
 
 

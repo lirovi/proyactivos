@@ -10,15 +10,18 @@ import com.example.ale.misactivos.entidades.Edificios;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.ale.misactivos.Operaciones.CreaTablas.NOMBREDB;
+
 public class ControladorEdificios extends ConexionSqliteHelper {
 
     public ControladorEdificios(Context context) {
-        super(context, "DBActivos", null, 1);
+        super(context, NOMBREDB, null, 1);
     }
 
     public boolean crear(Edificios edificios){
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues valores = new ContentValues();
+        valores.put("codigo",edificios.getCodigo());
         valores.put("nombreedificio",edificios.getNombreedificio());
 
         boolean edificioCreado = db.insert("edificios",null,valores)>0;
@@ -62,6 +65,7 @@ public class ControladorEdificios extends ConexionSqliteHelper {
         db.close();
         return listaEdificios;
      }
+
     public Edificios leerEdificio(Integer datoid){
         Edificios objedificio= new Edificios();
 
@@ -73,9 +77,11 @@ public class ControladorEdificios extends ConexionSqliteHelper {
         if(cursor.getCount()>0){
                String columnName;
                 int id = cursor.getColumnIndex("id");
+                String codigo=cursor.getString(cursor.getColumnIndex("codigo"));
                 String nombre=cursor.getString(cursor.getColumnIndex("nombreedificio"));
 
                 objedificio.setId(id);
+                objedificio.setCodigo(codigo);
                 objedificio.setNombreedificio(nombre);
 
         }

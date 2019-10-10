@@ -13,19 +13,28 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_weight="0.3"
+            android:layout_weight="0.2"
             android:padding="5dp"
             android:id="@+id/tvIdEdificioItem"
             android:gravity="center_vertical"
-            android:textSize="18dp"
+            android:textSize="13dp"
             android:text="id"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_weight="2"
+            android:layout_weight="0.4"
             android:padding="5dp"
             android:gravity="center_vertical"
-            android:textSize="18dp"
+            android:textSize="14dp"
+            android:id="@+id/tvCodEdificioItem"
+            android:text="codigo edificio"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="0.4"
+            android:padding="5dp"
+            android:gravity="center_vertical"
+            android:textSize="13dp"
             android:id="@+id/tvNomEdificioItem"
             android:text="nombre edificio"/>
         <Button

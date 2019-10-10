@@ -20,7 +20,7 @@ public class CrudLogin extends ConexionSqliteHelper{
     public CrudLogin(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
-    //ConexionSqliteHelper admin= new ConexionSqliteHelper(this,"DBActivos",null,1);
+
 
 
 

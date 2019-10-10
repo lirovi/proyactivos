@@ -1,52 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
+    android:layout_margin="16dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvTitulo_d"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="40dp"
         android:gravity="center"
         android:text="REGISTRO NUEVO"
         android:textColor="@color/colorPrimaryDark" />
-    <EditText
-        android:id="@+id/etNombre_d"
+    <TextView
+        android:id="@+id/tvNombreEdificio_d"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint="Ingrese Nombre Departamento"
+        android:text="Edificio:"
         android:textSize="18dp" />
 
     <Spinner
-        android:id="@+id/spIdedif_d"
+        android:id="@+id/spIdEdificio_d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+         />
+
+    <TextView
+        android:id="@+id/tvNombreOficina_d"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Descripción Oficina:"
+        android:textSize="18dp" />
+    <EditText
+        android:id="@+id/etNombreOficina_d"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:textSize="18dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="40dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/d_agregar"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="agregar" />
-
-        <Button
-            android:id="@+id/d_cancelar"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:text="cancelar" />
-    </LinearLayout>
-
 
 
     <requestFocus />

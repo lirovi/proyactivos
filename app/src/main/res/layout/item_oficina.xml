@@ -17,7 +17,7 @@
             android:padding="5dp"
             android:id="@+id/tvIdOficinaItem"
             android:gravity="center_vertical"
-            android:textSize="18dp"
+            android:textSize="14dp"
             android:text="id"/>
         <TextView
         android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
         android:layout_weight="2"
         android:padding="5dp"
         android:gravity="center_vertical"
-        android:textSize="18dp"
+        android:textSize="13dp"
         android:id="@+id/tvNomOfinaItem"
         android:text="nombre oficina"/>
         <TextView
@@ -34,7 +34,7 @@
             android:layout_weight="0.2"
             android:padding="5dp"
             android:gravity="center_vertical"
-            android:textSize="18dp"
+            android:textSize="13dp"
             android:id="@+id/tvIdEdificioItem"
             android:text="id_Edificio"/>
         <Button

@@ -9,16 +9,28 @@
         android:id="@+id/tvTitulo_d"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="50dp"
         android:gravity="center"
-        android:text="REGISTRO NUEVO"
+        android:text="REGISTRO NUEVO ESTADO"
         android:textColor="@color/colorPrimaryDark" />
+    <TextView
+        android:id="@+id/tvCodigo_d"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Código Edificio:"
+        android:textSize="18dp" />
+    <EditText
+        android:id="@+id/etCodigo_d"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="18dp" />
     <TextView
         android:id="@+id/tvNombre_d"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="Descripción:"
+        android:text="Nombre Edificio:"
         android:textSize="18dp" />
+
     <EditText
         android:id="@+id/etNombre_d"
         android:layout_width="match_parent"
@@ -29,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <Button

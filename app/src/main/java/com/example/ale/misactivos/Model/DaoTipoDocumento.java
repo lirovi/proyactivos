@@ -12,13 +12,15 @@ import com.example.ale.misactivos.entidades.Tipodocumentos;
 
 import java.util.ArrayList;
 
+import static com.example.ale.misactivos.Operaciones.CreaTablas.NOMBREDB;
+
 public class DaoTipoDocumento {
     ConexionSqliteHelper conexion;
     // SQLiteDatabase cx;
     ArrayList<Tipodocumentos> lista= new ArrayList<Tipodocumentos>();
     Tipodocumentos td;
     Context ct;
-    String nombreBD="DBActivoss";
+    String nombreBD=NOMBREDB;
 
     public DaoTipoDocumento(Context c) {
         this.ct = c;

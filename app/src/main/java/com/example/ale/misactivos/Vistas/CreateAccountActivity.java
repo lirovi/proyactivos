@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.example.ale.misactivos.Operaciones.ConexionSqliteHelper;
 import com.example.ale.misactivos.R;
 
+import static com.example.ale.misactivos.Operaciones.CreaTablas.NOMBREDB;
+
 public class CreateAccountActivity extends AppCompatActivity {
     private TextInputEditText nom,ape,usu,pas,pas2;
     private Button guardarUsuario;
@@ -73,7 +75,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     private Long insertarReg(String nom, String ape, String usu, String pas){
-        ConexionSqliteHelper admin= new ConexionSqliteHelper(this,"DBActivos",null,1);
+        ConexionSqliteHelper admin= new ConexionSqliteHelper(this,NOMBREDB,null,1);
         SQLiteDatabase db=admin.getWritableDatabase();
         ContentValues reg= new ContentValues();
         reg.put("Nombre",nom);

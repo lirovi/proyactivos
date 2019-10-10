@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:drawableLeft="@android:drawable/ic_input_add"
-        android:text="CREAR OFICINAS"
+        android:text="CREAR CARGOS"
         android:textSize="18dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,26 +39,14 @@
             android:layout_weight="2"
             android:gravity="center_vertical"
             android:padding="5dp"
-            android:text="OFICINA"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/titleEdificio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="DE EDIFICIO"
+            android:text="CARGOS DE LA EMPRESA"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18dp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <ListView
-        android:id="@+id/listOficina"
+        android:id="@+id/listCargos"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

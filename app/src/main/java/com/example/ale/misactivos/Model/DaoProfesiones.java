@@ -10,17 +10,18 @@ import com.example.ale.misactivos.entidades.Profesiones;
 
 import java.util.ArrayList;
 
+import static com.example.ale.misactivos.Operaciones.CreaTablas.NOMBREDB;
+
 
 public class DaoProfesiones {
     ConexionSqliteHelper conexion;
     ArrayList<Profesiones> lista= new ArrayList<Profesiones>();
     Profesiones p;
     Context ct;
-    String nombreBD="DBActivos";
 
     public DaoProfesiones(Context c) {
         this.ct = c;
-        conexion= new ConexionSqliteHelper(c,nombreBD,null,1);
+        conexion= new ConexionSqliteHelper(c,NOMBREDB,null,1);
     }
 
     public boolean insertar(Profesiones p){
@@ -62,11 +63,11 @@ public class DaoProfesiones {
     public ArrayList<Profesiones> verTodos(){
         SQLiteDatabase db=conexion.getReadableDatabase();
         lista.clear();
-        Cursor cursor= db.rawQuery("select * from Profesiones",null);
+        Cursor cursor= db.rawQuery("select * from Profesiones where estado='A'",null);
         if(cursor!=null && cursor.getCount()>0){
             cursor.moveToFirst();
             do{
-                lista.add(new Profesiones(cursor.getInt(0),cursor.getString(1),""));
+                lista.add(new Profesiones(cursor.getInt(0),cursor.getString(1)));
 
             }while(cursor.moveToNext());
 

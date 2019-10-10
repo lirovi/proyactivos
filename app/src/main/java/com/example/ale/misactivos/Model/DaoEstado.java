@@ -11,13 +11,15 @@ import com.example.ale.misactivos.entidades.Estados;
 
 import java.util.ArrayList;
 
+import static com.example.ale.misactivos.Operaciones.CreaTablas.NOMBREDB;
+
 public class DaoEstado {
     ConexionSqliteHelper conexion;
     // SQLiteDatabase cx;
      ArrayList<Estados> lista= new ArrayList<Estados>();
      Estados e;
      Context ct;
-     String nombreBD="DBActivos";
+     String nombreBD=NOMBREDB;
      //String tabla="create table if not exists estados(id integer primary key autoincrement, nombre text)";
 
     public DaoEstado(Context c) {
@@ -66,7 +68,7 @@ public class DaoEstado {
     public ArrayList<Estados> verTodos(){
         SQLiteDatabase db=conexion.getReadableDatabase();
         lista.clear();
-        Cursor cursor= db.rawQuery("select * from Estados",null);
+        Cursor cursor= db.rawQuery("select * from Estados where estado='A'",null);
         if(cursor!=null && cursor.getCount()>0){
             cursor.moveToFirst();
             do{

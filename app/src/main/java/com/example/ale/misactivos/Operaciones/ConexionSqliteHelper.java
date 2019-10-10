@@ -19,7 +19,7 @@ public class ConexionSqliteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-      db.execSQL("DROP TABLE IF EXISTS cambios");
+     /* db.execSQL("DROP TABLE IF EXISTS cambios");
         db.execSQL("DROP TABLE IF EXISTS inventarios");
         db.execSQL("DROP TABLE IF EXISTS detinventarios");
         db.execSQL("DROP TABLE IF EXISTS devoluciones");
@@ -32,13 +32,13 @@ public class ConexionSqliteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS activos");
         db.execSQL("DROP TABLE IF EXISTS cargos");
         db.execSQL("DROP TABLE IF EXISTS funcionarios");
-       db.execSQL("DROP TABLE IF EXISTS tipodocumentos");
+        db.execSQL("DROP TABLE IF EXISTS tipodocumentos");
         db.execSQL("DROP TABLE IF EXISTS profesiones");
         db.execSQL("DROP TABLE IF EXISTS edificios");
         db.execSQL("DROP TABLE IF EXISTS oficinas");
         db.execSQL("DROP TABLE IF EXISTS observaciones");
         db.execSQL("DROP TABLE IF EXISTS estados");
-        db.execSQL("DROP TABLE IF EXISTS motivos");
+        db.execSQL("DROP TABLE IF EXISTS motivos");*/
         try {
             db.execSQL(CreaTablas.CREAR_TABLA_CAMBIOS);
             db.execSQL(CreaTablas.CREAR_TABLA_USUARIOS);

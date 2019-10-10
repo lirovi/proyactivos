@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.example.ale.misactivos.R;
 import com.example.ale.misactivos.entidades.Usuarios;
 
+import static com.example.ale.misactivos.Operaciones.CreaTablas.NOMBREDB;
+
 public class OnClickCrearLogin implements View.OnClickListener {
 
     //Usuarios usuario=new Usuarios();
@@ -64,7 +66,7 @@ public class OnClickCrearLogin implements View.OnClickListener {
     }
 
     private void insertarReg(String nom, String ape, String usu, String pas,Context context){
-        ConexionSqliteHelper admin= new ConexionSqliteHelper(context,"DBActivos",null,1);
+        ConexionSqliteHelper admin= new ConexionSqliteHelper(context,NOMBREDB,null,1);
         SQLiteDatabase db=admin.getWritableDatabase();
         ContentValues reg= new ContentValues();
         reg.put("Nombre",nom);

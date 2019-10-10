@@ -29,7 +29,7 @@
     <string name="textButtom_gestionarInventario">Gestionar Inventario</string>
     <string name="text_button_getdataserver">Obteber Datos del Servidor</string>
     <string name="text_button_updatedataserver">Actualizar Datos al Servidor</string>
-    <string name="text_button_getdata">Cargar Datos Seleccionados</string>
+    <string name="text_button_getdata">Cargar Datos Segun Filtro</string>
     <string name="toolbar_tittle_obtenerDatos">Obtener datos del Servidor</string>
     <string name="toolbar_tittle_gestionservidor">Gestión Servidor</string>
     <string name="toolbar_tittle_menuinicial">Menú Principal</string>
@@ -83,4 +83,6 @@
     <string name="hint_nrodoc_d">Número Documento</string>
     <string name="hint_nacionalidad_d">Nacionalidad</string>
     <string name="hint_tel_d">Teléfono</string>
+    <string name="ipServer">http://192.168.3.223/conexoracle/</string>
+    <string name="title_activity_crud_cargos_acrtivity">CrudCargosAcrtivity</string>
 </resources>

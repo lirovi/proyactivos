@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:drawableLeft="@android:drawable/ic_input_add"
-        android:text="CREAR REGISTRO DE EDIFICIOS"
+        android:text="CREAR REG. EDIFICIOS"
         android:textSize="18dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,13 +33,24 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/titleCod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="CODIGO"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+        <TextView
             android:id="@+id/titleNom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1.5"
             android:gravity="center_vertical"
             android:padding="5dp"
-            android:text="EDIFICIOS DE LA EMPRESA"
+            android:text="NOMBRE"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18dp"
             android:textStyle="bold" />
@@ -49,6 +60,5 @@
         android:id="@+id/listEdificios"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 
 </LinearLayout>

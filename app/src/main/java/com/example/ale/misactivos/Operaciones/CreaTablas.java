@@ -1,6 +1,7 @@
 package com.example.ale.misactivos.Operaciones;
 
 public class CreaTablas {
+    public static final String NOMBREDB="DBActivof";
 
     //constantes tabla CARGOS
     public static final String  CREAR_TABLA_CARGOS="CREATE TABLE cargos (" +
@@ -53,7 +54,8 @@ public class CreaTablas {
 
     //constantes tabla EDIFICIOS
     public static final String  CREAR_TABLA_EDIFICIOS="CREATE TABLE edificios (" +
-    "id INTEGER primary key autoincrement," +
+    "id INTEGER primary key, " +
+            "codigo VARCHAR (20)," +
             "nombreedificio VARCHAR (50)," +
             "estado         VARCHAR (1))";
 

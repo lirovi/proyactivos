@@ -21,51 +21,87 @@
             android:padding="@dimen/activity_vertical_margin"
             android:orientation="vertical"
             >
-           <fr.ganfra.materialspinner.MaterialSpinner
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:id="@+id/spinnerEdificio"
-               app:ms_arrowColor="#077077"
-               app:ms_arrowSize="16dp"
-               app:ms_floatingLabelColor="#A9A9A9"
-               app:ms_floatingLabelText="Seleccione Edificio."
-               app:ms_hint="Porfavor Seleccione Edificio."
-               app:ms_multiline="true"
+            <Button
+                android:id="@+id/btCargaDatosBDR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="Actualizar de BDR"/>
+
+            <TextView
+                android:id="@+id/tvSelecEdi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seleccione Edificio:"
+                android:textSize="18dp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+               <fr.ganfra.materialspinner.MaterialSpinner
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/spinnerEdificio"
+                   app:ms_arrowColor="#077077"
+                   app:ms_arrowSize="16dp"
+                   android:layout_weight="0.7"
+                   app:ms_floatingLabelColor="#A9A9A9"
+                   app:ms_floatingLabelText="Seleccione Edificio."
+                   app:ms_multiline="true"
 
 
                />
+                <Button
+                    android:id="@+id/btCargaEdificio"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:tooltipText="Obtener de DB Remota"
+                    android:backgroundTint="@color/background_card"
+                    android:background="@android:drawable/ic_menu_search"
+                    android:theme="@style/RaisedButtonDark"
+                    />
+            </LinearLayout>
+            <TextView
+            android:id="@+id/tvSelectFun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccione Funcionario:"
+            android:textSize="18dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
 
             <fr.ganfra.materialspinner.MaterialSpinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinnerfuncionario"
+                android:id="@+id/spinnerFuncionario"
                 app:ms_arrowColor="#077077"
                 app:ms_arrowSize="16dp"
+                android:layout_weight="0.7"
                 app:ms_floatingLabelColor="#A9A9A9"
                 app:ms_floatingLabelText="Seleccione Funcionario"
-                app:ms_hint="Porfavor Seleccione Funcionario"
                 app:ms_multiline="true"
 
 
                 />
-            <fr.ganfra.materialspinner.MaterialSpinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinnertipoequipo"
-                app:ms_arrowColor="#077077"
-                app:ms_arrowSize="16dp"
-                app:ms_floatingLabelColor="#A9A9A9"
-                app:ms_floatingLabelText="Seleccione Tipo Equipo"
-                app:ms_hint="Porfavor Seleccione Tipo Equipo"
-                app:ms_multiline="true"
-
-
-                />
-
-
 
             <Button
-                android:id="@+id/cargaDatos"
+                android:id="@+id/btCargaFuncionario"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:tooltipText="Obtener de DB Remota"
+                android:backgroundTint="@color/background_card"
+                android:background="@android:drawable/ic_menu_search"
+                android:theme="@style/RaisedButtonDark"
+                />
+        </LinearLayout>
+            <Button
+                android:id="@+id/btCargaDatos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_button_getdata"

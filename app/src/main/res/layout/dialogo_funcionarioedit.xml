@@ -235,7 +235,28 @@
 
             </RadioGroup>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp">
 
+            <Button
+                android:id="@+id/d_agregar"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:theme="@style/RaisedButtonDark"
+                android:text="agregar" />
+
+            <Button
+                android:id="@+id/d_cancelar"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:theme="@style/RaisedButtonDark"
+                android:layout_marginLeft="60dp"
+                android:text="cancelar" />
+        </LinearLayout>
         <requestFocus />
     </LinearLayout>
 </ScrollView>

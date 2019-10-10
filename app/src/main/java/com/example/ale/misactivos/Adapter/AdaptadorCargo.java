@@ -8,37 +8,31 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ale.misactivos.Model.DaoOficina;
+import com.example.ale.misactivos.Model.DaoCargos;
 import com.example.ale.misactivos.Model.Validar;
 import com.example.ale.misactivos.R;
-import com.example.ale.misactivos.Vistas.CrudOficinaActivity;
-import com.example.ale.misactivos.entidades.Departamentos;
-import com.example.ale.misactivos.entidades.Edificios;
-import com.example.ale.misactivos.entidades.Oficinas;
+import com.example.ale.misactivos.entidades.Cargos;
 
 import java.util.ArrayList;
 
-public class AdaptadorOficina extends BaseAdapter {
-    ArrayList<Oficinas> lista;
-    DaoOficina dao;
-    Oficinas of;
+public class AdaptadorCargo extends BaseAdapter {
+    ArrayList<Cargos> lista;
+    DaoCargos dao;
+    Cargos c;
     Activity a;
-    TextView nombre,id_oficina,tituloform,idEdificio;
-    EditText nombredit, id_edificio;
+    TextView nombre,id_cargo,tituloform;
+    EditText nombredit;
     Button guardar,cancelar;
-    Spinner id_edificioedit;
     int id=0;
 
 
-    public AdaptadorOficina(ArrayList<Oficinas> lista, DaoOficina dao, Activity a) {
+    public AdaptadorCargo(ArrayList<Cargos> lista, DaoCargos dao, Activity a) {
         this.lista = lista;
         this.dao = dao;
         this.a = a;
@@ -58,15 +52,15 @@ public class AdaptadorOficina extends BaseAdapter {
     }
 
     @Override
-    public Oficinas getItem(int position) {
-        of=lista.get(position);
-        return of;
+    public Cargos getItem(int position) {
+        c=lista.get(position);
+        return c;
     }
 
     @Override
     public long getItemId(int position) {
-        of=lista.get(position);
-        return of.getId();
+        c=lista.get(position);
+        return c.getId();
     }
 
     @Override
@@ -74,20 +68,16 @@ public class AdaptadorOficina extends BaseAdapter {
         View v = convertView;
         if (v == null) {
             LayoutInflater li = ( LayoutInflater ) a.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = li.inflate(R.layout.item_oficina, null);
+            v = li.inflate(R.layout.item_cargos, null);
         }
 
-        of = lista.get(position);
-        id_oficina = v.findViewById(R.id.tvIdOficinaItem);
-        nombre = v.findViewById(R.id.tvNomOfinaItem);
-        idEdificio = v.findViewById(R.id.tvIdEdificioItem);
+        c = lista.get(position);
+        id_cargo = v.findViewById(R.id.tvIdCargoItem);
+        nombre = v.findViewById(R.id.tvNomCargoItem);
         Button editar = v.findViewById(R.id.btnEdit);
         Button eliminar = v.findViewById(R.id.btnDel);
-        id_oficina.setText(""+of.getId());
-        //Log.i("Datos:",String.valueOf(d.getId()));
-        nombre.setText(of.getNombreoficina());
-       // Log.i("Datos:",of.getNombreoficina());
-       idEdificio.setText(""+of.getEdificioid());
+        id_cargo.setText(""+c.getId());
+        nombre.setText(c.getNombrecargo());
 
         editar.setTag(position);
         eliminar.setTag(position);
@@ -101,31 +91,26 @@ public class AdaptadorOficina extends BaseAdapter {
                 final Dialog dialog= new Dialog(a);
                 dialog.setTitle("Editar registro");
                 dialog.setCancelable(true);
-                dialog.setContentView(R.layout.dialogo_oficinaedit);
+                dialog.setContentView(R.layout.dialogo);
                 dialog.show();
-
-
-                nombredit= dialog.findViewById(R.id.etNombreOficina_d);
-                id_edificioedit= dialog.findViewById(R.id.spIdEdificio_d);
+                nombredit= dialog.findViewById(R.id.etNombre_d);
                 tituloform=dialog.findViewById(R.id.tvTitulo_d);
                 guardar =  dialog.findViewById(R.id.d_agregar);
                 cancelar = dialog.findViewById(R.id.d_cancelar);
                 //ubicar el elemento seleccioando de la lista
                 tituloform.setText("EDICION DE REGISTRO");
-                //guardar.setText("Guardar");
-                of=lista.get(pos);
-                setId(of.getId());
-
+                guardar.setText("Guardar");
+                c=lista.get(pos);
+                setId(c.getId());
                 //recuperar los datos de la lista y pasar a los edittext del formulario dialogo
-                nombredit.setText(of.getNombreoficina());
-
+                nombredit.setText(c.getNombrecargo());
                 guardar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try{
                             if(Validar.ValidaTexto(nombredit.getText().toString().trim())) {   //funcion para validar tipos de datos: ValidaTexto, ValidaNumero, ValidaEmail,ValidaFecha, ValidaDireccion, ValidaTelefono
-                                of = new Oficinas(getId(),nombredit.getText().toString().trim(),id_edificioedit.getSelectedItem().toString());
-                                dao.editar(of);
+                                c = new Cargos(getId(), nombredit.getText().toString().trim());
+                                dao.editar(c);
                                 lista = dao.verTodos();
                                 notifyDataSetChanged();
                             }else{
@@ -153,10 +138,10 @@ public class AdaptadorOficina extends BaseAdapter {
             public void onClick(View v) {
                 //Dialogo para confirmar
                 int pos=Integer.parseInt(v.getTag().toString());
-                of=lista.get(pos);
-                setId(of.getId());
+                c=lista.get(pos);
+                setId(c.getId());
                 AlertDialog.Builder del=new AlertDialog.Builder(a);
-                del.setMessage("Eliminar registro?:"+of.getNombreoficina());
+                del.setMessage("Eliminar registro?:"+c.getNombrecargo());
                 del.setCancelable(false);
                 del.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override

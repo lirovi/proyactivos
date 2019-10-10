@@ -13,9 +13,11 @@ import com.example.ale.misactivos.Operaciones.ConexionSqliteHelper;
 import com.example.ale.misactivos.Vistas.CreateAccountActivity;
 import com.example.ale.misactivos.Vistas.MenuInicialActivity;
 
+import static com.example.ale.misactivos.Operaciones.CreaTablas.NOMBREDB;
+
 public class LoginActivity extends AppCompatActivity {
     TextInputEditText etUsu, etPas;
-    ConexionSqliteHelper basedatos= new ConexionSqliteHelper(this,"DBActivos",null,1);
+    ConexionSqliteHelper basedatos= new ConexionSqliteHelper(this,NOMBREDB,null,1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

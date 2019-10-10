@@ -26,6 +26,7 @@
         <item name="colorControlNormal">@color/editColorWhite</item>
         <item name="colorControlActivated">@color/editColorWhite</item>
     </style>
+
     <style name="EditTextBlack" parent="TextAppearance.AppCompat">
         <item name="android:textColorHint">@color/editTextColorBlack</item>
         <item name="android:textSize">@dimen/editTextSizeLogin</item>
@@ -37,11 +38,16 @@
 
     <style name="EditTextDialogo" parent="TextAppearance.AppCompat">
         <item name="android:textColorHint">@color/editTextColorHint</item>
-        <item name="android:textSize">@dimen/editTextSizeLogin</item>
+        <item name="android:textSize">@dimen/editTextSizeNormal</item>
         <item name="android:textColorPrimary">@color/editTextColor</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorPrimaryDark</item>
         <item name="colorControlActivated">@color/editTextColorBlack</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
 </resources>

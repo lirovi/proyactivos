@@ -26,8 +26,8 @@ public class AdaptadorEdificio extends BaseAdapter {
     DaoEdificios dao;
     Edificios e;
     Activity a;
-    TextView nombre,id_Edificio,tituloform;
-    EditText nombredit;
+    TextView nombre,id_Edificio,tituloform,codigo;
+    EditText codedit, nombredit;
     Button guardar,cancelar;
     int id=0;
 
@@ -73,10 +73,12 @@ public class AdaptadorEdificio extends BaseAdapter {
 
         e = lista.get(position);
         id_Edificio = v.findViewById(R.id.tvIdEdificioItem);
+        codigo= v.findViewById(R.id.tvCodEdificioItem);
         nombre = v.findViewById(R.id.tvNomEdificioItem);
         Button editar = v.findViewById(R.id.btnEdit);
         Button eliminar = v.findViewById(R.id.btnDel);
         id_Edificio.setText(""+e.getId());
+        codigo.setText(e.getCodigo());
         nombre.setText(e.getNombreedificio());
 
         editar.setTag(position);
@@ -91,8 +93,9 @@ public class AdaptadorEdificio extends BaseAdapter {
                 final Dialog dialog= new Dialog(a);
                 dialog.setTitle("Editar registro");
                 dialog.setCancelable(true);
-                dialog.setContentView(R.layout.dialogo);
+                dialog.setContentView(R.layout.dialogo_edificio);
                 dialog.show();
+                codedit= dialog.findViewById(R.id.etCodigo_d);
                 nombredit= dialog.findViewById(R.id.etNombre_d);
                 tituloform=dialog.findViewById(R.id.tvTitulo_d);
                 guardar =  dialog.findViewById(R.id.d_agregar);
@@ -103,13 +106,14 @@ public class AdaptadorEdificio extends BaseAdapter {
                 e=lista.get(pos);
                 setId(e.getId());
                 //recuperar los datos de la lista y pasar a los edittext del formulario dialogo
+                codedit.setText(e.getCodigo());
                 nombredit.setText(e.getNombreedificio());
                 guardar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try{
-                            if(Validar.ValidaTexto(nombredit.getText().toString().trim())) {   //funcion para validar tipos de datos: ValidaTexto, ValidaNumero, ValidaEmail,ValidaFecha, ValidaDireccion, ValidaTelefono
-                                e = new Edificios(getId(),nombredit.getText().toString().trim());
+                            if(Validar.ValidaTexto(nombredit.getText().toString().trim()) && (Validar.ValidaTexto(codedit.getText().toString().trim()))) {   //funcion para validar tipos de datos: ValidaTexto, ValidaNumero, ValidaEmail,ValidaFecha, ValidaDireccion, ValidaTelefono
+                                e = new Edificios(getId(),codedit.getText().toString().trim(),nombredit.getText().toString().trim());
                                 dao.editar(e);
                                 lista = dao.verTodos();
                                 notifyDataSetChanged();
