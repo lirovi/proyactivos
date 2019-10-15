@@ -52,13 +52,13 @@ public class DaoEdificios {
 
     }
     public boolean limpiarTabla(){
-       /* SQLiteDatabase db=conexion.getWritableDatabase();
-        long res =  db.delete("Edificios", null, null);
+        SQLiteDatabase db=conexion.getWritableDatabase();
+        long res =  db.delete("Edificios", "id>"+0, null);
         db.close();
         if (res>0) {
             return true;
-        }else return false;**/
-       return true;
+        }else return false;
+       //return true;
 
     }
 

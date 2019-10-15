@@ -52,6 +52,7 @@ public class ObtenerDataActivity extends AppCompatActivity  {
     DaoFuncionario daoFuncionario;
     Context context;
     Edificios e;
+    Funcionarios f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,8 @@ public class ObtenerDataActivity extends AppCompatActivity  {
 
         showToolbar(getResources().getString(R.string.toolbar_tittle_obtenerDatos),true);
 
-        daoEdificios= new DaoEdificios(this);
-        daoFuncionario = new DaoFuncionario(this);
+        daoEdificios= new DaoEdificios(getApplicationContext());
+        daoFuncionario = new DaoFuncionario(getApplicationContext());
         btCargarBDR = findViewById(R.id.btCargaDatosBDR);
         btCargaEdiBDR = findViewById(R.id.btCargaEdificio);
         btCargaFunBDR = findViewById(R.id.btCargaFuncionario);
@@ -116,49 +117,20 @@ public class ObtenerDataActivity extends AppCompatActivity  {
 
             }
         });
-        //btCargarBDR.setOnClickListener();
-
-        btCargaFunBDR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url= getString(R.string.ipServer)+"wsJSONConsEdificio.php";
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                //textView.setText("Response: " + response.toString());
-                                CargarDatosEdificioWS(response);
-                            }
-                        }, new Response.ErrorListener() {
-
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                     // Toast.makeText(,"No se pudo consultar Funcionarios",Toast.LENGTH_LONG).show();
-                                    Log.i("Error:",error.toString());
-
-                            }
-                        });
-
-            // Access the RequestQueue through your singleton class.
-                queuef.add(jsonObjectRequest);
-
-            }
-        });
 
         btCargaEdiBDR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url= getString(R.string.ipServer)+"wsJSONConsEdificios.php";
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                String url = getString(R.string.ipServer)+"wsJSONConsEdificios.php";
+
+                jsonObjectRequest = new JsonObjectRequest
                         (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                             @Override
                             public void onResponse(JSONObject response) {
-                                //textView.setText("Response: " + response.toString());
-                                //CargarDatosEdificioWS(response);
-                                daoEdificios = new DaoEdificios( context);
-                                Toast.makeText(getApplicationContext(),"Datos:"+response,Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(),"Response: " + response.toString(),Toast.LENGTH_LONG).show();
+                                daoEdificios = new DaoEdificios( getApplicationContext());
+                                Toast.makeText(getApplicationContext(),"Datos:"+response.toString(),Toast.LENGTH_LONG).show();
 
                                 JSONArray json = response.optJSONArray("edificio");
                                 JSONObject jsonedi=null;
@@ -168,8 +140,10 @@ public class ObtenerDataActivity extends AppCompatActivity  {
 
                                         try {
                                             jsonedi = json.getJSONObject(i);
-                                        /*listItem.add(jsonedi.getString("CODIGO")+"-"+
-                                        jsonedi.getString("NOMBREEDIFICIO"));*/
+                                            //listItem.add(jsonedi.getString("CODIGO")+"-"+
+                                            //jsonedi.getString("NOMBREEDIFICIO"));
+                                            Log.i("MyDB",jsonedi.getString("CODIGO"));
+                                            Log.i("MyDB",jsonedi.getString("NOMBRE"));
                                             e = new Edificios(jsonedi.getString("CODIGO"), jsonedi.getString("NOMBRE"));
                                             daoEdificios.insertar(e);
                                         } catch (JSONException e) {
@@ -181,23 +155,93 @@ public class ObtenerDataActivity extends AppCompatActivity  {
                                 }else{
                                     Toast.makeText(getApplicationContext(),"No se puede Limpiar la Tabla Edificios",Toast.LENGTH_SHORT).show();
                                 }
+                                CargarSpinnerEdificios();
+
                             }
                         }, new Response.ErrorListener() {
 
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                // Toast.makeText(,"No se pudo consultar Funcionarios",Toast.LENGTH_LONG).show();
-                                Log.i("Error:",error.toString());
-
+                                // TODO: Handle error
+                                Toast.makeText(getApplicationContext(),"NO es posible la conexion a la BD: " +error.getMessage(),Toast.LENGTH_LONG).show();
                             }
                         });
-
-                // Access the RequestQueue through your singleton class.
                 queueE.add(jsonObjectRequest);
             }
 
-
         });
+        //btCargarBDR.setOnClickListener();
+
+        btCargaFunBDR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = getString(R.string.ipServer)+"wsJSONConsPersonas.php";
+
+                jsonObjectRequest = new JsonObjectRequest
+                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                daoFuncionario = new DaoFuncionario( getApplicationContext());
+                                Toast.makeText(getApplicationContext(),"Datos:"+response.toString(),Toast.LENGTH_LONG).show();
+
+                                JSONArray json = response.optJSONArray("funcionarios");
+                                JSONObject jsonf=null;
+                                if(daoFuncionario.limpiarTabla()) {
+
+                                    for (int i = 0; i < json.length(); i++) {
+
+                                        try {
+                                            jsonf = json.getJSONObject(i);
+
+                                            Log.i("MyDB",jsonf.getString("DOCUMENTO"));
+                                            Log.i("MyDB",jsonf.getString("NOMBRE"));
+                                            f = new Funcionarios(jsonf.getString("DOCUMENTO"), jsonf.getString("NOMBRE"),
+                                                    jsonf.getString("APELLIDOS"),
+                                                    jsonf.getString("NACIONALIDAD"), jsonf.getString("SEXO"));
+                                            daoFuncionario.insertar(f);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+
+                                    }
+                                }else{
+                                    Toast.makeText(getApplicationContext(),"No se puede Limpiar la Tabla FUNCIONARIOS",Toast.LENGTH_SHORT).show();
+                                }
+                                CargarSpinnerFuncionarios();
+
+                            }
+                        }, new Response.ErrorListener() {
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // TODO: Handle error
+                                Toast.makeText(getApplicationContext(),"NO es posible la conexion a la BD: " +error.getMessage(),Toast.LENGTH_LONG).show();
+                            }
+                        });
+                queuef.add(jsonObjectRequest);
+
+
+            }
+        });
+
+        @Override protected Response<JSONObject> parseNetworkResponse(NetworkResponse response)
+        {
+            try {
+                String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
+                JSONObject result = null;
+                if (jsonString != null && jsonString.length() > 0)
+                    result = new JSONObject(jsonString);
+                return Response.success(result, HttpHeaderParser.parseCacheHeaders(response));
+            } catch (UnsupportedEncodingException e) {
+                return Response.error(new ParseError(e));
+            } catch (JSONException je) {
+                return Response.error(new ParseError(je));
+            }
+        }
+
+
         btProcesar= findViewById(R.id.btCargaDatos);
         btProcesar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,6 +285,21 @@ public class ObtenerDataActivity extends AppCompatActivity  {
             }
         }else{
             Toast.makeText(this,"No existen datos de edificio",Toast.LENGTH_LONG).show();
+        }
+
+    }
+    private  void CargarSpinnerFuncionarios() {
+        ArrayList<Funcionarios> fun = daoFuncionario.verTodos();
+
+        if(fun.size()>0) {
+            for (int i = 0; i < fun.size(); i++) {
+                //Log.i("MyDB",edi.get(i).getCodigo()+"-"+edi.get(i).getNombreedificio()+"-"+edi.get(i).getEstado());
+                listItemFuncionario.add(fun.get(i).getId() + "-" + fun.get(i).getNrodoc() +
+                        "-" + fun.get(i).getNombre()+ "-" + fun.get(i).getApellidou()+
+                        "-" + fun.get(i).getNacionalidad()+ "-" + fun.get(i).getSexo());
+            }
+        }else{
+            Toast.makeText(this,"No existen datos de FUNCIONARIOS",Toast.LENGTH_LONG).show();
         }
 
     }

@@ -103,7 +103,7 @@ public class DaoFuncionario {
         try{
             SQLiteDatabase db=conexion.getReadableDatabase();
             lista.clear();
-            cursor= db.rawQuery("select * from Funcionarios where estado='A'",null);
+            cursor= db.rawQuery("select * from funcionarios where estado='A'",null);
             if(cursor!=null && cursor.getCount()>0){
                 cursor.moveToFirst();
                 do{
@@ -119,15 +119,29 @@ public class DaoFuncionario {
         }
         return lista;
     }
+    public boolean limpiarTabla(){
+        SQLiteDatabase db=conexion.getWritableDatabase();
+        long res =  db.delete("funcionarios", "id>"+0, null);
+        db.close();
+        if (res>0) {
+            return true;
+        }else return false;
+       // return true;
+
+    }
     public ArrayList<Funcionarios> verFuncionariosXfiltro(String codedificios){
         Cursor cursor;
         try{
             SQLiteDatabase db=conexion.getReadableDatabase();
             lista.clear();
-            cursor= db.rawQuery("SELECT personas.* " +
-                                     "from efectos_custodia , personas " +
-                                     "where efectos_custodia.funcionario=personas.documento " +
-                                     "and efectos_custodia.edificio="+codedificios,null);
+            //cursor= db.rawQuery("SELECT personas.* " +
+             //                        "from efectos_custodia , personas " +
+             //                        "where efectos_custodia.funcionario=personas.documento " +
+             //                        "and efectos_custodia.edificio="+codedificios,null);
+            cursor= db.rawQuery("SELECT funcionarios.* " +
+                                    "from custodias , funcionarios " +
+                                    "where custodias.custodioid=funcionarios.id " +
+                                    "and custodias.edificioid="+codedificios,null);
             if(cursor!=null && cursor.getCount()>0){
                 cursor.moveToFirst();
                 do{
