@@ -19,6 +19,13 @@ public class Funcionarios {
         this.nombre = nombre;
         this.apellidou = apellidou;
     }
+    public Funcionarios( String nrodoc,String nombre, String apellidou) {
+
+        this.nombre = nombre;
+        this.apellidou = apellidou;
+        this.nrodoc = nrodoc;
+
+    }
     public Funcionarios( String nombre, String apellidou,  String nrodoc, String nacionalidad, String sexo) {
 
         this.nombre = nombre;

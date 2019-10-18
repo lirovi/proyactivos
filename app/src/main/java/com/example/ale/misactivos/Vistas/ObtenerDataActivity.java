@@ -18,11 +18,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.ale.misactivos.Model.DaoActivos;
 import com.example.ale.misactivos.Model.DaoEdificios;
 import com.example.ale.misactivos.Model.DaoFuncionario;
 import com.example.ale.misactivos.Operaciones.CargarWSEdificio;
 import com.example.ale.misactivos.Operaciones.CargarWSfuncionario;
 import com.example.ale.misactivos.R;
+import com.example.ale.misactivos.entidades.Activos;
 import com.example.ale.misactivos.entidades.Edificios;
 import com.example.ale.misactivos.entidades.Funcionarios;
 
@@ -46,11 +48,14 @@ public class ObtenerDataActivity extends AppCompatActivity  {
     ArrayList<String> listItemFuncionario = new ArrayList<>();
     ArrayAdapter<String> adapterEdificio;
     ArrayAdapter<String> adapterFuncionario;
-    Button btProcesar,btCargarBDR,btCargaEdiBDR,btCargaFunBDR; //BDR= Base de Datos Remota
+    Button btProcesar,btVerActivos,btCargaEdiBDR,btCargaFunBDR; //BDR= Base de Datos Remota
     JsonObjectRequest jsonObjectRequest;
     DaoEdificios daoEdificios;
     DaoFuncionario daoFuncionario;
+    DaoActivos daoActivos;
+    Activos ac;
     Context context;
+    String coded="",codfun="";
     Edificios e;
     Funcionarios f;
 
@@ -63,7 +68,7 @@ public class ObtenerDataActivity extends AppCompatActivity  {
 
         daoEdificios= new DaoEdificios(getApplicationContext());
         daoFuncionario = new DaoFuncionario(getApplicationContext());
-        btCargarBDR = findViewById(R.id.btCargaDatosBDR);
+        btVerActivos = findViewById(R.id.btCargaDatosBDR);
         btCargaEdiBDR = findViewById(R.id.btCargaEdificio);
         btCargaFunBDR = findViewById(R.id.btCargaFuncionario);
 
@@ -75,6 +80,7 @@ public class ObtenerDataActivity extends AppCompatActivity  {
         listItemFuncionario.add("Seleccione");
 
         CargarSpinnerEdificios();
+        CargarSpinnerFuncionarios();
 
         spinneredificio = (MaterialSpinner) findViewById(R.id.spinnerEdificio);
         adapterEdificio =  new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,listItemEdificio);
@@ -88,7 +94,8 @@ public class ObtenerDataActivity extends AppCompatActivity  {
                 if (position > 0){
                     String selected[] =  (spinneredificio.getItemAtPosition(position).toString().split("-"));
                     Toast.makeText(getApplicationContext(), "Datos Selecionado: "+selected[1], Toast.LENGTH_SHORT).show();
-                    CargarSpinnerFuncionarioXfiltro(selected[1]);
+                    //CargarSpinnerFuncionarioXfiltro(selected[1]);
+                    coded=selected[1];
                 }
             }
             @Override
@@ -107,8 +114,9 @@ public class ObtenerDataActivity extends AppCompatActivity  {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0){
-                    //String selecfun[] =  (spinnerfuncionario.getItemAtPosition(position).toString().split("-"));
+                    String selecfun[] =  (spinnerfuncionario.getItemAtPosition(position).toString().split("-"));
                     //Toast.makeText(getApplicationContext(), "Datos Seleccionado"+selecfun[0]+" - "+selecfun [1], Toast.LENGTH_SHORT).show();
+                    codfun=selecfun[0];
                 }
             }
 
@@ -170,8 +178,17 @@ public class ObtenerDataActivity extends AppCompatActivity  {
             }
 
         });
-        //btCargarBDR.setOnClickListener();
 
+        /********************************************************************************/
+
+        btVerActivos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        /*******************************************************************************/
         btCargaFunBDR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,7 +202,7 @@ public class ObtenerDataActivity extends AppCompatActivity  {
                                 daoFuncionario = new DaoFuncionario( getApplicationContext());
                                 Toast.makeText(getApplicationContext(),"Datos:"+response.toString(),Toast.LENGTH_LONG).show();
 
-                                JSONArray json = response.optJSONArray("funcionarios");
+                                JSONArray json = response.optJSONArray("funcionario");
                                 JSONObject jsonf=null;
                                 if(daoFuncionario.limpiarTabla()) {
 
@@ -194,11 +211,10 @@ public class ObtenerDataActivity extends AppCompatActivity  {
                                         try {
                                             jsonf = json.getJSONObject(i);
 
-                                            Log.i("MyDB",jsonf.getString("DOCUMENTO"));
                                             Log.i("MyDB",jsonf.getString("NOMBRE"));
-                                            f = new Funcionarios(jsonf.getString("DOCUMENTO"), jsonf.getString("NOMBRE"),
-                                                    jsonf.getString("APELLIDOS"),
-                                                    jsonf.getString("NACIONALIDAD"), jsonf.getString("SEXO"));
+                                            Log.i("MyDB",jsonf.getString("APELLIDOS"));
+                                            f = new Funcionarios(jsonf.getString("NOMBRE"), jsonf.getString("APELLIDOS"),
+                                                    jsonf.getString("DOCUMENTO"),jsonf.getString("NACIONALIDAD"), jsonf.getString("SEXO"));
                                             daoFuncionario.insertar(f);
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -226,26 +242,82 @@ public class ObtenerDataActivity extends AppCompatActivity  {
             }
         });
 
-        @Override protected Response<JSONObject> parseNetworkResponse(NetworkResponse response)
-        {
-            try {
-                String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
-                JSONObject result = null;
-                if (jsonString != null && jsonString.length() > 0)
-                    result = new JSONObject(jsonString);
-                return Response.success(result, HttpHeaderParser.parseCacheHeaders(response));
-            } catch (UnsupportedEncodingException e) {
-                return Response.error(new ParseError(e));
-            } catch (JSONException je) {
-                return Response.error(new ParseError(je));
-            }
-        }
 
 
         btProcesar= findViewById(R.id.btCargaDatos);
         btProcesar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String[] eFStr = new String[1];
+                if(!coded.isEmpty() && !codfun.isEmpty()) {
+                    String url = getString(R.string.ipServer) + "wsJSONConsActivosFiltrado.php?coded=" + coded + "&codfun=" + codfun;
+                    Log.i("MyDB", url);
+
+                    jsonObjectRequest = new JsonObjectRequest
+                            (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    daoActivos = new DaoActivos(getApplicationContext());
+                                    //Toast.makeText(getApplicationContext(), "Datos:" + response.toString(), Toast.LENGTH_LONG).show();
+
+                                    JSONArray jsona = response.optJSONArray("activos");
+                                    JSONObject jsonActivos = null;
+                                    if (daoActivos.limpiarTabla()) {
+                                        descargar();
+
+                                        for (int i = 0; i < jsona.length(); i++) {
+
+                                            try {
+                                                jsonActivos = jsona.getJSONObject(i);
+
+                                                Log.i("MyDB", jsonActivos.getString("CODIGO"));
+                                                Log.i("MyDB", jsonActivos.getString("DESCRIPCION"));
+                                                Log.i("MyDB", ""+jsonActivos.getString("VALOR_RESIDUAL"));
+                                                Log.i("MyDB", ""+jsonActivos.getString("VALOR"));
+                                                Log.i("MyDB", ""+(jsonActivos.isNull(jsonActivos.getString("ESTADO_FISICO"))?"0":"1"));
+                                                if(jsonActivos.isNull("ESTADO_FISICO")) {
+                                                    eFStr[0] = "0";
+                                                } else {
+                                                    eFStr[0] = "1";
+                                                }
+
+                                                ac = new Activos(jsonActivos.getString("CODIGO"), jsonActivos.getInt("CORRELATIVO"),
+                                                        jsonActivos.getString("TIPO"), jsonActivos.getString("DESCRIPCION"),
+                                                    jsonActivos.getString("UNIDAD"),jsonActivos.getString("FECHA_INGRESO"),
+                                                    jsonActivos.getString("VALOR"), jsonActivos.getString("VALOR_RESIDUAL"),
+                                                    (jsonActivos.isNull(jsonActivos.getString("ESTADO_FISICO"))?"0":"1"),
+                                                    jsonActivos.getString("ESTADO_BD"),
+                                                        (jsonActivos.isNull(jsonActivos.getString("OBSERVACIONES"))?"0":"1"),jsonActivos.getString("GRUPO"),jsonActivos.getString("AUXILIAR"),
+                                                    jsonActivos.getInt("GESTION_INGRESO"),jsonActivos.getString("PARTIDA"),jsonActivos.getString("GLOSA"),
+                                                    jsonActivos.getString("COLOR"),jsonActivos.getString("SERIE"),jsonActivos.getString("MARCA"),
+                                                    jsonActivos.getString("MODELO"),jsonActivos.getString("PLACA"),
+                                                        jsonActivos.getString("BAJA"),
+                                                    Integer.valueOf(eFStr[0]),
+                                                    jsonActivos.getString("UBI_GEOGRAFICA"),jsonActivos.getString("ORIGEN"));
+                                                daoActivos.insertar(ac);
+
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "No existen registros en Activos", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // TODO: Handle error
+                                    Toast.makeText(getApplicationContext(), "NO es posible la conexion a la BD: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                    queuef.add(jsonObjectRequest);
+
+                }else{
+                    Toast.makeText(getApplicationContext(), "Debe Seleccionar Edificio y Funcionario: " , Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -294,9 +366,8 @@ public class ObtenerDataActivity extends AppCompatActivity  {
         if(fun.size()>0) {
             for (int i = 0; i < fun.size(); i++) {
                 //Log.i("MyDB",edi.get(i).getCodigo()+"-"+edi.get(i).getNombreedificio()+"-"+edi.get(i).getEstado());
-                listItemFuncionario.add(fun.get(i).getId() + "-" + fun.get(i).getNrodoc() +
-                        "-" + fun.get(i).getNombre()+ "-" + fun.get(i).getApellidou()+
-                        "-" + fun.get(i).getNacionalidad()+ "-" + fun.get(i).getSexo());
+                listItemFuncionario.add( fun.get(i).getNrodoc() +
+                        "-" + fun.get(i).getNombre()+ "-" + fun.get(i).getApellidou());
             }
         }else{
             Toast.makeText(this,"No existen datos de FUNCIONARIOS",Toast.LENGTH_LONG).show();
@@ -318,7 +389,7 @@ public class ObtenerDataActivity extends AppCompatActivity  {
     }
 
 
-    public void descargar(View view){
+    public void descargar(){
         progress=new ProgressDialog(this);
         progress.setMessage("Descargando datos....");
         progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -343,6 +414,7 @@ public class ObtenerDataActivity extends AppCompatActivity  {
                     }
                 }
                 progress.setMessage("Completado..., toque la pantalla");
+                progress.dismiss();
             }
         };
         t.start();

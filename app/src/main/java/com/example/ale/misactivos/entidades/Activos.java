@@ -9,11 +9,11 @@ public class Activos implements Serializable {
     private String DESCRIPCION;
     private String UNIDAD;
     private String FECHA_INGRESO;
-    private Float VALOR;
-    private Float VALOR_RESIDUAL;
-    private String ESTADO_FISICO;
+    private String VALOR;
+    private String VALOR_RESIDUAL;
+    private String ESTADOFISICO;
     private String ESTADO_BD;
-    private String OBSERVACIONES;
+    private String OBSERVACION;
     private String GRUPO;
     private String AUXILIAR;
     private Integer GESTION_INGRESO;
@@ -24,8 +24,8 @@ public class Activos implements Serializable {
     private String MARCA;
     private String MODELO;
     private String PLACA;
-    private String BAJA;
     private Integer GESTION_BAJA;
+    private String BAJA;
     private String UBI_GEOGRAFICA;
     private String ORIGEN;
 
@@ -39,9 +39,9 @@ public class Activos implements Serializable {
         this.FECHA_INGRESO = FECHA_INGRESO;
         this.VALOR = VALOR;
         this.VALOR_RESIDUAL = VALOR_RESIDUAL;
-        this.ESTADO_FISICO = ESTADO_FISICO;
+        this.ESTADOFISICO = ESTADOFISICO;
         this.ESTADO_BD = ESTADO_BD;
-        this.OBSERVACIONES = OBSERVACIONES;
+        this.OBSERVACION = OBSERVACION;
         this.GRUPO = GRUPO;
         this.AUXILIAR = AUXILIAR;
         this.GESTION_INGRESO = GESTION_INGRESO;
@@ -58,7 +58,40 @@ public class Activos implements Serializable {
         this.ORIGEN = ORIGEN;
     }
 
+    public Activos(String codigo, Integer CORRELATIVO, String TIPO, String DESCRIPCION) {
+        this.Codigo = Codigo;
+        this.CORRELATIVO = CORRELATIVO;
+        this.TIPO = TIPO;
+        this.DESCRIPCION = DESCRIPCION;
+    }
 
+    public Activos(String codigo, Integer CORRELATIVO, String TIPO, String DESCRIPCION, String UNIDAD, String FECHA_INGRESO, String VALOR, String VALOR_RESIDUAL, String ESTADOFISICO, String ESTADO_BD, String OBSERVACION, String GRUPO, String AUXILIAR, Integer GESTION_INGRESO, String PARTIDA, String GLOSA, String COLOR, String SERIE, String MARCA, String MODELO, String PLACA, String BAJA, Integer GESTION_BAJA, String UBI_GEOGRAFICA, String ORIGEN) {
+        Codigo = codigo;
+        this.CORRELATIVO = CORRELATIVO;
+        this.TIPO = TIPO;
+        this.DESCRIPCION = DESCRIPCION;
+        this.UNIDAD = UNIDAD;
+        this.FECHA_INGRESO = FECHA_INGRESO;
+        this.VALOR = VALOR;
+        this.VALOR_RESIDUAL = VALOR_RESIDUAL;
+        this.ESTADOFISICO = ESTADOFISICO;
+        this.ESTADO_BD = ESTADO_BD;
+        this.OBSERVACION = OBSERVACION;
+        this.GRUPO = GRUPO;
+        this.AUXILIAR = AUXILIAR;
+        this.GESTION_INGRESO = GESTION_INGRESO;
+        this.PARTIDA = PARTIDA;
+        this.GLOSA = GLOSA;
+        this.COLOR = COLOR;
+        this.SERIE = SERIE;
+        this.MARCA = MARCA;
+        this.MODELO = MODELO;
+        this.PLACA = PLACA;
+        this.BAJA = BAJA;
+        this.GESTION_BAJA = GESTION_BAJA;
+        this.UBI_GEOGRAFICA = UBI_GEOGRAFICA;
+        this.ORIGEN = ORIGEN;
+    }
 
     public String getCodigo() {
         return Codigo;
@@ -110,28 +143,28 @@ public class Activos implements Serializable {
     }
 
 
-    public Float getVALOR() {
+    public String getVALOR() {
         return VALOR;
     }
 
-    public void setVALOR(Float VALOR) {
+    public void setVALOR(String VALOR) {
         this.VALOR = VALOR;
     }
 
-    public Float getVALOR_RESIDUAL() {
+    public String getVALOR_RESIDUAL() {
         return VALOR_RESIDUAL;
     }
 
-    public void setVALOR_RESIDUAL(Float VALOR_RESIDUAL) {
+    public void setVALOR_RESIDUAL(String VALOR_RESIDUAL) {
         this.VALOR_RESIDUAL = VALOR_RESIDUAL;
     }
 
-    public String getESTADO_FISICO() {
-        return ESTADO_FISICO;
+    public String getESTADOFISICO() {
+        return ESTADOFISICO;
     }
 
-    public void setESTADO_FISICO(String ESTADO_FISICO) {
-        this.ESTADO_FISICO = ESTADO_FISICO;
+    public void setESTADOFISICO(String ESTADOFISICO) {
+        this.ESTADOFISICO = ESTADOFISICO;
     }
 
     public String getESTADO_BD() {
@@ -142,12 +175,12 @@ public class Activos implements Serializable {
         this.ESTADO_BD = ESTADO_BD;
     }
 
-    public String getOBSERVACIONES() {
-        return OBSERVACIONES;
+    public String getOBSERVACION() {
+        return OBSERVACION;
     }
 
-    public void setOBSERVACIONES(String OBSERVACIONES) {
-        this.OBSERVACIONES = OBSERVACIONES;
+    public void setOBSERVACIONID(String OBSERVACION) {
+        this.OBSERVACION = OBSERVACION;
     }
 
     public String getGRUPO() {

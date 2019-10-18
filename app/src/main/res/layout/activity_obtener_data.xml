@@ -22,11 +22,11 @@
             android:orientation="vertical"
             >
             <Button
-                android:id="@+id/btCargaDatosBDR"
+                android:id="@+id/btnVerActivos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="Actualizar de BDR"/>
+                android:text="Ver Activos"/>
 
             <TextView
                 android:id="@+id/tvSelecEdi"

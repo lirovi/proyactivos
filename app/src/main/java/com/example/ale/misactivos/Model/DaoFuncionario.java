@@ -99,15 +99,15 @@ public class DaoFuncionario {
     }
 
     public ArrayList<Funcionarios> verTodos(){
-        Cursor cursor;
+
         try{
-            SQLiteDatabase db=conexion.getReadableDatabase();
+            SQLiteDatabase db = conexion.getReadableDatabase();
             lista.clear();
-            cursor= db.rawQuery("select * from funcionarios where estado='A'",null);
+            Cursor cursor = db.rawQuery("select id, nrodoc, nombre, apellidou from funcionarios where estado='A'",null);
             if(cursor!=null && cursor.getCount()>0){
                 cursor.moveToFirst();
                 do{
-                    lista.add(new Funcionarios(cursor.getInt(0),cursor.getString(1),cursor.getString(2)));
+                    lista.add(new Funcionarios(cursor.getString(1),cursor.getString(2),cursor.getString(3)));
 
                 }while(cursor.moveToNext());
 
@@ -120,13 +120,13 @@ public class DaoFuncionario {
         return lista;
     }
     public boolean limpiarTabla(){
-        SQLiteDatabase db=conexion.getWritableDatabase();
-        long res =  db.delete("funcionarios", "id>"+0, null);
+       SQLiteDatabase db=conexion.getWritableDatabase();
+        long res =  db.delete("funcionarios","id>"+0,null);
         db.close();
         if (res>0) {
             return true;
         }else return false;
-       // return true;
+        //return true;
 
     }
     public ArrayList<Funcionarios> verFuncionariosXfiltro(String codedificios){

@@ -53,7 +53,7 @@ public class DaoEdificios {
     }
     public boolean limpiarTabla(){
         SQLiteDatabase db=conexion.getWritableDatabase();
-        long res =  db.delete("Edificios", "id>"+0, null);
+        long res =  db.delete("Edificios", null, null);
         db.close();
         if (res>0) {
             return true;
