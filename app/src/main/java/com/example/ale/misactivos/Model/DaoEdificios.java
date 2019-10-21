@@ -53,12 +53,15 @@ public class DaoEdificios {
     }
     public boolean limpiarTabla(){
         SQLiteDatabase db=conexion.getWritableDatabase();
-        long res =  db.delete("Edificios", null, null);
+        long res=0;
+        Cursor cursor= db.rawQuery("select * from Edificios",null);
+        if(cursor != null && cursor.getCount()>0){
+            res =  db.delete("Edificios", null, null);
+        }
+        cursor.close();
         db.close();
-        if (res>0) {
-            return true;
-        }else return false;
-       //return true;
+
+       return true;
 
     }
 

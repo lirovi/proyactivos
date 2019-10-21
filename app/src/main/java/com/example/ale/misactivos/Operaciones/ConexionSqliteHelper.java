@@ -1,7 +1,6 @@
 package com.example.ale.misactivos.Operaciones;
 
 import android.content.Context;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -19,7 +18,7 @@ public class ConexionSqliteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-     /* db.execSQL("DROP TABLE IF EXISTS cambios");
+      db.execSQL("DROP TABLE IF EXISTS cambios");
         db.execSQL("DROP TABLE IF EXISTS inventarios");
         db.execSQL("DROP TABLE IF EXISTS detinventarios");
         db.execSQL("DROP TABLE IF EXISTS devoluciones");
@@ -38,7 +37,7 @@ public class ConexionSqliteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS oficinas");
         db.execSQL("DROP TABLE IF EXISTS observaciones");
         db.execSQL("DROP TABLE IF EXISTS estados");
-        db.execSQL("DROP TABLE IF EXISTS motivos");*/
+        db.execSQL("DROP TABLE IF EXISTS motivos");
         try {
             db.execSQL(CreaTablas.CREAR_TABLA_CAMBIOS);
             db.execSQL(CreaTablas.CREAR_TABLA_USUARIOS);

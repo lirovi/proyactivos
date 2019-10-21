@@ -2,6 +2,7 @@ package com.example.ale.misactivos.Vistas;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -21,8 +22,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.ale.misactivos.Model.DaoActivos;
 import com.example.ale.misactivos.Model.DaoEdificios;
 import com.example.ale.misactivos.Model.DaoFuncionario;
-import com.example.ale.misactivos.Operaciones.CargarWSEdificio;
-import com.example.ale.misactivos.Operaciones.CargarWSfuncionario;
 import com.example.ale.misactivos.R;
 import com.example.ale.misactivos.entidades.Activos;
 import com.example.ale.misactivos.entidades.Edificios;
@@ -68,7 +67,7 @@ public class ObtenerDataActivity extends AppCompatActivity  {
 
         daoEdificios= new DaoEdificios(getApplicationContext());
         daoFuncionario = new DaoFuncionario(getApplicationContext());
-        btVerActivos = findViewById(R.id.btCargaDatosBDR);
+        btVerActivos = findViewById(R.id.btnVerActivos);
         btCargaEdiBDR = findViewById(R.id.btCargaEdificio);
         btCargaFunBDR = findViewById(R.id.btCargaFuncionario);
 
@@ -184,6 +183,8 @@ public class ObtenerDataActivity extends AppCompatActivity  {
         btVerActivos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent veractivos= new Intent(ObtenerDataActivity.this, CrudActivosActivity.class);
+                startActivity(veractivos);
 
             }
         });
@@ -241,8 +242,6 @@ public class ObtenerDataActivity extends AppCompatActivity  {
 
             }
         });
-
-
 
         btProcesar= findViewById(R.id.btCargaDatos);
         btProcesar.setOnClickListener(new View.OnClickListener() {

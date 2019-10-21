@@ -59,6 +59,9 @@ public class DaoActivos {
                 datos.put("baja", a.getBAJA());
                 datos.put("ubi_geog", a.getUBI_GEOGRAFICA());
                 datos.put("origen", a.getORIGEN());
+                datos.put("cambio", "");
+                datos.put("origen", a.getIMAGEN());
+                datos.put("estado", a.getESTADO());
 
                 res = db.insert("Activos",null,datos);
                 db.close();
@@ -77,14 +80,14 @@ public class DaoActivos {
         return Double.parseDouble(dato.trim());
     }
 
-        public boolean eliminar(int id){
+        public boolean eliminar(String codigo){
             long res=0;
             try{
                 SQLiteDatabase db=conexion.getWritableDatabase();
                 ContentValues datos= new ContentValues();
-                datos.put("estado_bd","X");
+                datos.put("estado","X");
                 //res = db.delete("Funcionarios","id="+id,null);   //Elimina definitivamente el registro
-                res = db.update("Activos",datos,"id="+id,null); //marca con X el estado del registro X= baja A= alta
+                res = db.update("Activos",datos,"codigo="+codigo,null); //marca con X el estado del registro X= baja A= alta
                 db.close();
             } catch (Exception e) {
                 Log.e("MYDB", "Error al eliminar el Activo");
@@ -141,12 +144,12 @@ public class DaoActivos {
             try{
                 SQLiteDatabase db = conexion.getReadableDatabase();
                 lista.clear();
-                Cursor cursor = db.rawQuery("select * from Activos where estado='A'",null);
+                Cursor cursor = db.rawQuery("select * from Activos",null);
                 if(cursor!=null && cursor.getCount()>0){
                     cursor.moveToFirst();
                     do{
-                        lista.add(new Activos(cursor.getString(0),cursor.getInt(1),
-                                cursor.getString(2),cursor.getString(3)));/*,
+                        lista.add(new Activos(cursor.getString(0),cursor.getString(3),
+                                cursor.getString(5)));/*,
                                 cursor.getString(4),cursor.getString(5),
                                 cursor.getFloat(6),cursor.getFloat(7),
                                 cursor.getInt(8),cursor.getString(9),
@@ -170,12 +173,15 @@ public class DaoActivos {
             return lista;
         }
         public boolean limpiarTabla(){
-            /*SQLiteDatabase db=conexion.getWritableDatabase();
-            long res =  db.delete("activos","correlativo>0",null);
+            SQLiteDatabase db=conexion.getWritableDatabase();
+            long res=0;
+            Cursor cursor= db.rawQuery("select * from Activos",null);
+            if(cursor != null && cursor.getCount()>0) {
+                 res= db.delete("activos", "correlativo>0", null);
+            }
             db.close();
-            if (res>0) {
-                return true;
-            }else return false;*/
+            cursor.close();
+
             return true;
 
         }
@@ -224,7 +230,7 @@ public class DaoActivos {
             Cursor cursor;
             try{
                 SQLiteDatabase db=conexion.getReadableDatabase();
-                cursor= db.rawQuery("select * from Activos where estado='A'",null);
+                cursor= db.rawQuery("select * from Activos ",null);
                 cursor.moveToPosition(position);
                 activos=new Activos(cursor.getString(0),cursor.getInt(1),
                         cursor.getString(2),cursor.getString(3));/*,

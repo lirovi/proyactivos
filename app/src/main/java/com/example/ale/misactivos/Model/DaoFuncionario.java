@@ -121,12 +121,17 @@ public class DaoFuncionario {
     }
     public boolean limpiarTabla(){
        SQLiteDatabase db=conexion.getWritableDatabase();
-        long res =  db.delete("funcionarios","id>"+0,null);
+        long res=0;
+        Cursor cursor= db.rawQuery("select * from funcionarios",null);
+        if(cursor != null && cursor.getCount()>0) {
+            res = db.delete("funcionarios", "id>" + 0, null);
+        }
+        cursor.close();
         db.close();
-        if (res>0) {
+        /*if (res>0) {
             return true;
-        }else return false;
-        //return true;
+        }else return false;*/
+        return true;
 
     }
     public ArrayList<Funcionarios> verFuncionariosXfiltro(String codedificios){

@@ -28,41 +28,31 @@ public class Activos implements Serializable {
     private String BAJA;
     private String UBI_GEOGRAFICA;
     private String ORIGEN;
+    private int IMAGEN;
+    private String CAMBIO;
+    private String ESTADO;
 
     public Activos()
     {
-        this.Codigo = Codigo;
-        this.CORRELATIVO = CORRELATIVO;
-        this.TIPO = TIPO;
-        this.DESCRIPCION = DESCRIPCION;
-        this.UNIDAD = UNIDAD;
-        this.FECHA_INGRESO = FECHA_INGRESO;
-        this.VALOR = VALOR;
-        this.VALOR_RESIDUAL = VALOR_RESIDUAL;
-        this.ESTADOFISICO = ESTADOFISICO;
-        this.ESTADO_BD = ESTADO_BD;
-        this.OBSERVACION = OBSERVACION;
-        this.GRUPO = GRUPO;
-        this.AUXILIAR = AUXILIAR;
-        this.GESTION_INGRESO = GESTION_INGRESO;
-        this.PARTIDA = PARTIDA;
-        this.GLOSA = GLOSA;
-        this.COLOR = COLOR;
-        this.SERIE = SERIE;
-        this.MARCA = MARCA;
-        this.MODELO = MODELO;
-        this.PLACA = PLACA;
-        this.BAJA = BAJA;
-        this.GESTION_BAJA = GESTION_BAJA;
-        this.UBI_GEOGRAFICA = UBI_GEOGRAFICA;
-        this.ORIGEN = ORIGEN;
+
     }
 
-    public Activos(String codigo, Integer CORRELATIVO, String TIPO, String DESCRIPCION) {
-        this.Codigo = Codigo;
+    public Activos(String CODIGO, Integer CORRELATIVO, String TIPO, String DESCRIPCION) {
+        this.Codigo = CODIGO;
         this.CORRELATIVO = CORRELATIVO;
         this.TIPO = TIPO;
         this.DESCRIPCION = DESCRIPCION;
+    }
+    public Activos(String CODIGO, String DESCRIPCION, String FECHA_INGRESO ) {
+        this.Codigo = CODIGO;
+        this.DESCRIPCION = DESCRIPCION;
+        this.FECHA_INGRESO= FECHA_INGRESO;
+    }
+    public Activos(String CODIGO, String DESCRIPCION, String FECHA_INGRESO,Integer IMAGEN ) {
+        this.Codigo = CODIGO;
+        this.DESCRIPCION = DESCRIPCION;
+        this.IMAGEN= IMAGEN;
+        this.FECHA_INGRESO= FECHA_INGRESO;
     }
 
     public Activos(String codigo, Integer CORRELATIVO, String TIPO, String DESCRIPCION, String UNIDAD, String FECHA_INGRESO, String VALOR, String VALOR_RESIDUAL, String ESTADOFISICO, String ESTADO_BD, String OBSERVACION, String GRUPO, String AUXILIAR, Integer GESTION_INGRESO, String PARTIDA, String GLOSA, String COLOR, String SERIE, String MARCA, String MODELO, String PLACA, String BAJA, Integer GESTION_BAJA, String UBI_GEOGRAFICA, String ORIGEN) {
@@ -93,6 +83,36 @@ public class Activos implements Serializable {
         this.ORIGEN = ORIGEN;
     }
 
+    public Activos(String codigo, Integer CORRELATIVO, String TIPO, String DESCRIPCION, String UNIDAD, String FECHA_INGRESO, String VALOR, String VALOR_RESIDUAL, String ESTADOFISICO, String ESTADO_BD, String OBSERVACION, String GRUPO, String AUXILIAR, Integer GESTION_INGRESO, String PARTIDA, String GLOSA, String COLOR, String SERIE, String MARCA, String MODELO, String PLACA, String BAJA, Integer GESTION_BAJA, String UBI_GEOGRAFICA, String ORIGEN,Integer IMAGEN, String CAMBIO, String ESTADO) {
+        Codigo = codigo;
+        this.CORRELATIVO = CORRELATIVO;
+        this.TIPO = TIPO;
+        this.DESCRIPCION = DESCRIPCION;
+        this.UNIDAD = UNIDAD;
+        this.FECHA_INGRESO = FECHA_INGRESO;
+        this.VALOR = VALOR;
+        this.VALOR_RESIDUAL = VALOR_RESIDUAL;
+        this.ESTADOFISICO = ESTADOFISICO;
+        this.ESTADO_BD = ESTADO_BD;
+        this.OBSERVACION = OBSERVACION;
+        this.GRUPO = GRUPO;
+        this.AUXILIAR = AUXILIAR;
+        this.GESTION_INGRESO = GESTION_INGRESO;
+        this.PARTIDA = PARTIDA;
+        this.GLOSA = GLOSA;
+        this.COLOR = COLOR;
+        this.SERIE = SERIE;
+        this.MARCA = MARCA;
+        this.MODELO = MODELO;
+        this.PLACA = PLACA;
+        this.BAJA = BAJA;
+        this.GESTION_BAJA = GESTION_BAJA;
+        this.UBI_GEOGRAFICA = UBI_GEOGRAFICA;
+        this.ORIGEN = ORIGEN;
+        this.IMAGEN= IMAGEN;
+        this.CAMBIO=CAMBIO;
+        this. ESTADO= ESTADO;
+    }
     public String getCodigo() {
         return Codigo;
     }
@@ -179,7 +199,7 @@ public class Activos implements Serializable {
         return OBSERVACION;
     }
 
-    public void setOBSERVACIONID(String OBSERVACION) {
+    public void setOBSERVACION(String OBSERVACION) {
         this.OBSERVACION = OBSERVACION;
     }
 
@@ -295,5 +315,27 @@ public class Activos implements Serializable {
         this.ORIGEN = ORIGEN;
     }
 
+    public int getIMAGEN() {
+        return IMAGEN;
+    }
 
+    public void setIMAGEN(int IMAGEN) {
+        this.IMAGEN = IMAGEN;
+    }
+
+    public String getCAMBIO() {
+        return CAMBIO;
+    }
+
+    public void setCAMBIO(String CAMBIO) {
+        this.CAMBIO = CAMBIO;
+    }
+
+    public String getESTADO() {
+        return ESTADO;
+    }
+
+    public void setESTADO(String ESTADO) {
+        this.ESTADO = ESTADO;
+    }
 }
