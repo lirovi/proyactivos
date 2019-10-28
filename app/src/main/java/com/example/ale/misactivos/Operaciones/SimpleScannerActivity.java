@@ -33,9 +33,7 @@ import me.dm7.barcodescanner.zbar.ZBarScannerView;
 
         @Override
         public void handleResult(Result rawResult) {
-
            Log.v("MyDB",rawResult.getContents());
            Log.v("MyDB",rawResult.getBarcodeFormat().getName());
-
         }
     }

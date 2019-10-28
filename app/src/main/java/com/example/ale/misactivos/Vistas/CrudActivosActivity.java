@@ -3,6 +3,7 @@ package com.example.ale.misactivos.Vistas;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,8 @@ import com.example.ale.misactivos.Operaciones.SimpleScannerActivity;
 import com.example.ale.misactivos.R;
 import com.example.ale.misactivos.entidades.Activos;
 import com.example.ale.misactivos.entidades.Edificios;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,13 +75,39 @@ public class CrudActivosActivity extends AppCompatActivity {
         btLeerCodBarra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent lBarra = new Intent(getApplicationContext(), SimpleScannerActivity.class);
-                startActivity(lBarra);
+                escaner();
             }
         });
 
     }
+    public  void escaner(){
+        IntentIntegrator intent = new IntentIntegrator(this);
+        intent.setDesiredBarcodeFormats(IntentIntegrator.PRODUCT_CODE_TYPES);
 
+        intent.setPrompt("Escanear Código");
+        intent.setCameraId(0);
+        intent.setBeepEnabled(false);
+        intent.setBarcodeImageEnabled(false);
+        intent.initiateScan();
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        IntentResult result= IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+
+        if(result != null){
+            if(result.getContents()== null){
+                Toast.makeText(this,"Cancelaste el escaneo",Toast.LENGTH_SHORT).show();
+
+            }else{
+                etBuscar.setText(result.getContents().toString());
+            }
+        }else {
+            super.onActivityResult(requestCode,resultCode,data);
+        }
+    }
 
     private  List<Activos> obtenerListaActivos(String cadBuscar) {
         ArrayList<Activos> a = daoActivos.verTodos();
