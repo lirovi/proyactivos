@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -38,6 +39,8 @@ public class CrudActivosActivity extends AppCompatActivity {
     DaoActivos daoActivos;
     private EditText etBuscar;
     Button btLeerCodBarra;
+    String cad="";
+    CardView cardView;
 
 
     @Override
@@ -48,13 +51,31 @@ public class CrudActivosActivity extends AppCompatActivity {
 
         daoActivos= new DaoActivos(this);
         etBuscar =  findViewById(R.id.etBuscar);
+        cardView = findViewById(R.id.idCardviewActivos);
         recyclerViewActivos = findViewById(R.id.reciclerActivos);
         btLeerCodBarra = findViewById(R.id.btnCodBarra);
         recyclerViewActivos.setLayoutManager(new LinearLayoutManager(this));
 
-        adaptadorActivos=new ReciclerViewAdaptador(obtenerListaActivos(""));
+        adaptadorActivos=new ReciclerViewAdaptador(obtenerListaActivos(cad));
+
         recyclerViewActivos.setAdapter(adaptadorActivos);
 
+
+       /* btLeerCodBarra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                escaner();
+            }
+        });
+
+        adaptadorActivos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("MyDB", "llegue aqui");
+                Toast.makeText(getApplicationContext(),"Seleccion "+obtenerListaActivos(cad).get(
+                        recyclerViewActivos.getChildAdapterPosition(v)).getCodigo(),Toast.LENGTH_SHORT).show();
+            }
+        });
         etBuscar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -63,7 +84,8 @@ public class CrudActivosActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adaptadorActivos=new ReciclerViewAdaptador(obtenerListaActivos(s.toString()));
+                cad=s.toString();
+                adaptadorActivos=new ReciclerViewAdaptador(obtenerListaActivos(cad));
                 recyclerViewActivos.setAdapter(adaptadorActivos);
             }
 
@@ -71,26 +93,62 @@ public class CrudActivosActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
 
             }
-        });
-        btLeerCodBarra.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                escaner();
-            }
-        });
-
+        });*/
+        etBuscar.setOnClickListener(myOnClickListener);
+        btLeerCodBarra.setOnClickListener(myOnClickListener);
+        recyclerViewActivos.setOnClickListener(myOnClickListener);
+        //cardView.setOnClickListener(myOnClickListener);
     }
+
+    private View.OnClickListener myOnClickListener = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+
+                case R.id.btnCodBarra:
+                    escaner();
+                    break;
+                case R.id.reciclerActivos:
+                    Log.i("MyDB", "llegue aqui"+obtenerListaActivos(cad).get(
+                            recyclerViewActivos.getChildAdapterPosition(v)).getCodigo());
+                    Toast.makeText(getApplicationContext(),"Seleccion "+obtenerListaActivos(cad).get(
+                            recyclerViewActivos.getChildAdapterPosition(v)).getCodigo(),Toast.LENGTH_LONG).show();
+                    break;
+                case R.id.etBuscar:
+                    etBuscar.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            cad=s.toString();
+                            adaptadorActivos=new ReciclerViewAdaptador(obtenerListaActivos(cad));
+                            Log.i("MyDB", "llegue aqui 000" +obtenerListaActivos(cad));
+                            recyclerViewActivos.setAdapter(adaptadorActivos);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                    break;
+            }
+        }
+    };
     public  void escaner(){
         IntentIntegrator intent = new IntentIntegrator(this);
-        intent.setDesiredBarcodeFormats(IntentIntegrator.PRODUCT_CODE_TYPES);
+        intent.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
 
         intent.setPrompt("Escanear Código");
         intent.setCameraId(0);
         intent.setBeepEnabled(false);
         intent.setBarcodeImageEnabled(false);
+        intent.setOrientationLocked(false);
         intent.initiateScan();
-
-
     }
 
     @Override
