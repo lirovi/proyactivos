@@ -51,15 +51,7 @@
                     android:layout_marginTop="@dimen/topmargin_buttomCruds"
                     />
 
-                <Button
-                    android:id="@+id/gDpto"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/heigtButtom_MenuCruds"
-                    android:text="@string/textButtom_gesDpto"
-                    android:theme="@style/RaisedButtonDark"
-                    android:onClick="goShowGesDpto"
-                    android:layout_marginTop="@dimen/topmargin_buttomCruds"
-                    />
+
                 <Button
                     android:id="@+id/gOficina"
                     android:layout_width="match_parent"
@@ -77,15 +69,7 @@
                     android:onClick="goShowGesProfesion"
                     android:layout_marginTop="@dimen/topmargin_buttomCruds"
                     />
-                <Button
-                    android:id="@+id/gObservacion"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/heigtButtom_MenuCruds"
-                    android:text="@string/textButtom_gesObs"
-                    android:theme="@style/RaisedButtonDark"
-                    android:onClick="goShowGesObs"
-                    android:layout_marginTop="@dimen/topmargin_buttomCruds"
-                    />
+
                 <Button
                     android:id="@+id/gEstado"
                     android:layout_width="match_parent"
@@ -104,15 +88,7 @@
                     android:onClick="goShowGesTipoDocumento"
                     android:layout_marginTop="@dimen/topmargin_buttomCruds"
                     />
-                <Button
-                    android:id="@+id/gMotivo"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/heigtButtom_MenuCruds"
-                    android:text="@string/textButtom_gesMotivo"
-                    android:theme="@style/RaisedButtonDark"
-                    android:onClick="goShowGesMotivo"
-                    android:layout_marginTop="@dimen/topmargin_buttomCruds"
-                    />
+
                 <Button
                     android:id="@+id/gCargo"
                     android:layout_width="match_parent"

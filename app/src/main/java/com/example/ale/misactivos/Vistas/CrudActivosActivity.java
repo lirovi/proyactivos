@@ -56,26 +56,26 @@ public class CrudActivosActivity extends AppCompatActivity {
         btLeerCodBarra = findViewById(R.id.btnCodBarra);
         recyclerViewActivos.setLayoutManager(new LinearLayoutManager(this));
 
-        adaptadorActivos=new ReciclerViewAdaptador(obtenerListaActivos(cad));
+        adaptadorActivos=new ReciclerViewAdaptador(this,obtenerListaActivos(cad));
 
         recyclerViewActivos.setAdapter(adaptadorActivos);
 
 
-       /* btLeerCodBarra.setOnClickListener(new View.OnClickListener() {
+       btLeerCodBarra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 escaner();
             }
         });
 
-        adaptadorActivos.setOnClickListener(new View.OnClickListener() {
+       /* adaptadorActivos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("MyDB", "llegue aqui");
                 Toast.makeText(getApplicationContext(),"Seleccion "+obtenerListaActivos(cad).get(
                         recyclerViewActivos.getChildAdapterPosition(v)).getCodigo(),Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
         etBuscar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -85,7 +85,7 @@ public class CrudActivosActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 cad=s.toString();
-                adaptadorActivos=new ReciclerViewAdaptador(obtenerListaActivos(cad));
+                adaptadorActivos=new ReciclerViewAdaptador(getApplicationContext(),obtenerListaActivos(cad));
                 recyclerViewActivos.setAdapter(adaptadorActivos);
             }
 
@@ -93,14 +93,14 @@ public class CrudActivosActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
 
             }
-        });*/
-        etBuscar.setOnClickListener(myOnClickListener);
+        });
+        /*etBuscar.setOnClickListener(myOnClickListener);
         btLeerCodBarra.setOnClickListener(myOnClickListener);
         recyclerViewActivos.setOnClickListener(myOnClickListener);
-        //cardView.setOnClickListener(myOnClickListener);
+        cardView.setOnClickListener(myOnClickListener);*/
     }
 
-    private View.OnClickListener myOnClickListener = new View.OnClickListener(){
+    /*private View.OnClickListener myOnClickListener = new View.OnClickListener(){
 
         @Override
         public void onClick(View v) {
@@ -138,7 +138,7 @@ public class CrudActivosActivity extends AppCompatActivity {
                     break;
             }
         }
-    };
+    };*/
     public  void escaner(){
         IntentIntegrator intent = new IntentIntegrator(this);
         intent.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);

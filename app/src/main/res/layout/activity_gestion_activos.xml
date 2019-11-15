@@ -23,7 +23,7 @@
             android:layout_width="299dp"
             android:layout_height="149dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/visualizacion_datos"
+            android:background="@drawable/ico_editar"
             android:contentDescription="TODO" />
 
 
@@ -42,7 +42,7 @@
             android:layout_width="299dp"
             android:layout_height="149dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/actualiza_datos"
+            android:background="@drawable/ico_eliminar"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:contentDescription="TODO" />
 

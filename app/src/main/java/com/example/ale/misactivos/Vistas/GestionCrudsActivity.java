@@ -22,18 +22,18 @@ public class GestionCrudsActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-    public void goShowGesDpto(View view){
+   /* public void goShowGesDpto(View view){
         Intent intent= new Intent(this, CrudOficinaActivity.class);
         startActivity(intent);
 
-    }
+    }*/
     public void goShowGesOficina(View view){
-        Intent intent= new Intent(this,CrudEdificioActivity.class);
+        Intent intent= new Intent(this,CrudOficinaActivity.class);
         startActivity(intent);
 
     }
     public void goShowGesCargo(View view){
-        Intent intent= new Intent(this,CrudEdificioActivity.class);
+        Intent intent= new Intent(this,CrudCargosActivity.class);
         startActivity(intent);
 
     }
@@ -43,27 +43,27 @@ public class GestionCrudsActivity extends AppCompatActivity {
 
     }
     public void goShowGesEstado(View view){
-        Intent intent= new Intent(this,CrudEdificioActivity.class);
+        Intent intent= new Intent(this,CrudEstadosActivity.class);
         startActivity(intent);
 
     }
-    public void goShowGesMotivo(View view){
+    /*public void goShowGesMotivo(View view){
         Intent intent= new Intent(this,CrudEdificioActivity.class);
         startActivity(intent);
 
-    }
-    public void goShowGesObs(View view){
+    }*/
+   /* public void goShowGesObs(View view){
         Intent intent= new Intent(this,CrudEdificioActivity.class);
         startActivity(intent);
 
-    }
+    }*/
     public void goShowGesTipoDocumento(View view){
-        Intent intent= new Intent(this,CrudEdificioActivity.class);
+        Intent intent= new Intent(this,CrudTipoDocumentoActivity.class);
         startActivity(intent);
 
     }
     public void goShowGesFuncionario(View view){
-        Intent intent= new Intent(this,CrudEdificioActivity.class);
+        Intent intent= new Intent(this,CrudFuncionarioActivity.class);
         startActivity(intent);
     }
     public void goShowGesProfesion(View view){

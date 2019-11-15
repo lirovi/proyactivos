@@ -30,13 +30,14 @@ public class MenuCrudsActivity extends AppCompatActivity {
     //arrays de imagenes para el menu grid
     final List<Integer> nombres= new ArrayList<>();
         nombres.add(R.drawable.ico_edificio);
-        nombres.add(R.drawable.ico_dpto);
+       // nombres.add(R.drawable.ico_dpto);
         nombres.add(R.drawable.ico_oficina);
         nombres.add(R.drawable.ico_cargo);
         nombres.add(R.drawable.ico_tipodoc);
         nombres.add(R.drawable.ico_funcionario);
         nombres.add(R.drawable.ico_profesion);
-        nombres.add(R.drawable.ico_obs);
+       // nombres.add(R.drawable.ico_obs);
+        nombres.add(R.drawable.ico_activosfijos);
 
 
 
@@ -52,28 +53,27 @@ public class MenuCrudsActivity extends AppCompatActivity {
                     intent = new Intent(MenuCrudsActivity.this, CrudEdificioActivity.class );
                     break;
                 case 1:
-                    intent = new Intent(MenuCrudsActivity.this, CrudEdificioActivity.class );
+                    intent = new Intent(MenuCrudsActivity.this, CrudOficinaActivity.class );
                    break;
                 case 2:
-                    intent = new Intent(MenuCrudsActivity.this, CrudEdificioActivity.class );
+                    intent = new Intent(MenuCrudsActivity.this, CrudCargosActivity.class );
                     break;
                 case 3:
-                    intent = new Intent(MenuCrudsActivity.this, CrudEdificioActivity.class );
-                    startActivity(intent);
+                    intent = new Intent(MenuCrudsActivity.this, CrudTipoDocumentoActivity.class );
                     break;
                 case 4:
-                     intent = new Intent(MenuCrudsActivity.this, CrudEdificioActivity.class );
+                     intent = new Intent(MenuCrudsActivity.this, CrudFuncionarioActivity.class );
                     break;
                 case 5:
                     intent = new Intent(MenuCrudsActivity.this, CrudProfesionesActivity.class );
                     break;
                 case 6:
-                     intent = new Intent(MenuCrudsActivity.this, CrudProfesionesActivity.class );
+                     intent = new Intent(MenuCrudsActivity.this, CrudActivosActivity.class );
                     break;
-                case 7:
+                /*case 7:
                     intent = new Intent(MenuCrudsActivity.this, CrudEdificioActivity.class );
 
-                    break;
+                    break;*/
                     default:
                         Toast.makeText(MenuCrudsActivity.this, "Actividad no encontrada",Toast.LENGTH_SHORT).show();
                         break;

@@ -42,8 +42,8 @@
     <string name="hint_modelo">Modelo</string>
     <string name="hint_fecha_preventivo">Fecha Preventivo</string>
     <string name="hint_grupo_activo">Grupo</string>
-    <string name="hint_gestion">Gestión</string>
-    <string name="hint_partida_presupuestaria">Partida</string>
+    <string name="hint_gestion">Gestión Ingreso</string>
+    <string name="hint_partida_presupuestaria">Partida Presupuestaria</string>
     <string name="hint_numero_serie">Nro. Serie</string>
     <string name="hint_numero_placa">Nro. Placa</string>
     <string name="hint_origen">Origen</string>
@@ -85,4 +85,10 @@
     <string name="hint_tel_d">Teléfono</string>
     <string name="ipServer">http://192.168.3.223/conexoracle/</string>
     <string name="title_activity_crud_cargos_acrtivity">CrudCargosAcrtivity</string>
+    <string name="hint_correlativo">Correlativo</string>
+    <string name="hint_estado_bd">Estado BDatos</string>
+    <string name="hint_baja">Baja Activo</string>
+    <string name="hint_gestion_baja">Gestión Baja</string>
+    <string name="text_button_grabar_cambios">Grabar Cambios</string>
+    <string name="hint_ubi_geografica">Ubicación Geográfica</string>
 </resources>

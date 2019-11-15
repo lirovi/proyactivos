@@ -111,7 +111,7 @@ public class Activos implements Serializable {
         this.ORIGEN = ORIGEN;
         this.IMAGEN= IMAGEN;
         this.CAMBIO=CAMBIO;
-        this. ESTADO= ESTADO;
+        this.ESTADO= ESTADO;
     }
     public String getCodigo() {
         return Codigo;
