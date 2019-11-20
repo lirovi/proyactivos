@@ -83,7 +83,7 @@
     <string name="hint_nrodoc_d">Número Documento</string>
     <string name="hint_nacionalidad_d">Nacionalidad</string>
     <string name="hint_tel_d">Teléfono</string>
-    <string name="ipServer">http://192.168.3.223/conexoracle/</string>
+    <string name="ipServer">http://192.168.3.222/conexoracle/</string>
     <string name="title_activity_crud_cargos_acrtivity">CrudCargosAcrtivity</string>
     <string name="hint_correlativo">Correlativo</string>
     <string name="hint_estado_bd">Estado BDatos</string>

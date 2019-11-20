@@ -28,7 +28,7 @@ public class Activos implements Serializable {
     private String BAJA;
     private String UBI_GEOGRAFICA;
     private String ORIGEN;
-    private int IMAGEN;
+    private String RUTA_IMAGEN;
     private String CAMBIO;
     private String ESTADO;
 
@@ -48,10 +48,10 @@ public class Activos implements Serializable {
         this.DESCRIPCION = DESCRIPCION;
         this.FECHA_INGRESO= FECHA_INGRESO;
     }
-    public Activos(String CODIGO, String DESCRIPCION, String FECHA_INGRESO,Integer IMAGEN ) {
+    public Activos(String CODIGO, String DESCRIPCION, String FECHA_INGRESO,String RUTA_IMAGEN ) {
         this.Codigo = CODIGO;
         this.DESCRIPCION = DESCRIPCION;
-        this.IMAGEN= IMAGEN;
+        this.RUTA_IMAGEN= RUTA_IMAGEN;
         this.FECHA_INGRESO= FECHA_INGRESO;
     }
 
@@ -83,7 +83,7 @@ public class Activos implements Serializable {
         this.ORIGEN = ORIGEN;
     }
 
-    public Activos(String codigo, Integer CORRELATIVO, String TIPO, String DESCRIPCION, String UNIDAD, String FECHA_INGRESO, String VALOR, String VALOR_RESIDUAL, String ESTADOFISICO, String ESTADO_BD, String OBSERVACION, String GRUPO, String AUXILIAR, Integer GESTION_INGRESO, String PARTIDA, String GLOSA, String COLOR, String SERIE, String MARCA, String MODELO, String PLACA, String BAJA, Integer GESTION_BAJA, String UBI_GEOGRAFICA, String ORIGEN,Integer IMAGEN, String CAMBIO, String ESTADO) {
+    public Activos(String codigo, Integer CORRELATIVO, String TIPO, String DESCRIPCION, String UNIDAD, String FECHA_INGRESO, String VALOR, String VALOR_RESIDUAL, String ESTADOFISICO, String ESTADO_BD, String OBSERVACION, String GRUPO, String AUXILIAR, Integer GESTION_INGRESO, String PARTIDA, String GLOSA, String COLOR, String SERIE, String MARCA, String MODELO, String PLACA, String BAJA, Integer GESTION_BAJA, String UBI_GEOGRAFICA, String ORIGEN,String RUTA_IMAGEN, String CAMBIO, String ESTADO) {
         Codigo = codigo;
         this.CORRELATIVO = CORRELATIVO;
         this.TIPO = TIPO;
@@ -109,7 +109,7 @@ public class Activos implements Serializable {
         this.GESTION_BAJA = GESTION_BAJA;
         this.UBI_GEOGRAFICA = UBI_GEOGRAFICA;
         this.ORIGEN = ORIGEN;
-        this.IMAGEN= IMAGEN;
+        this.RUTA_IMAGEN= RUTA_IMAGEN;
         this.CAMBIO=CAMBIO;
         this.ESTADO= ESTADO;
     }
@@ -315,12 +315,12 @@ public class Activos implements Serializable {
         this.ORIGEN = ORIGEN;
     }
 
-    public int getIMAGEN() {
-        return IMAGEN;
+    public String getRUTA_IMAGEN() {
+        return RUTA_IMAGEN;
     }
 
     public void setIMAGEN(int IMAGEN) {
-        this.IMAGEN = IMAGEN;
+        this.RUTA_IMAGEN = RUTA_IMAGEN;
     }
 
     public String getCAMBIO() {

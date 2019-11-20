@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.ale.misactivos.Operaciones.ConexionSqliteHelper;
 import com.example.ale.misactivos.entidades.Activos;
@@ -60,7 +61,7 @@ public class DaoActivos {
                 datos.put("ubi_geog", a.getUBI_GEOGRAFICA());
                 datos.put("origen", a.getORIGEN());
                 datos.put("cambio", "");
-                datos.put("origen", a.getIMAGEN());
+                //datos.put("imagen", a.getRUTA_IMAGEN());
                 datos.put("estado", a.getESTADO());
 
                 res = db.insert("Activos",null,datos);
@@ -148,19 +149,32 @@ public class DaoActivos {
                 if(cursor!=null && cursor.getCount()>0){
                     cursor.moveToFirst();
                     do{
-                        lista.add(new Activos(cursor.getString(0),cursor.getString(3),
-                                cursor.getString(5)));/*,
-                                cursor.getString(4),cursor.getString(5),
-                                cursor.getFloat(6),cursor.getFloat(7),
-                                cursor.getInt(8),cursor.getString(9),
-                                cursor.getInt(10),cursor.getString(11),
-                                cursor.getString(12),cursor.getInt(13),
-                                cursor.getString(14),cursor.getString(15),
-                                cursor.getString(16),cursor.getString(17),
-                                cursor.getString(18),cursor.getString(19),
-                                cursor.getString(20),cursor.getString(21),
-                                cursor.getInt(22),cursor.getString(23),
-                                cursor.getString(24)));*/
+                        lista.add(new Activos(
+                                cursor.getString(0),
+                                cursor.getInt(1),
+                               cursor.getString(2),
+                                cursor.getString(3),
+                                cursor.getString(4),
+                                cursor.getString(5),
+                                cursor.getString(6),
+                                cursor.getString(7),
+                                cursor.getString(8),
+                                cursor.getString(9),
+                                cursor.getString(10),
+                                cursor.getString(11),
+                                cursor.getString(12),
+                                cursor.getInt(13),
+                                cursor.getString(14),
+                                cursor.getString(15),
+                                cursor.getString(16),
+                                cursor.getString(17),
+                                cursor.getString(18),
+                                cursor.getString(19),
+                                cursor.getString(20),
+                                cursor.getString(21),
+                                cursor.getInt(22),
+                                cursor.getString(23),
+                                cursor.getString(24)));
 
                     }while(cursor.moveToNext());
 
@@ -168,7 +182,7 @@ public class DaoActivos {
                 db.close();
                 cursor.close();
             } catch (Exception e) {
-                Log.e("MYDB", "Error al listar Activos - verTodos");
+                Toast.makeText(ct,"Error al listar Activos - verTodos",Toast.LENGTH_LONG).show();
             }
             return lista;
         }

@@ -16,17 +16,14 @@ import com.example.ale.misactivos.R;
 import com.example.ale.misactivos.Vistas.EditaActivosActivity;
 import com.example.ale.misactivos.entidades.Activos;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class ReciclerViewAdaptador extends RecyclerView.Adapter<ReciclerViewAdaptador.ViewHolderActivos>{
-                                   // implements View.OnClickListener {
-    //ArrayList<Activos> mlista;
+
     Context mContex;
     public List<Activos> listaActivos;
 
-    //private View.OnClickListener listener;
 
     public static class ViewHolderActivos extends RecyclerView.ViewHolder{
         private TextView codActivo, DescActivo, fecIng;
@@ -41,9 +38,7 @@ public class ReciclerViewAdaptador extends RecyclerView.Adapter<ReciclerViewAdap
             fotoActivo = itemView.findViewById(R.id.imgActivo);
             cardViewActivo =  itemView.findViewById(R.id.idCardviewActivos);
         }
-
     }
-
 
     public ReciclerViewAdaptador(Context context,List<Activos> listaActivos){
         this.mContex=context;
@@ -65,7 +60,7 @@ public class ReciclerViewAdaptador extends RecyclerView.Adapter<ReciclerViewAdap
         holder.codActivo.setText(listaActivos.get(i).getCodigo());
         holder.DescActivo.setText(listaActivos.get(i).getDESCRIPCION());
         holder.fecIng.setText(listaActivos.get(i).getFECHA_INGRESO());
-        holder.fotoActivo.setImageResource(listaActivos.get(i).getIMAGEN());
+       // holder.fotoActivo.setImageResource();
 
         holder.cardViewActivo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,19 +78,5 @@ public class ReciclerViewAdaptador extends RecyclerView.Adapter<ReciclerViewAdap
     public int getItemCount() {
         return listaActivos.size();
     }
-
-   /* public void setOnClickListener(View.OnClickListener listener){
-        this.listener=listener;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(listener!=null){
-            listener.onClick(v);
-        }
-
-    }*/
-
-
 
 }

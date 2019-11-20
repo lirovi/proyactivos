@@ -1,14 +1,19 @@
 package com.example.ale.misactivos.Vistas;
 
+import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,12 +26,10 @@ import com.example.ale.misactivos.R;
 import com.example.ale.misactivos.entidades.Activos;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 public class EditaActivosActivity extends AppCompatActivity {
     TextView teCodigo;
@@ -34,11 +37,11 @@ public class EditaActivosActivity extends AppCompatActivity {
             teValorResidual,teEstadoDB,teObseravacion,teGrupo,teAuxiliar,teGestionIng, tePartida,
             teGlosa, teColor, teSerie, teMarca,teModelo,tePlaca,teGestionBaja,teBaja,teUbiGeo,teOrigen;
     ImageView teImagen;
-    String sCambio,sEstado;
+    String sCambio,sEstado, archivo;
     Button btGrabarCambios, btnTomarfoto;
     Activos datoActivo;
 
-    public static final int REQUEST_CODE_TAKE_PHOTO = 1 /*1*/;
+    public static final int REQUEST_CODE_TAKE_PHOTO = 0 /*1*/;
     private String currentPhotoPath;
     private Uri photoURI;
 
@@ -47,16 +50,74 @@ public class EditaActivosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edita_activos);
 
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 226);
+
+        }
         relacionaUI();
 
         Bundle datos= getIntent().getExtras();
         if(datos!= null) {
+
+
             //datoActivo= new Lis<>();
             datoActivo = ( Activos ) datos.getSerializable("datosActivo");
+
+            /*Log.i("MyDB",datoActivo.getCodigo()+"");
+            Log.i("MyDB",datoActivo.getCORRELATIVO()+"");
+            Log.i("MyDB",datoActivo.getTIPO());
+            Log.i("MyDB",datoActivo.getDESCRIPCION());
+
+           Log.i("MyDB",datoActivo.getUNIDAD());
+            Log.i("MyDB",datoActivo.getFECHA_INGRESO());
+           Log.i("MyDB",datoActivo.getVALOR());
+
+            Log.i("MyDB",datoActivo.getVALOR_RESIDUAL());
+            Log.i("MyDB",datoActivo.getESTADOFISICO());
+            Log.i("MyDB",datoActivo.getESTADO_BD());
+            Log.i("MyDB",datoActivo.getOBSERVACION());
+            Log.i("MyDB",datoActivo.getGRUPO());
+            Log.i("MyDB",datoActivo.getAUXILIAR());
+            Log.i("MyDB",datoActivo.getGESTION_INGRESO()+"");
+            Log.i("MyDB",datoActivo.getPARTIDA());
+            Log.i("MyDB",datoActivo.getGLOSA());
+            Log.i("MyDB",datoActivo.getCOLOR());
+            Log.i("MyDB",datoActivo.getSERIE());
+            Log.i("MyDB",datoActivo.getMARCA());
+            Log.i("MyDB",datoActivo.getMODELO());
+            Log.i("MyDB",datoActivo.getPLACA());
+            Log.i("MyDB",datoActivo.getGESTION_BAJA()+"");
+            Log.i("MyDB",datoActivo.getBAJA());
+            Log.i("MyDB",datoActivo.getUBI_GEOGRAFICA());
+            Log.i("MyDB",datoActivo.getORIGEN());*/
+
             teCodigo.setText(datoActivo.getCodigo()+"");
             teCorrelativo.setText(datoActivo.getCORRELATIVO()+"");
             teTipo.setText(datoActivo.getTIPO());
             teDescripcion.setText(datoActivo.getDESCRIPCION());
+            teUunidad.setText(datoActivo.getUNIDAD());
+            teFeching.setText(datoActivo.getFECHA_INGRESO());
+            teValor.setText(datoActivo.getVALOR()+"");
+            teValorResidual.setText(datoActivo.getVALOR_RESIDUAL()+"");
+            teEstadoDB.setText(datoActivo.getESTADO_BD());
+            teObseravacion.setText(datoActivo.getOBSERVACION());
+            teGrupo.setText(datoActivo.getGRUPO());
+            teAuxiliar.setText(datoActivo.getAUXILIAR());
+            teGestionIng.setText(datoActivo.getGESTION_INGRESO()+"");
+            tePartida.setText(datoActivo.getPARTIDA()+"");
+            teGlosa.setText(datoActivo.getGLOSA());
+            teColor.setText(datoActivo.getCOLOR());
+            teSerie.setText(datoActivo.getSERIE());
+            teMarca.setText(datoActivo.getMARCA());
+            teModelo.setText(datoActivo.getMODELO());
+            tePlaca.setText(datoActivo.getPLACA());
+            teGestionBaja.setText(datoActivo.getGESTION_BAJA()+"");
+            teBaja.setText(datoActivo.getBAJA());
+            teUbiGeo.setText(datoActivo.getUBI_GEOGRAFICA());
+            teOrigen.setText(datoActivo.getORIGEN());
         }else{
             Toast.makeText(this, "Datos no recibidos",Toast.LENGTH_SHORT).show();
         }
@@ -64,7 +125,67 @@ public class EditaActivosActivity extends AppCompatActivity {
         btnTomarfoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tomarFotoIntent();
+
+                try
+                {
+                    //Creamos el Intent para llamar a la Camara
+                    Time now = new Time();
+                    now.setToNow();
+                    Intent icamara = new Intent(
+                            android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    //Creamos una carpeta en la memeria del terminal
+                    /*archivo = Environment.getExternalStorageDirectory() + "/external_sd/Fotos/"+ "ID" + now.format2445() +".jpg";
+                    file = new File(archivo);
+
+                    //Finalmente ejecuto la actividad cámara pasándole dicho archivo como parámetro
+
+                    Uri outputFileUri = Uri.fromFile(file);
+                    icamara.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);*/
+                    archivo = Environment.getExternalStorageDirectory() +  "/FotoActivos/"+ "ID" + now.format2445() +".jpg";
+                    //intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                    Uri.fromFile(new File(archivo));
+                    //imageUri = Uri.fromFile(photo);
+                    Log.i("MyDB",archivo);
+                    //Validación de acuerdo al OS.
+                    if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.N) {
+                        photoURI = Uri.parse(archivo);
+                    } else{
+                        photoURI = Uri.fromFile(new File(archivo));
+                    }
+                    startActivityForResult(icamara,1);
+                }catch(Exception e)
+                {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        btGrabarCambios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //teCorrelativo.setText(datoActivo.getCORRELATIVO()+"");
+                datoActivo.setTIPO(teTipo.getText().toString());
+                datoActivo.setDESCRIPCION(teDescripcion.getText().toString());
+                datoActivo.setUNIDAD(teUunidad.getText().toString());
+                teFeching.setText(datoActivo.getFECHA_INGRESO());
+                teValor.setText(datoActivo.getVALOR()+"");
+                teValorResidual.setText(datoActivo.getVALOR_RESIDUAL()+"");
+                teEstadoDB.setText(datoActivo.getESTADO_BD());
+                teObseravacion.setText(datoActivo.getOBSERVACION());
+                teGrupo.setText(datoActivo.getGRUPO());
+                teAuxiliar.setText(datoActivo.getAUXILIAR());
+                teGestionIng.setText(datoActivo.getGESTION_INGRESO()+"");
+                tePartida.setText(datoActivo.getPARTIDA()+"");
+                teGlosa.setText(datoActivo.getGLOSA());
+                teColor.setText(datoActivo.getCOLOR());
+                teSerie.setText(datoActivo.getSERIE());
+                teMarca.setText(datoActivo.getMARCA());
+                teModelo.setText(datoActivo.getMODELO());
+                tePlaca.setText(datoActivo.getPLACA());
+                teGestionBaja.setText(datoActivo.getGESTION_BAJA()+"");
+                teBaja.setText(datoActivo.getBAJA());
+                teUbiGeo.setText(datoActivo.getUBI_GEOGRAFICA());
+                teOrigen.setText(datoActivo.getORIGEN());
             }
         });
     }
@@ -142,28 +263,19 @@ public class EditaActivosActivity extends AppCompatActivity {
     }
 
 
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Comprobamos que la foto se ha realizado
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE_TAKE_PHOTO && resultCode == RESULT_OK) {
-
-            Bitmap bitmap;
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), photoURI);
-                teImagen.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            /*if (requestCode == REQUEST_CODE_TAKE_PHOTO && resultCode == RESULT_OK) {
-                Bundle extras = data.getExtras(); // Aquí es null
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                mPhotoImageView.setImageBitmap(imageBitmap);
-            }*/
-
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            //Creamos un bitmap con la imagen recientemente
+            //almacenada en la memoria
+            Bitmap bMap = ( Bitmap ) data.getExtras().get("data");
+           /* Bitmap bMap = BitmapFactory.decodeFile(
+                    Environment.getExternalStorageDirectory() +
+                            "/FotoActivos/" + "foto.jpg");*/
+            //Añadimos el bitmap al imageView para
+            //mostrarlo por pantalla
+            teImagen.setImageBitmap(bMap);
         }
     }
 }

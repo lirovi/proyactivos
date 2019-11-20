@@ -26,6 +26,7 @@ import com.example.ale.misactivos.R;
 import com.example.ale.misactivos.entidades.Activos;
 import com.example.ale.misactivos.entidades.Edificios;
 import com.example.ale.misactivos.entidades.Funcionarios;
+import com.example.ale.misactivos.entidades.Tipodocumentos;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -274,6 +275,9 @@ public class ObtenerDataActivity extends AppCompatActivity  {
                                                 Log.i("MyDB", jsonActivos.getString("DESCRIPCION"));
                                                 Log.i("MyDB", ""+jsonActivos.getString("VALOR_RESIDUAL"));
                                                 Log.i("MyDB", ""+jsonActivos.getString("VALOR"));
+                                                //Log.i("MyDB", ""+jsonActivos.getString("TIPODOCUMENTOS"));
+                                                Log.i("MyDB", ""+jsonActivos.getString("PARTIDA"));
+                                                Log.i("MyDB", ""+jsonActivos.getString("MODELO"));
                                                 Log.i("MyDB", ""+(jsonActivos.isNull(jsonActivos.getString("ESTADO_FISICO"))?"0":"1"));
                                                 if(jsonActivos.isNull("ESTADO_FISICO")) {
                                                     eFStr[0] = "0";

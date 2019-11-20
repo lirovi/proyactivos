@@ -1,7 +1,7 @@
 package com.example.ale.misactivos.Operaciones;
 
 public class CreaTablas {
-    public static final String NOMBREDB="DBActivo";
+    public static final String NOMBREDB="DBActivos";
 
     //constantes tabla CARGOS
     public static final String  CREAR_TABLA_CARGOS="CREATE TABLE cargos (" +
@@ -116,7 +116,7 @@ public class CreaTablas {
             "ubi_geog VARCHAR(150)," +
             "origen VARCHAR(50)," +
             "cambio VARCHAR(1)," +
-            "imagen BLOB," +
+            "ruta_imagen VARCHAR(70)," +
             "estado VARCHAR(1)," +
             "FOREIGN KEY (observacionid) REFERENCES observaciones (id)," +
             "FOREIGN KEY (estadofisicoid) REFERENCES estados (id))";
