@@ -23,6 +23,8 @@ public class ReciclerViewAdaptador extends RecyclerView.Adapter<ReciclerViewAdap
 
     Context mContex;
     public List<Activos> listaActivos;
+    String edif;
+    String func;
 
 
     public static class ViewHolderActivos extends RecyclerView.ViewHolder{
@@ -40,9 +42,11 @@ public class ReciclerViewAdaptador extends RecyclerView.Adapter<ReciclerViewAdap
         }
     }
 
-    public ReciclerViewAdaptador(Context context,List<Activos> listaActivos){
+    public ReciclerViewAdaptador(Context context,List<Activos> listaActivos, String edif, String func){
         this.mContex=context;
         this.listaActivos = listaActivos;
+        this.edif=edif;
+        this.func=func;
     }
 
     @NonNull
@@ -67,8 +71,8 @@ public class ReciclerViewAdaptador extends RecyclerView.Adapter<ReciclerViewAdap
             public void onClick(View v) {
                 Intent intentActivos = new Intent(mContex, EditaActivosActivity.class);
                 intentActivos.putExtra("datosActivo",listaActivos.get(i));
-                //intentActivos.putExtra("imagen",listaActivos.get(i).getIMAGEN());
-                //intentActivos.putExtra("desc",listaActivos.get(i).getDESCRIPCION());
+                intentActivos.putExtra("vedificio",edif);
+                intentActivos.putExtra("vfuncionario",func);
                 mContex.startActivity(intentActivos);
             }
         });

@@ -4,22 +4,29 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/icono"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Vistas.EditaActivosActivity"></activity>
-        <activity android:name=".Vistas.CrudActivosActivity" >
-
-        </activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".LoginServerActivity"></activity>
+        <activity android:name=".Vistas.DetalleInventarioActivity" />
+        <activity android:name=".Vistas.GestionInventarioActivity" />
+        <activity android:name=".Vistas.EditaActivosActivity" />
+        <activity android:name=".Vistas.CrudActivosActivity" />
         <activity android:name=".Vistas.CrudCargosActivity" />
         <activity android:name=".Vistas.CrudTipoDocumentoActivity" />
         <activity android:name=".Vistas.CrudFuncionarioActivity" />
@@ -27,14 +34,13 @@
         <activity android:name=".Vistas.CrudEdificioActivity" />
         <activity android:name=".Vistas.ActualizaServerActivity" />
         <activity android:name=".Vistas.MenuCrudsActivity" />
-        <activity android:name=".LoginActivity" >
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Vistas.CreateAccountActivity"
             android:parentActivityName=".LoginActivity">
@@ -49,13 +55,10 @@
         <activity android:name=".Vistas.ContainerActivity" />
         <activity android:name=".Vistas.MenuInicialActivity" />
         <activity android:name=".Vistas.GestionServidorActivity" />
-        <activity android:name=".Vistas.ObtenerDataActivity">
-
-        </activity>
+        <activity android:name=".Vistas.ObtenerDataActivity" />
         <activity android:name=".Vistas.CreateActivoActivity" />
         <activity android:name=".Vistas.GestionActivosActivity" />
         <activity android:name=".Operaciones.CrudLogin" />
-        <activity android:name=".Vistas.GestionCrudsActivity" />
         <activity android:name=".Vistas.CrudProfesionesActivity" />
         <activity android:name=".Vistas.CrudEstadosActivity" />
     </application>

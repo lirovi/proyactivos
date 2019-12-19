@@ -21,12 +21,46 @@
             android:padding="@dimen/activity_vertical_margin"
             android:orientation="vertical"
             >
-            <Button
-                android:id="@+id/btnVerActivos"
+            <TextView
+                android:id="@+id/tvinfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Obtener Información del Servidor:"
+                android:textSize="12dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:padding="5dp"
+            android:orientation="horizontal"
+            >
+            <ImageButton
+                android:id="@+id/btnCustodia"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="Ver Activos"/>
+                android:src="@drawable/img_custodias"
+                android:text="Datos"/>
+            <ImageButton
+                android:id="@+id/btnDetcustodias"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_detcustodias"
+                android:text="Datos"/>
+
+            <ImageButton
+                android:id="@+id/btnDescActivos"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_activosfijos"
+                android:text="Datos"/>
+
+            <ImageButton
+                android:id="@+id/btnVerActivos"
+                android:layout_width="67dp"
+                android:layout_height="70dp"
+                android:src="@drawable/visualizacion_datos"
+                android:text="Datos" />
+        </LinearLayout>
 
             <TextView
                 android:id="@+id/tvSelecEdi"
@@ -48,7 +82,7 @@
                    app:ms_arrowColor="#077077"
                    app:ms_arrowSize="16dp"
                    android:layout_weight="0.7"
-                   app:ms_floatingLabelColor="#A9A9A9"
+                   app:ms_floatingLabelColor="#AEC8D5"
                    app:ms_floatingLabelText="Seleccione Edificio."
                    app:ms_multiline="true"
 

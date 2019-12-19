@@ -16,15 +16,16 @@ public class GestionActivosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gestion_activos);
         showToolbar(getResources().getString(R.string.toolbar_tittle_gestionactivos),true);
     }
-    public void goShowRegistroActivos(View view){
-        Intent intent= new Intent(this,CreateActivoActivity.class);
+    public void goShowEditaActivos(View view){
+        Intent intent= new Intent(this,CrudActivosActivity.class);
+        intent.putExtra("vedificio","Informatica");
+        intent.putExtra("vfuncionario","Limber Rojas");
         startActivity(intent);
     }
 
 
-    public void goShowUpdateActivos(View view){
-        Intent intent= new Intent(this,CreateAccountActivity.class);
-        startActivity(intent);
+    public void goSalir(View view){
+        finish();
     }
     public void showToolbar(String tittle, boolean upButton){
         Toolbar toolbar= findViewById(R.id.toolbar);

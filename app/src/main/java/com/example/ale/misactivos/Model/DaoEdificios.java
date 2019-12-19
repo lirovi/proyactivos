@@ -32,7 +32,7 @@ public class DaoEdificios {
         datos.put("codigo",e.getCodigo());
         datos.put("nombreedificio", e.getNombreedificio());
         datos.put("estado","A");
-        long res = db.insert("Edificios",null,datos);
+        long res = db.insert("edificios",null,datos);
         db.close();
         if (res>0) {
             return true;
@@ -44,7 +44,7 @@ public class DaoEdificios {
         //long res = db.delete("Edificios","id="+id,null);
         ContentValues dato= new ContentValues();
         dato.put("estado","X");
-        long res = db.update("Edificios",dato,"id="+id,null);
+        long res = db.update("edificios",dato,"id="+id,null);
         db.close();
         if (res>0) {
             return true;
@@ -54,9 +54,9 @@ public class DaoEdificios {
     public boolean limpiarTabla(){
         SQLiteDatabase db=conexion.getWritableDatabase();
         long res=0;
-        Cursor cursor= db.rawQuery("select * from Edificios",null);
+        Cursor cursor= db.rawQuery("select * from edificios",null);
         if(cursor != null && cursor.getCount()>0){
-            res =  db.delete("Edificios", null, null);
+            res =  db.delete("edificios", null, null);
         }
         cursor.close();
         db.close();
@@ -80,7 +80,7 @@ public class DaoEdificios {
     public ArrayList<Edificios> verTodos(){
         SQLiteDatabase db = conexion.getReadableDatabase();
         lista.clear();
-        Cursor cursor= db.rawQuery("select * from Edificios where estado='A'",null);
+        Cursor cursor= db.rawQuery("select * from edificios where estado='A'",null);
         if(cursor != null && cursor.getCount()>0){
             cursor.moveToFirst();
             do{
@@ -98,7 +98,7 @@ public class DaoEdificios {
 
     public Edificios verUno(int position){
         SQLiteDatabase db=conexion.getReadableDatabase();
-        Cursor cursor= db.rawQuery("select * from Edificios where estado='A'",null);
+        Cursor cursor= db.rawQuery("select * from edificios where estado='A'",null);
         cursor.moveToPosition(position);
         e=new Edificios(cursor.getString(0),cursor.getString(1));
         db.close();

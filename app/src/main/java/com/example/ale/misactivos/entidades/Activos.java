@@ -3,6 +3,7 @@ package com.example.ale.misactivos.entidades;
 import java.io.Serializable;
 
 public class Activos implements Serializable {
+    private int id;
     private String Codigo;
     private Integer CORRELATIVO;
     private String TIPO;
@@ -56,7 +57,7 @@ public class Activos implements Serializable {
     }
 
     public Activos(String codigo, Integer CORRELATIVO, String TIPO, String DESCRIPCION, String UNIDAD, String FECHA_INGRESO, String VALOR, String VALOR_RESIDUAL, String ESTADOFISICO, String ESTADO_BD, String OBSERVACION, String GRUPO, String AUXILIAR, Integer GESTION_INGRESO, String PARTIDA, String GLOSA, String COLOR, String SERIE, String MARCA, String MODELO, String PLACA, String BAJA, Integer GESTION_BAJA, String UBI_GEOGRAFICA, String ORIGEN) {
-        Codigo = codigo;
+        this.Codigo = codigo;
         this.CORRELATIVO = CORRELATIVO;
         this.TIPO = TIPO;
         this.DESCRIPCION = DESCRIPCION;
@@ -84,7 +85,7 @@ public class Activos implements Serializable {
     }
 
     public Activos(String codigo, Integer CORRELATIVO, String TIPO, String DESCRIPCION, String UNIDAD, String FECHA_INGRESO, String VALOR, String VALOR_RESIDUAL, String ESTADOFISICO, String ESTADO_BD, String OBSERVACION, String GRUPO, String AUXILIAR, Integer GESTION_INGRESO, String PARTIDA, String GLOSA, String COLOR, String SERIE, String MARCA, String MODELO, String PLACA, String BAJA, Integer GESTION_BAJA, String UBI_GEOGRAFICA, String ORIGEN,String RUTA_IMAGEN, String CAMBIO, String ESTADO) {
-        Codigo = codigo;
+        this.Codigo = codigo;
         this.CORRELATIVO = CORRELATIVO;
         this.TIPO = TIPO;
         this.DESCRIPCION = DESCRIPCION;
@@ -113,6 +114,28 @@ public class Activos implements Serializable {
         this.CAMBIO=CAMBIO;
         this.ESTADO= ESTADO;
     }
+
+    public Activos(String codigo, String DESCRIPCION, String ESTADOFISICO, String OBSERVACION, String GLOSA, String COLOR, String SERIE, String MARCA, String MODELO, String PLACA) {
+        this.Codigo = codigo;
+        this.DESCRIPCION = DESCRIPCION;
+        this.ESTADOFISICO = ESTADOFISICO;
+        this.OBSERVACION = OBSERVACION;
+        this.GLOSA = GLOSA;
+        this.COLOR = COLOR;
+        this.SERIE = SERIE;
+        this.MARCA = MARCA;
+        this.MODELO = MODELO;
+        this.PLACA = PLACA;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getCodigo() {
         return Codigo;
     }
@@ -319,7 +342,7 @@ public class Activos implements Serializable {
         return RUTA_IMAGEN;
     }
 
-    public void setIMAGEN(int IMAGEN) {
+    public void setRUTA_IMAGEN(String RUTA_IMAGEN) {
         this.RUTA_IMAGEN = RUTA_IMAGEN;
     }
 

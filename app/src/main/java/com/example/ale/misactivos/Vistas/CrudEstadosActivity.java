@@ -23,11 +23,11 @@ import java.util.ArrayList;
 
 public class CrudEstadosActivity extends AppCompatActivity {
 
-     DaoEstado dao;
-     AdaptadorEstados adapter;
-     ArrayList<Estados> lista=new ArrayList<>();
-     ListView list;
-     Estados e;
+    DaoEstado dao;
+    AdaptadorEstados adapter;
+    ArrayList<Estados> lista=new ArrayList<>();
+    ListView list;
+    Estados e;
     Button agregar,guardar,cancelar;
     EditText nombredit;
     TextView tituloform, nombre;
@@ -48,7 +48,7 @@ public class CrudEstadosActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               // para hacer llamada desde la lista
+                // para hacer llamada desde la lista
 
             }
         });
@@ -92,7 +92,7 @@ public class CrudEstadosActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-               Toast.makeText(CrudEstadosActivity.this,"Añadiendo registro: "+nombredit.getText(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(CrudEstadosActivity.this,"Añadiendo registro: "+nombredit.getText(),Toast.LENGTH_SHORT).show();
             }
         });
 

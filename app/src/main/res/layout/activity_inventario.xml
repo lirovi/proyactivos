@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Vistas.GestionInventarioActivity">
+
+    <include layout="@layout/actionbar_toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/activity_vertical_margin"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/tvTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="CARGADO DE INVENTARIO"
+                android:textStyle="bold"
+                android:textColor="#CC091C97"
+                android:textSize="20dp"/>
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="160dp"
+                android:background="@drawable/inventario"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:contentDescription="TODO" />
+
+            <TextView
+                android:id="@+id/tvSelecEdi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seleccione Edificio:"
+                android:layout_marginTop="30dp"
+                android:textSize="18dp"/>
+
+                 <fr.ganfra.materialspinner.MaterialSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinnerEdificio"
+                    app:ms_arrowColor="#077077"
+                    app:ms_arrowSize="16dp"
+                     android:background="#fff"
+                     app:ms_baseColor="@color/colorPrimaryLight"
+                    app:ms_floatingLabelColor="#AEC8D5"
+                    app:ms_floatingLabelText="Seleccione Edificio."
+                    app:ms_multiline="true"
+
+                    />
+
+            <TextView
+                android:id="@+id/tvSelectFun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seleccione Funcionario:"
+                android:textSize="18dp"/>
+
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinnerFuncionario"
+                    app:ms_baseColor="@color/colorPrimaryLight"
+                    android:background="#fff"
+                    app:ms_arrowColor="#077077"
+                    app:ms_arrowSize="16dp"
+                    app:ms_floatingLabelColor="#A9A9A9"
+                    app:ms_floatingLabelText="Seleccione Funcionario"
+                    app:ms_multiline="true"
+                    />
+
+            <Button
+                android:id="@+id/btCargaDatos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_button_inventario"
+                android:theme="@style/RaisedButtonDark"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.design.widget.CoordinatorLayout>

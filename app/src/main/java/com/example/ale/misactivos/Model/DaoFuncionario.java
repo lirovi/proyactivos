@@ -134,34 +134,7 @@ public class DaoFuncionario {
         return true;
 
     }
-    public ArrayList<Funcionarios> verFuncionariosXfiltro(String codedificios){
-        Cursor cursor;
-        try{
-            SQLiteDatabase db=conexion.getReadableDatabase();
-            lista.clear();
-            //cursor= db.rawQuery("SELECT personas.* " +
-             //                        "from efectos_custodia , personas " +
-             //                        "where efectos_custodia.funcionario=personas.documento " +
-             //                        "and efectos_custodia.edificio="+codedificios,null);
-            cursor= db.rawQuery("SELECT funcionarios.* " +
-                                    "from custodias , funcionarios " +
-                                    "where custodias.custodioid=funcionarios.id " +
-                                    "and custodias.edificioid="+codedificios,null);
-            if(cursor!=null && cursor.getCount()>0){
-                cursor.moveToFirst();
-                do{
-                    lista.add(new Funcionarios(cursor.getInt(0),cursor.getString(1),cursor.getString(2)));
 
-                }while(cursor.moveToNext());
-
-            }
-            db.close();
-            cursor.close();
-        } catch (Exception e) {
-            Log.e("MYDB", "Error al listar Funcionarios - verTodos");
-        }
-        return lista;
-    }
 
     public Funcionarios verUno(int position){
         Cursor cursor;
@@ -176,5 +149,33 @@ public class DaoFuncionario {
             Log.e("MYDB", "Error al listar UN Funcionario - verUno");
         }
         return fu;
+    }
+
+    public ArrayList<Funcionarios> verTodosXfiltro(String ed) {
+        Cursor cursor;
+        try{
+            SQLiteDatabase db=conexion.getReadableDatabase();
+            lista.clear();
+            String sql="Select * from funcionarios where nrodoc in ( SELECT c.custodioid from Custodias c " +
+                    " Where c.estado='A' and c.edificioid like '"+ed+"%')";
+            cursor= db.rawQuery(sql,null);
+            //cursor= db.rawQuery("SELECT funcionarios.* " +
+             //       "from custodias , funcionarios " +
+               //     "where custodias.custodioid=funcionarios.id " +
+                //    "and custodias.edificioid="+codedificios,null);
+            if(cursor!=null && cursor.getCount()>0){
+                cursor.moveToFirst();
+                do{
+                    lista.add(new Funcionarios(cursor.getString(9),cursor.getString(1),cursor.getString(2)));
+
+                }while(cursor.moveToNext());
+
+            }
+            db.close();
+            cursor.close();
+        } catch (Exception e) {
+            Log.e("MYDB", "Error :"+ e.getMessage());
+        }
+        return lista;
     }
 }

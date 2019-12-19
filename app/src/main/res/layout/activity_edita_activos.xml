@@ -30,25 +30,52 @@
                 android:padding="5dp">
                 <ImageView
                     android:id="@+id/imagenId_edit"
-                    android:layout_width="250dp"
-                    android:layout_height="160dp"
+                    android:layout_width="220dp"
+                    android:layout_height="150dp"
                     android:layout_weight="0.4
 "
                     android:src="@drawable/icono"
                     />
-                <Button
-                    android:id="@+id/btnTomafoto_edit"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:background="@drawable/imagencamara"
-                    android:tooltipText="Tomar Foto"
-                    />
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <Button
+                        android:id="@+id/btnTomafoto_edit"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/imagencamara"
+                        android:tooltipText="Tomar Foto"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Edificio:"
+                        android:textSize="10dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvEd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="11dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Funcionario:"
+                        android:textSize="10dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvFn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="11dp" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:orientation="horizontal">
 
                 <TextView
@@ -56,7 +83,6 @@
                     android:layout_height="40dp"
                     android:layout_marginBottom="8dp"
                     android:text="Código AF : "
-
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
@@ -65,7 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginBottom="8dp"
-                    android:text="11-1111-111"
+                    android:text="11-11-1111-111111"
                     android:textSize="18dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -379,15 +405,41 @@
                         android:hint="@string/hint_origen"
                         />
                 </android.support.design.widget.TextInputLayout>
-                <Button
-                    android:id="@+id/btnGuardaActivoEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_button_grabar_cambios"
-                    android:theme="@style/RaisedButtonDark"
-                    />
+
 
             </LinearLayout>
         </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <ImageButton
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/ico_edita"
+                android:id="@+id/btEdita"
+                />
+            <ImageButton
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/ico_guardar"
+                android:id="@+id/btGuarda"
+                />
+
+            <ImageButton
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ico_calcelar"
+                android:layout_weight="1"
+                android:id="@+id/btCancela"
+                />
+        </LinearLayout>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

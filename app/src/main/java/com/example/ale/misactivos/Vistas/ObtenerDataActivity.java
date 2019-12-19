@@ -1,7 +1,9 @@
 package com.example.ale.misactivos.Vistas;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -20,10 +25,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ale.misactivos.Model.DaoActivos;
+import com.example.ale.misactivos.Model.DaoCustodias;
+import com.example.ale.misactivos.Model.DaoDetcustodias;
 import com.example.ale.misactivos.Model.DaoEdificios;
 import com.example.ale.misactivos.Model.DaoFuncionario;
 import com.example.ale.misactivos.R;
 import com.example.ale.misactivos.entidades.Activos;
+import com.example.ale.misactivos.entidades.Custodias;
+import com.example.ale.misactivos.entidades.Detcustodias;
 import com.example.ale.misactivos.entidades.Edificios;
 import com.example.ale.misactivos.entidades.Funcionarios;
 import com.example.ale.misactivos.entidades.Tipodocumentos;
@@ -39,26 +48,36 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 public class ObtenerDataActivity extends AppCompatActivity  {
 
     private static String TAG = "MainActivity ";
-    private ProgressDialog progress;
+    private ProgressDialog progreso, progress;
     private Edificios edificios;
     private Funcionarios funcionarios;
+
 
     MaterialSpinner spinneredificio,  spinnerfuncionario;
     ArrayList<String> listItemEdificio = new ArrayList<>();
     ArrayList<String> listItemFuncionario = new ArrayList<>();
     ArrayAdapter<String> adapterEdificio;
     ArrayAdapter<String> adapterFuncionario;
-    Button btProcesar,btVerActivos,btCargaEdiBDR,btCargaFunBDR; //BDR= Base de Datos Remota
-    JsonObjectRequest jsonObjectRequest;
+    Button btProcesar,btCargaEdiBDR,btCargaFunBDR; //BDR= Base de Datos Remota
+    ImageButton btVerActivos, btBajarCustodias,btBajaDetcustodia,btDeActivos;
+    JsonObjectRequest jsonObjectRequest,jsonObjectRequest1;
     DaoEdificios daoEdificios;
     DaoFuncionario daoFuncionario;
+    DaoCustodias daoCustodias;
+    Custodias cus;
     DaoActivos daoActivos;
     Activos ac;
     Context context;
-    String coded="",codfun="";
+    String coded="",codfun="",nomed="Oficina",nomfun="Funcionario";
     Edificios e;
+    Detcustodias dcus;
+    DaoDetcustodias daoDetcustodias;
     Funcionarios f;
-
+    RequestQueue queueFuncionarios=null;
+    RequestQueue queueEdificios = null;
+    RequestQueue queueCustodia = null;
+    RequestQueue queueDetcustodia = null;
+    RequestQueue queueActivos = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,19 +87,28 @@ public class ObtenerDataActivity extends AppCompatActivity  {
 
         daoEdificios= new DaoEdificios(getApplicationContext());
         daoFuncionario = new DaoFuncionario(getApplicationContext());
+        daoActivos = new DaoActivos(getApplicationContext());
+        daoCustodias = new DaoCustodias(getApplicationContext());
+        daoDetcustodias = new DaoDetcustodias(getApplicationContext());
         btVerActivos = findViewById(R.id.btnVerActivos);
+        btBajarCustodias = findViewById(R.id.btnCustodia);
+        btBajaDetcustodia = findViewById(R.id.btnDetcustodias);
+        btDeActivos = findViewById(R.id.btnDescActivos);
         btCargaEdiBDR = findViewById(R.id.btCargaEdificio);
         btCargaFunBDR = findViewById(R.id.btCargaFuncionario);
 
-        final RequestQueue queuef = Volley.newRequestQueue(this);
-        final RequestQueue queueE = Volley.newRequestQueue(this);
+        queueFuncionarios = Volley.newRequestQueue(this);
+         queueEdificios = Volley.newRequestQueue(this);
+         queueCustodia = Volley.newRequestQueue(this);
+        queueDetcustodia = Volley.newRequestQueue(this);
+        queueActivos = Volley.newRequestQueue(this);
 
 
         listItemEdificio.add("Seleccione");
         listItemFuncionario.add("Seleccione");
 
         CargarSpinnerEdificios();
-        CargarSpinnerFuncionarios();
+        //CargarSpinnerFuncionarios();
 
         spinneredificio = (MaterialSpinner) findViewById(R.id.spinnerEdificio);
         adapterEdificio =  new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,listItemEdificio);
@@ -94,8 +122,11 @@ public class ObtenerDataActivity extends AppCompatActivity  {
                 if (position > 0){
                     String selected[] =  (spinneredificio.getItemAtPosition(position).toString().split("-"));
                     Toast.makeText(getApplicationContext(), "Datos Selecionado: "+selected[1], Toast.LENGTH_SHORT).show();
-                    //CargarSpinnerFuncionarioXfiltro(selected[1]);
+                    CargarSpinnerFuncionariosXfiltro(selected[1]);
+
                     coded=selected[1];
+                    nomed=selected[2];
+
                 }
             }
             @Override
@@ -115,9 +146,14 @@ public class ObtenerDataActivity extends AppCompatActivity  {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0){
                     String selecfun[] =  (spinnerfuncionario.getItemAtPosition(position).toString().split("-"));
-                    //Toast.makeText(getApplicationContext(), "Datos Seleccionado"+selecfun[0]+" - "+selecfun [1], Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Datos Seleccionado"+selecfun[0]+" - "+selecfun [1], Toast.LENGTH_SHORT).show();
                     codfun=selecfun[0];
+                    nomfun=selecfun[1];
+                }else{
+                    codfun="Seleccione";
+                    nomfun="Todos del área";
                 }
+
             }
 
             @Override
@@ -125,56 +161,150 @@ public class ObtenerDataActivity extends AppCompatActivity  {
 
             }
         });
+        btBajarCustodias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(showdialogo("¿Esta seguro de Cargar Nuevos Datos?, Los datos de CUSTODIAS Anteriores se reemplazarán")) {
+                    String url = getString(R.string.ipServer) + "wsJSONCargarCustodias.php";
 
+                    jsonObjectRequest1 = new JsonObjectRequest
+                            (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    //Toast.makeText(getApplicationContext(),"Response: " + response.toString(),Toast.LENGTH_LONG).show();
+                                    daoCustodias = new DaoCustodias(getApplicationContext());
+                                    Toast.makeText(getApplicationContext(), "Datos:" + response.toString(), Toast.LENGTH_LONG).show();
+
+                                    JSONArray jsonc = response.optJSONArray("custodias");
+                                    JSONObject json_c = null;
+                                    if (daoCustodias.limpiarTabla()) {
+
+                                        for (int i = 0; i < jsonc.length(); i++) {
+
+                                            try {
+                                                json_c = jsonc.getJSONObject(i);
+
+                                                cus = new Custodias(json_c.getString("CPBTE"), json_c.getInt("GESTION"), json_c.getString("FECHA"), json_c.getString("FUNCIONARIO"),
+                                                        json_c.getString("EDIFICIO"), json_c.getString("GLOSA"));
+                                                daoCustodias.insertar(cus);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "No se puede Limpiar la Tabla Custodias", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            }, new Response.ErrorListener() {
+
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // TODO: Handle error
+                                    Toast.makeText(getApplicationContext(), "NO es posible la conexion a la BD: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                    queueCustodia.add(jsonObjectRequest1);
+                }
+            }
+        });
+        btBajaDetcustodia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(showdialogo("¿Esta seguro de Cargar Nuevos Datos?, Los datos de DETALLE CUSTODIA Anteriores se reemplazarán")) {
+                    String url = getString(R.string.ipServer) + "wsJSONCargarDetcustodias.php";
+
+                    jsonObjectRequest = new JsonObjectRequest
+                            (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    //Toast.makeText(getApplicationContext(),"Response: " + response.toString(),Toast.LENGTH_LONG).show();
+                                    daoDetcustodias = new DaoDetcustodias(getApplicationContext());
+                                    Toast.makeText(getApplicationContext(), "Datos:" + response.toString(), Toast.LENGTH_LONG).show();
+
+                                    JSONArray jsondc = response.optJSONArray("detcustodias");
+                                    JSONObject json_dc = null;
+                                    if (daoDetcustodias.limpiarTabla()) {
+
+                                        for (int i = 0; i < jsondc.length(); i++) {
+
+                                            try {
+                                                json_dc = jsondc.getJSONObject(i);
+
+                                                dcus = new Detcustodias(json_dc.getString("CPBTE"), json_dc.getInt("GESTION"),
+                                                        json_dc.getString("CODIGO_ACTIVO"), json_dc.getString("ESTADO_ACTUAL"),
+                                                        json_dc.getString("ESTADO"));
+                                                daoDetcustodias.insertar(dcus);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "No se puede Limpiar la Tabla Custodias", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            }, new Response.ErrorListener() {
+
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // TODO: Handle error
+                                    Toast.makeText(getApplicationContext(), "NO es posible la conexion a la BD: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                    queueDetcustodia.add(jsonObjectRequest);
+                }
+            }
+        });
         btCargaEdiBDR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = getString(R.string.ipServer)+"wsJSONConsEdificios.php";
+                if(showdialogo("¿Esta seguro de Cargar Nuevos Datos?, Los datos de EDIFICIO Anteriores se reemplazarán")) {
+                    String url = getString(R.string.ipServer) + "wsJSONCargarEdificios.php";
 
-                jsonObjectRequest = new JsonObjectRequest
-                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                    jsonObjectRequest = new JsonObjectRequest
+                            (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                //Toast.makeText(getApplicationContext(),"Response: " + response.toString(),Toast.LENGTH_LONG).show();
-                                daoEdificios = new DaoEdificios( getApplicationContext());
-                                Toast.makeText(getApplicationContext(),"Datos:"+response.toString(),Toast.LENGTH_LONG).show();
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    //Toast.makeText(getApplicationContext(),"Response: " + response.toString(),Toast.LENGTH_LONG).show();
+                                    daoEdificios = new DaoEdificios(getApplicationContext());
+                                    Toast.makeText(getApplicationContext(), "Datos:" + response.toString(), Toast.LENGTH_LONG).show();
 
-                                JSONArray json = response.optJSONArray("edificio");
-                                JSONObject jsonedi=null;
-                                if(daoEdificios.limpiarTabla()) {
+                                    JSONArray json = response.optJSONArray("edificio");
+                                    JSONObject jsonedi = null;
+                                    if (daoEdificios.limpiarTabla()) {
 
-                                    for (int i = 0; i < json.length(); i++) {
+                                        for (int i = 0; i < json.length(); i++) {
 
-                                        try {
-                                            jsonedi = json.getJSONObject(i);
-                                            //listItem.add(jsonedi.getString("CODIGO")+"-"+
-                                            //jsonedi.getString("NOMBREEDIFICIO"));
-                                            Log.i("MyDB",jsonedi.getString("CODIGO"));
-                                            Log.i("MyDB",jsonedi.getString("NOMBRE"));
-                                            e = new Edificios(jsonedi.getString("CODIGO"), jsonedi.getString("NOMBRE"));
-                                            daoEdificios.insertar(e);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
+                                            try {
+                                                jsonedi = json.getJSONObject(i);
+
+                                                e = new Edificios(jsonedi.getString("CODIGO"), jsonedi.getString("NOMBRE"));
+                                                daoEdificios.insertar(e);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
-
-
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "No se puede Limpiar la Tabla Edificios", Toast.LENGTH_SHORT).show();
                                     }
-                                }else{
-                                    Toast.makeText(getApplicationContext(),"No se puede Limpiar la Tabla Edificios",Toast.LENGTH_SHORT).show();
+
+                                    CargarSpinnerEdificios();
+
                                 }
-                                CargarSpinnerEdificios();
+                            }, new Response.ErrorListener() {
 
-                            }
-                        }, new Response.ErrorListener() {
-
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                // TODO: Handle error
-                                Toast.makeText(getApplicationContext(),"NO es posible la conexion a la BD: " +error.getMessage(),Toast.LENGTH_LONG).show();
-                            }
-                        });
-                queueE.add(jsonObjectRequest);
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // TODO: Handle error
+                                    Toast.makeText(getApplicationContext(), "NO es posible la conexion a la BD: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                    queueEdificios.add(jsonObjectRequest);
+                }
             }
 
         });
@@ -184,9 +314,25 @@ public class ObtenerDataActivity extends AppCompatActivity  {
         btVerActivos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent veractivos= new Intent(ObtenerDataActivity.this, CrudActivosActivity.class);
-                startActivity(veractivos);
 
+                /*new AlertDialog.Builder(getApplicationContext())
+                        .setTitle( "Alerta")
+                        .setMessage("¿Desea ingresar a la edición de Activos?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {*/
+                                Intent veractivos = new Intent(ObtenerDataActivity.this, CrudActivosActivity.class);
+                                veractivos.putExtra("vedificio", nomed);
+                                veractivos.putExtra("vfuncionario", nomfun);
+                                startActivity(veractivos);
+                          /*  }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.d( "MyDB", "Preciono Cancelar");
+                            }
+                        }).show();*/
             }
         });
 
@@ -194,70 +340,68 @@ public class ObtenerDataActivity extends AppCompatActivity  {
         btCargaFunBDR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = getString(R.string.ipServer)+"wsJSONConsPersonas.php";
+              if(showdialogo("¿Esta seguro de Cargar Nuevos Datos?, Los datos de ACTIVOS Anteriores se reemplazarán")) {
+                  String url = getString(R.string.ipServer) + "wsJSONCargarFuncionarios.php";
 
-                jsonObjectRequest = new JsonObjectRequest
-                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                  jsonObjectRequest = new JsonObjectRequest
+                          (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                daoFuncionario = new DaoFuncionario( getApplicationContext());
-                                Toast.makeText(getApplicationContext(),"Datos:"+response.toString(),Toast.LENGTH_LONG).show();
+                              @Override
+                              public void onResponse(JSONObject response) {
+                                  daoFuncionario = new DaoFuncionario(getApplicationContext());
+                                  Toast.makeText(getApplicationContext(), "Datos:" + response.toString(), Toast.LENGTH_LONG).show();
 
-                                JSONArray json = response.optJSONArray("funcionario");
-                                JSONObject jsonf=null;
-                                if(daoFuncionario.limpiarTabla()) {
+                                  JSONArray jsonf = response.optJSONArray("funcionarios");
+                                  JSONObject json_f = null;
+                                  if (daoFuncionario.limpiarTabla()) {
 
-                                    for (int i = 0; i < json.length(); i++) {
+                                      for (int i = 0; i < jsonf.length(); i++) {
 
-                                        try {
-                                            jsonf = json.getJSONObject(i);
+                                          try {
+                                              json_f = jsonf.getJSONObject(i);
 
-                                            Log.i("MyDB",jsonf.getString("NOMBRE"));
-                                            Log.i("MyDB",jsonf.getString("APELLIDOS"));
-                                            f = new Funcionarios(jsonf.getString("NOMBRE"), jsonf.getString("APELLIDOS"),
-                                                    jsonf.getString("DOCUMENTO"),jsonf.getString("NACIONALIDAD"), jsonf.getString("SEXO"));
-                                            daoFuncionario.insertar(f);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
+                                              f = new Funcionarios(json_f.getString("NOMBRE"), json_f.getString("APELLIDOS"),
+                                                      json_f.getString("DOCUMENTO"), json_f.getString("NACIONALIDAD"), json_f.getString("SEXO"));
+                                              daoFuncionario.insertar(f);
+                                          } catch (JSONException e) {
+                                              e.printStackTrace();
+                                          }
+                                      }
+                                  } else {
+                                      Toast.makeText(getApplicationContext(), "No se puede Limpiar la Tabla FUNCIONARIOS", Toast.LENGTH_SHORT).show();
+                                  }
+                                  CargarSpinnerFuncionarios();
 
+                              }
+                          }, new Response.ErrorListener() {
 
-                                    }
-                                }else{
-                                    Toast.makeText(getApplicationContext(),"No se puede Limpiar la Tabla FUNCIONARIOS",Toast.LENGTH_SHORT).show();
-                                }
-                                CargarSpinnerFuncionarios();
-
-                            }
-                        }, new Response.ErrorListener() {
-
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                // TODO: Handle error
-                                Toast.makeText(getApplicationContext(),"NO es posible la conexion a la BD: " +error.getMessage(),Toast.LENGTH_LONG).show();
-                            }
-                        });
-                queuef.add(jsonObjectRequest);
-
-
+                              @Override
+                              public void onErrorResponse(VolleyError error) {
+                                  // TODO: Handle error
+                                  Toast.makeText(getApplicationContext(), "NO es posible la conexion a la BD: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                              }
+                          });
+                  queueFuncionarios.add(jsonObjectRequest);
+              }
             }
         });
-
-        btProcesar= findViewById(R.id.btCargaDatos);
-        btProcesar.setOnClickListener(new View.OnClickListener() {
+        btDeActivos.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                final String[] eFStr = new String[1];
-                if(!coded.isEmpty() && !codfun.isEmpty()) {
-                    String url = getString(R.string.ipServer) + "wsJSONConsActivosFiltrado.php?coded=" + coded + "&codfun=" + codfun;
-                    Log.i("MyDB", url);
+            public void onClick(View view) {
+                if(showdialogo("¿Esta seguro de Cargar Nuevos Datos?, Los datos de Activos Anteriores se reemplazarán")) {
+                    progreso = new ProgressDialog(context);
+                    progreso.setMessage("Cargando...");
+                    progreso.show();
+                    final String[] eFStr = new String[1];
+                    //Log.i("MyDB",":::"+coded+"-"+codfun);
+                    String url = getString(R.string.ipServer) + "wsJSONCargaActivos.php";//?coded=" + coded + "&codfun=" + codfun;
 
                     jsonObjectRequest = new JsonObjectRequest
                             (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                                 @Override
                                 public void onResponse(JSONObject response) {
+                                    progreso.hide();
                                     daoActivos = new DaoActivos(getApplicationContext());
                                     //Toast.makeText(getApplicationContext(), "Datos:" + response.toString(), Toast.LENGTH_LONG).show();
 
@@ -265,43 +409,48 @@ public class ObtenerDataActivity extends AppCompatActivity  {
                                     JSONObject jsonActivos = null;
                                     if (daoActivos.limpiarTabla()) {
                                         descargar();
-
+                                        Log.i("MyDB", "Registro: " + jsona.length());
                                         for (int i = 0; i < jsona.length(); i++) {
-
+                                            Log.i("MyDB", "Contador i: " + i);
+                                            if (i > 37) {
+                                                String hola = "hola";
+                                            }
                                             try {
                                                 jsonActivos = jsona.getJSONObject(i);
+                                                /*String valres = jsonActivos.optString("VALOR_RESIDUAL");
+                                                if(jsonActivos.optString("VALOR_RESIDUAL") == "null")
+                                                        valres="1";*/
 
-                                                Log.i("MyDB", jsonActivos.getString("CODIGO"));
-                                                Log.i("MyDB", jsonActivos.getString("DESCRIPCION"));
-                                                Log.i("MyDB", ""+jsonActivos.getString("VALOR_RESIDUAL"));
-                                                Log.i("MyDB", ""+jsonActivos.getString("VALOR"));
-                                                //Log.i("MyDB", ""+jsonActivos.getString("TIPODOCUMENTOS"));
-                                                Log.i("MyDB", ""+jsonActivos.getString("PARTIDA"));
-                                                Log.i("MyDB", ""+jsonActivos.getString("MODELO"));
-                                                Log.i("MyDB", ""+(jsonActivos.isNull(jsonActivos.getString("ESTADO_FISICO"))?"0":"1"));
-                                                if(jsonActivos.isNull("ESTADO_FISICO")) {
-                                                    eFStr[0] = "0";
-                                                } else {
-                                                    eFStr[0] = "1";
-                                                }
-
-                                                ac = new Activos(jsonActivos.getString("CODIGO"), jsonActivos.getInt("CORRELATIVO"),
-                                                        jsonActivos.getString("TIPO"), jsonActivos.getString("DESCRIPCION"),
-                                                    jsonActivos.getString("UNIDAD"),jsonActivos.getString("FECHA_INGRESO"),
-                                                    jsonActivos.getString("VALOR"), jsonActivos.getString("VALOR_RESIDUAL"),
-                                                    (jsonActivos.isNull(jsonActivos.getString("ESTADO_FISICO"))?"0":"1"),
-                                                    jsonActivos.getString("ESTADO_BD"),
-                                                        (jsonActivos.isNull(jsonActivos.getString("OBSERVACIONES"))?"0":"1"),jsonActivos.getString("GRUPO"),jsonActivos.getString("AUXILIAR"),
-                                                    jsonActivos.getInt("GESTION_INGRESO"),jsonActivos.getString("PARTIDA"),jsonActivos.getString("GLOSA"),
-                                                    jsonActivos.getString("COLOR"),jsonActivos.getString("SERIE"),jsonActivos.getString("MARCA"),
-                                                    jsonActivos.getString("MODELO"),jsonActivos.getString("PLACA"),
+                                                ac = new Activos(jsonActivos.getString("CODIGO"),
+                                                        jsonActivos.getInt("CORRELATIVO"),
+                                                        jsonActivos.getString("TIPO"),
+                                                        ((jsonActivos.getString("DESCRIPCION") == "null") ? "NINGUNA" : jsonActivos.getString("DESCRIPCION")),
+                                                        jsonActivos.getString("UNIDAD"),
+                                                        jsonActivos.getString("FECHA_INGRESO"),
+                                                        ((jsonActivos.optString("VALOR") == "null") ? "1" : jsonActivos.getString("VALOR")),
+                                                        ((jsonActivos.optString("VALOR_RESIDUAL") == "null") ? "1" : jsonActivos.optString("VALOR_RESIDUAL")),
+                                                        ((jsonActivos.optString("ESTADO_FISICO") == "null") ? "1" : jsonActivos.optString("ESTADO_FISICO")),
+                                                        ((jsonActivos.optString("ESTADO_BD") == "null") ? "NOTA_INGRESO" : jsonActivos.optString("ESTADO_BD")),
+                                                        ((jsonActivos.optString("OBSERVACIONES") == "null") ? "NINGUNA" : jsonActivos.optString("OBSERVACIONES")),
+                                                        ((jsonActivos.getString("GRUPO") == "null") ? "NINGUNA" : jsonActivos.getString("GRUPO")),
+                                                        ((jsonActivos.getString("AUXILIAR") == "null") ? "NINGUNA" : jsonActivos.getString("AUXILIAR")),
+                                                        jsonActivos.optInt("GESTION_INGRESO"),
+                                                        ((jsonActivos.getString("PARTIDA") == "null") ? "NINGUNA" : jsonActivos.getString("PARTIDA")),
+                                                        ((jsonActivos.getString("GLOSA") == "null") ? "NINGUNA" : jsonActivos.getString("GLOSA")),
+                                                        jsonActivos.getString("COLOR"),
+                                                        ((jsonActivos.getString("SERIE") == "null") ? "NINGUNA" : jsonActivos.getString("SERIE")),
+                                                        jsonActivos.getString("MARCA"),
+                                                        jsonActivos.getString("MODELO"),
+                                                        jsonActivos.getString("PLACA"),
                                                         jsonActivos.getString("BAJA"),
-                                                    Integer.valueOf(eFStr[0]),
-                                                    jsonActivos.getString("UBI_GEOGRAFICA"),jsonActivos.getString("ORIGEN"));
-                                                daoActivos.insertar(ac);
+                                                        jsonActivos.optInt("GESTION_BAJA"),
+                                                        jsonActivos.getString("UBI_GEOGRAFICA"),
+                                                        jsonActivos.getString("ORIGEN"));
+                                                daoActivos.insertarActivo(ac);
 
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
+                                                Log.i("MyDB", "Error : " + e.getMessage());
                                             }
                                         }
                                     } else {
@@ -312,43 +461,40 @@ public class ObtenerDataActivity extends AppCompatActivity  {
 
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
+                                    progreso.hide();
                                     // TODO: Handle error
                                     Toast.makeText(getApplicationContext(), "NO es posible la conexion a la BD: " + error.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             });
-                    queuef.add(jsonObjectRequest);
-
-                }else{
-                    Toast.makeText(getApplicationContext(), "Debe Seleccionar Edificio y Funcionario: " , Toast.LENGTH_LONG).show();
+                    queueActivos.add(jsonObjectRequest);
                 }
-
+            }
+        });
+        btProcesar= findViewById(R.id.btCargaDatos);
+        btProcesar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               /*new AlertDialog.Builder(getApplicationContext())
+                        .setTitle( "Alerta")
+                        .setMessage("¿Desea Cargar datos nuevos de activos de acuerdo a filtro?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {*/
+                                Intent veracti = new Intent(ObtenerDataActivity.this, CrudActivosActivity.class);
+                                veracti.putExtra("vedificio", nomed);
+                                veracti.putExtra("vfuncionario", nomfun);
+                                startActivity(veracti);
+                          /*  }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.d( "MyDB", "Preciono Cancelar");
+                            }
+                        }).show();*/
             }
         });
     }
-
-
-    private void CargarDatosEdificioWS( JSONObject response) {
-       daoEdificios = new DaoEdificios( context);
-        Toast.makeText(context,"Datos:"+response,Toast.LENGTH_LONG).show();
-
-        JSONArray json = response.optJSONArray("edificios");
-        JSONObject jsonedi=null;
-        for(int i=0; i<json.length();i++){
-
-            try {
-                jsonedi = json.getJSONObject(i);
-                /*listItem.add(jsonedi.getString("CODIGO")+"-"+
-                jsonedi.getString("NOMBREEDIFICIO"));*/
-                e = new Edificios(jsonedi.getString("CODIGO"),jsonedi.getString("NOMBREEDIFICIO"));
-                daoEdificios.insertar(e);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-    }
-
 
     private  void CargarSpinnerEdificios() {
         ArrayList<Edificios> edi = daoEdificios.verTodos();
@@ -361,7 +507,6 @@ public class ObtenerDataActivity extends AppCompatActivity  {
         }else{
             Toast.makeText(this,"No existen datos de edificio",Toast.LENGTH_LONG).show();
         }
-
     }
     private  void CargarSpinnerFuncionarios() {
         ArrayList<Funcionarios> fun = daoFuncionario.verTodos();
@@ -375,20 +520,21 @@ public class ObtenerDataActivity extends AppCompatActivity  {
         }else{
             Toast.makeText(this,"No existen datos de FUNCIONARIOS",Toast.LENGTH_LONG).show();
         }
-
     }
-    private void CargarSpinnerFuncionarioXfiltro(String codedificio){
-        ArrayList<Funcionarios> fun = daoFuncionario.verFuncionariosXfiltro(codedificio);
 
+    private  void CargarSpinnerFuncionariosXfiltro(String ed) {
+        ArrayList<Funcionarios> fun = daoFuncionario.verTodosXfiltro(ed);
 
         if(fun.size()>0) {
             for (int i = 0; i < fun.size(); i++) {
-                //Log.i("MyDB",edi.get(i).getCodigo()+"-"+edi.get(i).getNombreedificio()+"-"+edi.get(i).getEstado());
-                listItemFuncionario.add(fun.get(i).getId() + "-" + fun.get(i).getNrodoc() + "-" + fun.get(i).getNombre()+" "+ fun.get(i).getApellidou());
+
+                listItemFuncionario.add( fun.get(i).getNrodoc() +
+                        "-" + fun.get(i).getNombre()+ "-" + fun.get(i).getApellidou());
             }
         }else{
-            Toast.makeText(this,"No existen datos de funcionario",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"No existen datos de FUNCIONARIOS",Toast.LENGTH_LONG).show();
         }
+
     }
 
 
@@ -432,5 +578,27 @@ public class ObtenerDataActivity extends AppCompatActivity  {
         getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
     }
 
+
+    private boolean showdialogo(String mensaje) {
+        final boolean[] resul = {false};
+
+        new AlertDialog.Builder(this)
+            .setTitle( "Alerta")
+            .setMessage(mensaje)
+            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    resul[0] = true;
+                }
+            })
+            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d( "MyDB", "Preciono Cancelar");
+                    resul[0]=false;
+                }
+            }).show();
+        return resul[0];
+    }
 
 }

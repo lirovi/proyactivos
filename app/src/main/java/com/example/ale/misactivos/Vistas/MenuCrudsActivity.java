@@ -23,7 +23,7 @@ public class MenuCrudsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_cruds);
-        showToolbar("Gestión CRUDs", true);
+        showToolbar("Gestión Registros", true);
 
     gridView=findViewById(R.id.gvNombres);
 

@@ -7,28 +7,54 @@
     android:background="@color/colorPrimaryLight"
     tools:context=".Vistas.ActualizaServerActivity">
 
-    <include layout="@layout/actionbar_toolbar"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"
-        android:textSize="30dp"
-        android:text="PROGRESO DE ACTUALIZACION DE DATOS"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:text="ACTUALIZACION DE DATOS"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tvTexto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="41dp"
+        android:gravity="center"
+        android:text="Lista de Activos con cambios:"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp" />
+
+    <ListView
+        android:id="@+id/lvActivosModif"
+        android:layout_width="375dp"
+        android:layout_height="466dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="71dp"
+        android:background="#ffff"
+        android:divider="#f00"
+        android:dividerHeight="1dp"
+        android:listSelector="#4469" />
 
     <Button
         android:id="@+id/btnDescarga"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/RaisedButtonDark"
-        android:text="Descargar y Actualizar Servidor"
-        android:layout_marginLeft="125dp"
-        android:layout_marginStart="125dp"
-        android:layout_centerInParent="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:text="Actualizar en Servidor"
+        android:theme="@style/RaisedButtonDark" />
 
 </RelativeLayout>

@@ -54,12 +54,12 @@ public class DaoCargos {
 
         }
 
-        public boolean editar(Cargos p){
+        public boolean editar(Cargos c){
             SQLiteDatabase db=conexion.getWritableDatabase();
             ContentValues datos= new ContentValues();
-            datos.put("nombrecargo", p.getNombrecargo());
+            datos.put("nombrecargo", c.getNombrecargo());
 
-            long res = db.update("cargos",datos,"id="+p.getId(),null);
+            long res = db.update("cargos",datos,"id="+c.getId(),null);
             db.close();
             if (res>0) {
                 return true;

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.example.ale.misactivos.LoginServerActivity;
 import com.example.ale.misactivos.R;
 
 public class MenuInicialActivity extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class MenuInicialActivity extends AppCompatActivity {
 
     }
     public void goShowGesServer(View view){
-        Intent intent= new Intent(this,GestionServidorActivity.class);
+        Intent intent= new Intent(this, LoginServerActivity.class);
         startActivity(intent);
 
     }
@@ -35,7 +36,7 @@ public class MenuInicialActivity extends AppCompatActivity {
 
     }
     public void goShowContainer3(View view){
-        Intent intent= new Intent(this,ContainerActivity.class);
+        Intent intent= new Intent(this, GestionInventarioActivity.class);
         startActivity(intent);
 
     }

@@ -62,6 +62,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             Toast.makeText(this, "Complete los datos faltantes", Toast.LENGTH_LONG).show();
         }
         limpiarFormUsuarios();
+        finish();
     }
 
     private void limpiarFormUsuarios() {

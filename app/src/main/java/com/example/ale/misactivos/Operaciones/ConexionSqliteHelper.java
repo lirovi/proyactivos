@@ -18,7 +18,7 @@ public class ConexionSqliteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-      db.execSQL("DROP TABLE IF EXISTS cambios");
+     /* db.execSQL("DROP TABLE IF EXISTS cambios");
         db.execSQL("DROP TABLE IF EXISTS inventarios");
         db.execSQL("DROP TABLE IF EXISTS detinventarios");
         db.execSQL("DROP TABLE IF EXISTS devoluciones");
@@ -37,7 +37,7 @@ public class ConexionSqliteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS oficinas");
         db.execSQL("DROP TABLE IF EXISTS observaciones");
         db.execSQL("DROP TABLE IF EXISTS estados");
-        db.execSQL("DROP TABLE IF EXISTS motivos");
+        db.execSQL("DROP TABLE IF EXISTS motivos");*/
         try {
             db.execSQL(CreaTablas.CREAR_TABLA_CAMBIOS);
             db.execSQL(CreaTablas.CREAR_TABLA_USUARIOS);
@@ -60,7 +60,7 @@ public class ConexionSqliteHelper extends SQLiteOpenHelper {
             db.execSQL(CreaTablas.CREAR_TABLA_ESTADOS);
             db.execSQL(CreaTablas.CREAR_TABLA_MOTIVOS);
         } catch (Exception e) {
-            Log.e("MYDB", "Error al crear las tablas");
+            Log.e("MYDB", "Error al crear las tablas"+e.getMessage());
         }
     }
 

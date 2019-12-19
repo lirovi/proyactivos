@@ -28,28 +28,36 @@ public class LoginActivity extends AppCompatActivity {
     public void goCreateAccount(View view){
         etUsu= (TextInputEditText)findViewById(R.id.username);
         etPas= (TextInputEditText)findViewById(R.id.password);
-        if(etUsu.getText().toString().equals("admin")&& etPas.getText().toString().equals("admine")){
+        if(etUsu.getText().toString().trim().equals("admin")&& etPas.getText().toString().trim().equals("admine")){
         Intent intent= new Intent(this,CreateAccountActivity.class);
         startActivity(intent);
         }else{
-            Toast.makeText(getApplicationContext(),"No esta autorizado para crear cuentas",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"No esta autorizado para crear cuentas",Toast.LENGTH_SHORT).show();
         }
+        etUsu.setText("");
+        etPas.setText("");
     }
 
 
     public void goShowMenuInicial(View view){
         etUsu= (TextInputEditText)findViewById(R.id.username);
         etPas= (TextInputEditText)findViewById(R.id.password);
-
-       boolean verifica = verificaUssPas(etUsu.getText().toString(), etPas.getText().toString());
-          if(verifica){
-            Intent intent= new Intent(this,MenuInicialActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-       }else{
-            Toast.makeText(getApplicationContext(),"Usuario o Contraseña Incorrecto",Toast.LENGTH_LONG).show();
+        if(validalogin(etUsu.getText().toString().trim())&& validalogin(etPas.getText().toString().trim())) {
+            boolean verifica = verificaUssPas(etUsu.getText().toString().trim(), etPas.getText().toString().trim());
+            if (verifica) {
+                Intent intent = new Intent(this, MenuInicialActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), "Usuario o Contraseña Incorrecto", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), "Usuario o Contraseña debe tener mas de 4 digitos", Toast.LENGTH_SHORT).show();
         }
-        etUsu.findFocus();
+        etPas.setText("");
+        etUsu.setText("");
+
+       // etUsu.setFocusable(true);
     }
 
     public boolean verificaUssPas(String usu, String pas) throws SQLException {
@@ -68,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
     }
-    public boolean validapas(String pass){
-        return pass.length()>=4;
+    public boolean validalogin(String dato){
+        return dato.length()>=4;
     }
 }

@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -13,37 +14,44 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ale.misactivos.Model.DaoActivos;
 import com.example.ale.misactivos.R;
 import com.example.ale.misactivos.entidades.Activos;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
 public class EditaActivosActivity extends AppCompatActivity {
-    TextView teCodigo;
+    TextView teCodigo,tvEdif,tvFun;
     EditText  teCorrelativo, teTipo, teDescripcion, teUunidad, teFeching,teValor,
-            teValorResidual,teEstadoDB,teObseravacion,teGrupo,teAuxiliar,teGestionIng, tePartida,
+            teValorResidual,teEstadoDB,teEfisico, teObservacion,teGrupo,teAuxiliar,teGestionIng, tePartida,
             teGlosa, teColor, teSerie, teMarca,teModelo,tePlaca,teGestionBaja,teBaja,teUbiGeo,teOrigen;
     ImageView teImagen;
-    String sCambio,sEstado, archivo;
-    Button btGrabarCambios, btnTomarfoto;
+    String sCambio="N",sEstado, archivo,vDes=null, vEfisico=null,vObs=null,vGlosa=null,vSerie=null,vMarca=null,vModelo=null,vPlaca=null,edif,func;
+    Button  btnTomarfoto;
     Activos datoActivo;
+    DaoActivos dao;
 
     public static final int REQUEST_CODE_TAKE_PHOTO = 0 /*1*/;
     private String currentPhotoPath;
     private Uri photoURI;
+    ImageButton btnGuarda, btnEdita,  btnCancela;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,69 +67,95 @@ public class EditaActivosActivity extends AppCompatActivity {
         }
         relacionaUI();
 
+        tvEdif= findViewById(R.id.tvEd);
+        tvFun =findViewById(R.id.tvFn);
+        dao= new DaoActivos(this);
+
         Bundle datos= getIntent().getExtras();
+        edif= datos.getString("vedificio");
+        func= datos.getString("vfuncionario");
+        tvFun.setText(func);
+        tvEdif.setText(edif);
+
         if(datos!= null) {
 
-
-            //datoActivo= new Lis<>();
             datoActivo = ( Activos ) datos.getSerializable("datosActivo");
 
-            /*Log.i("MyDB",datoActivo.getCodigo()+"");
-            Log.i("MyDB",datoActivo.getCORRELATIVO()+"");
-            Log.i("MyDB",datoActivo.getTIPO());
-            Log.i("MyDB",datoActivo.getDESCRIPCION());
 
-           Log.i("MyDB",datoActivo.getUNIDAD());
-            Log.i("MyDB",datoActivo.getFECHA_INGRESO());
-           Log.i("MyDB",datoActivo.getVALOR());
-
-            Log.i("MyDB",datoActivo.getVALOR_RESIDUAL());
-            Log.i("MyDB",datoActivo.getESTADOFISICO());
-            Log.i("MyDB",datoActivo.getESTADO_BD());
-            Log.i("MyDB",datoActivo.getOBSERVACION());
-            Log.i("MyDB",datoActivo.getGRUPO());
-            Log.i("MyDB",datoActivo.getAUXILIAR());
-            Log.i("MyDB",datoActivo.getGESTION_INGRESO()+"");
-            Log.i("MyDB",datoActivo.getPARTIDA());
-            Log.i("MyDB",datoActivo.getGLOSA());
-            Log.i("MyDB",datoActivo.getCOLOR());
-            Log.i("MyDB",datoActivo.getSERIE());
-            Log.i("MyDB",datoActivo.getMARCA());
-            Log.i("MyDB",datoActivo.getMODELO());
-            Log.i("MyDB",datoActivo.getPLACA());
-            Log.i("MyDB",datoActivo.getGESTION_BAJA()+"");
-            Log.i("MyDB",datoActivo.getBAJA());
-            Log.i("MyDB",datoActivo.getUBI_GEOGRAFICA());
-            Log.i("MyDB",datoActivo.getORIGEN());*/
-
-            teCodigo.setText(datoActivo.getCodigo()+"");
-            teCorrelativo.setText(datoActivo.getCORRELATIVO()+"");
-            teTipo.setText(datoActivo.getTIPO());
-            teDescripcion.setText(datoActivo.getDESCRIPCION());
-            teUunidad.setText(datoActivo.getUNIDAD());
-            teFeching.setText(datoActivo.getFECHA_INGRESO());
-            teValor.setText(datoActivo.getVALOR()+"");
-            teValorResidual.setText(datoActivo.getVALOR_RESIDUAL()+"");
-            teEstadoDB.setText(datoActivo.getESTADO_BD());
-            teObseravacion.setText(datoActivo.getOBSERVACION());
-            teGrupo.setText(datoActivo.getGRUPO());
-            teAuxiliar.setText(datoActivo.getAUXILIAR());
-            teGestionIng.setText(datoActivo.getGESTION_INGRESO()+"");
-            tePartida.setText(datoActivo.getPARTIDA()+"");
-            teGlosa.setText(datoActivo.getGLOSA());
-            teColor.setText(datoActivo.getCOLOR());
-            teSerie.setText(datoActivo.getSERIE());
-            teMarca.setText(datoActivo.getMARCA());
-            teModelo.setText(datoActivo.getMODELO());
-            tePlaca.setText(datoActivo.getPLACA());
-            teGestionBaja.setText(datoActivo.getGESTION_BAJA()+"");
-            teBaja.setText(datoActivo.getBAJA());
-            teUbiGeo.setText(datoActivo.getUBI_GEOGRAFICA());
-            teOrigen.setText(datoActivo.getORIGEN());
+            try {
+                teCodigo.setText(datoActivo.getCodigo() + "");
+                teCorrelativo.setText(datoActivo.getCORRELATIVO() + "");
+                teTipo.setText(datoActivo.getTIPO());
+                teEfisico.setText(datoActivo.getESTADOFISICO());
+                teDescripcion.setText(datoActivo.getDESCRIPCION());
+                teUunidad.setText(datoActivo.getUNIDAD());
+                teFeching.setText(datoActivo.getFECHA_INGRESO());
+                teValor.setText(datoActivo.getVALOR() + "");
+                teValorResidual.setText(datoActivo.getVALOR_RESIDUAL() + "");
+                teEstadoDB.setText(datoActivo.getESTADO_BD());
+                teObservacion.setText(datoActivo.getOBSERVACION());
+                teGrupo.setText(datoActivo.getGRUPO());
+                teAuxiliar.setText(datoActivo.getAUXILIAR());
+                teGestionIng.setText(datoActivo.getGESTION_INGRESO() + "");
+                tePartida.setText(datoActivo.getPARTIDA() + "");
+                teGlosa.setText(datoActivo.getGLOSA());
+                teColor.setText(datoActivo.getCOLOR());
+                teSerie.setText(datoActivo.getSERIE());
+                teMarca.setText(datoActivo.getMARCA());
+                teModelo.setText(datoActivo.getMODELO());
+                tePlaca.setText(datoActivo.getPLACA());
+                teGestionBaja.setText(datoActivo.getGESTION_BAJA() + "");
+                teBaja.setText(datoActivo.getBAJA());
+                teUbiGeo.setText(datoActivo.getUBI_GEOGRAFICA());
+                teOrigen.setText(datoActivo.getORIGEN());
+                DesactivarEditext();
+            }catch (Exception e){
+                Toast.makeText(this, "Error: "+e.getMessage(),Toast.LENGTH_SHORT).show();
+                Log.i("MyDB","Erro: "+e.getMessage());
+            }
         }else{
             Toast.makeText(this, "Datos no recibidos",Toast.LENGTH_SHORT).show();
         }
 
+        btnEdita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                teDescripcion.setEnabled(true);
+                teDescripcion.setBackgroundColor(Color.parseColor("#c7f0db"));
+                teEfisico.setEnabled(true);
+                teEfisico.setBackgroundColor(Color.parseColor("#c7f0db"));
+                teObservacion.setEnabled(true);
+                teObservacion.setBackgroundColor(Color.parseColor("#c7f0db"));
+                teGlosa.setEnabled(true);
+                teGlosa.setBackgroundColor(Color.parseColor("#c7f0db"));
+                teSerie.setEnabled(true);
+                teSerie.setBackgroundColor(Color.parseColor("#c7f0db"));
+                teMarca.setEnabled(true);
+                teMarca.setBackgroundColor(Color.parseColor("#c7f0db"));
+                teModelo.setEnabled(true);
+                teModelo.setBackgroundColor(Color.parseColor("#c7f0db"));
+                tePlaca.setEnabled(true);
+                tePlaca.setBackgroundColor(Color.parseColor("#c7f0db"));
+                vDes=teDescripcion.getText().toString();
+                vEfisico=teEfisico.getText().toString();
+                vObs= teObservacion.getText().toString();
+                vGlosa=teGlosa.getText().toString();
+                vSerie=teSerie.getText().toString();
+                vMarca=teMarca.getText().toString();
+                vModelo=teModelo.getText().toString();
+                vPlaca=tePlaca.getText().toString();
+
+            }
+        });
+
+
+
+        btnCancela.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         btnTomarfoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,34 +194,91 @@ public class EditaActivosActivity extends AppCompatActivity {
             }
         });
 
-        btGrabarCambios.setOnClickListener(new View.OnClickListener() {
+        btnGuarda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //teCorrelativo.setText(datoActivo.getCORRELATIVO()+"");
-                datoActivo.setTIPO(teTipo.getText().toString());
-                datoActivo.setDESCRIPCION(teDescripcion.getText().toString());
-                datoActivo.setUNIDAD(teUunidad.getText().toString());
-                teFeching.setText(datoActivo.getFECHA_INGRESO());
-                teValor.setText(datoActivo.getVALOR()+"");
-                teValorResidual.setText(datoActivo.getVALOR_RESIDUAL()+"");
-                teEstadoDB.setText(datoActivo.getESTADO_BD());
-                teObseravacion.setText(datoActivo.getOBSERVACION());
-                teGrupo.setText(datoActivo.getGRUPO());
-                teAuxiliar.setText(datoActivo.getAUXILIAR());
-                teGestionIng.setText(datoActivo.getGESTION_INGRESO()+"");
-                tePartida.setText(datoActivo.getPARTIDA()+"");
-                teGlosa.setText(datoActivo.getGLOSA());
-                teColor.setText(datoActivo.getCOLOR());
-                teSerie.setText(datoActivo.getSERIE());
-                teMarca.setText(datoActivo.getMARCA());
-                teModelo.setText(datoActivo.getMODELO());
-                tePlaca.setText(datoActivo.getPLACA());
-                teGestionBaja.setText(datoActivo.getGESTION_BAJA()+"");
-                teBaja.setText(datoActivo.getBAJA());
-                teUbiGeo.setText(datoActivo.getUBI_GEOGRAFICA());
-                teOrigen.setText(datoActivo.getORIGEN());
+                boolean res=false;
+                Verificacambios();
+                if (sCambio.equals("S")) {
+                    datoActivo.setCodigo(teCodigo.getText().toString());
+                   /* datoActivo.setCORRELATIVO(Integer.parseInt(teCorrelativo.getText().toString()));
+                    datoActivo.setTIPO(teTipo.getText().toString());*/
+                    datoActivo.setDESCRIPCION(teDescripcion.getText().toString());
+                    /*datoActivo.setUNIDAD(teUunidad.getText().toString());
+                    datoActivo.setFECHA_INGRESO(teFeching.getText().toString());
+                    datoActivo.setVALOR(teValor.getText().toString());
+                    datoActivo.setVALOR_RESIDUAL(teValorResidual.getText().toString());
+                    datoActivo.setESTADO_BD(teEstadoDB.getText().toString());*/
+                    datoActivo.setESTADOFISICO(teEfisico.getText().toString().toUpperCase());
+                    datoActivo.setOBSERVACION(teObservacion.getText().toString().toUpperCase());
+                    /*datoActivo.setGRUPO(teGrupo.getText().toString());
+                    datoActivo.setAUXILIAR(teAuxiliar.getText().toString());
+                    datoActivo.setGESTION_INGRESO(Integer.parseInt(teGestionIng.getText().toString()));
+                    datoActivo.setPARTIDA(tePartida.getText().toString());*/
+                    datoActivo.setGLOSA(teGlosa.getText().toString().toUpperCase());
+                    datoActivo.setCOLOR(teColor.getText().toString().toUpperCase());
+                    datoActivo.setSERIE(teSerie.getText().toString().toUpperCase());
+                    datoActivo.setMARCA(teMarca.getText().toString().toUpperCase());
+                    datoActivo.setMODELO(teModelo.getText().toString().toUpperCase());
+                    datoActivo.setPLACA(tePlaca.getText().toString().toUpperCase());
+                    /*datoActivo.setGESTION_BAJA(Integer.parseInt(teGestionBaja.getText().toString()));
+                    datoActivo.setBAJA(teBaja.getText().toString());
+                    datoActivo.setUBI_GEOGRAFICA(teUbiGeo.getText().toString());
+                    datoActivo.setORIGEN(teOrigen.getText().toString());
+
+                    datoActivo.setRUTA_IMAGEN("ruta");
+                    datoActivo.setESTADO("A");*/
+                    datoActivo.setCAMBIO("S");
+
+                    res = dao.editar(datoActivo);
+                }
+                if (res) Toast.makeText(getApplicationContext(),"Se registró las modificaciones",Toast.LENGTH_SHORT).show();
+                else Toast.makeText(getApplicationContext(),"No se registraron modificaciones",Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
+    }
+
+    private void Verificacambios() {
+        if(vEfisico.equals(teEfisico.getText().toString())&&
+                vDes.equals(teDescripcion.getText().toString())&&
+                vObs.equals(teObservacion.getText().toString())&&
+                vGlosa.equals(teGlosa.getText().toString())&&
+                vSerie.equals(teSerie.getText().toString())&&
+                vMarca.equals(teMarca.getText().toString())&&
+                vModelo.equals(teModelo.getText().toString())&&
+                vPlaca.equals(tePlaca.getText().toString())){
+                sCambio="N";
+        }else sCambio="S";
+
+    }
+
+    private void DesactivarEditext() {
+        teCodigo.setEnabled(false);
+        teCorrelativo.setEnabled(false);
+        teTipo.setEnabled(false);
+        teDescripcion.setEnabled(false);
+        teEfisico.setEnabled(false);
+        teUunidad.setEnabled(false);
+        teFeching.setEnabled(false);
+        teValor.setEnabled(false);
+        teValorResidual.setEnabled(false);
+        teEstadoDB.setEnabled(false);
+        teObservacion.setEnabled(false);
+        teGrupo.setEnabled(false);
+        teAuxiliar.setEnabled(false);
+        teGestionIng.setEnabled(false);
+        tePartida.setEnabled(false);
+        teGlosa.setEnabled(false);
+        teColor.setEnabled(false);
+        teSerie.setEnabled(false);
+        teMarca.setEnabled(false);
+        teModelo.setEnabled(false);
+        tePlaca.setEnabled(false);
+        teGestionBaja.setEnabled(false);
+        teBaja.setEnabled(false);
+        teUbiGeo.setEnabled(false);
+        teOrigen.setEnabled(false);
     }
 
     private void relacionaUI() {
@@ -195,12 +286,13 @@ public class EditaActivosActivity extends AppCompatActivity {
         teCorrelativo= findViewById(R.id.etCorrelativo_edit);
         teTipo= findViewById(R.id.etTipoactivo_edit);
         teDescripcion= findViewById(R.id.etDescribe_activo_edit);
+        teEfisico=findViewById(R.id.etEstado_fisico_edit);
         teUunidad= findViewById(R.id.etDescribe_unidad_edit);
         teFeching= findViewById(R.id.etFeching_edit);
         teValor= findViewById(R.id.etValor_edit);
         teValorResidual= findViewById(R.id.etValor_residual_edit);
         teEstadoDB= findViewById(R.id.etEstado_bd_edit);
-        teObseravacion= findViewById(R.id.etObservaciones_edit);
+        teObservacion= findViewById(R.id.etObservaciones_edit);
         teGrupo= findViewById(R.id.etGrupo_activo_edit);
         teAuxiliar= findViewById(R.id.etAuxiliar_grupo_edit);
         teGestionIng= findViewById(R.id.etGestion_edit);
@@ -217,8 +309,10 @@ public class EditaActivosActivity extends AppCompatActivity {
         teOrigen= findViewById(R.id.etOrigen_edit);
         teImagen= findViewById(R.id.imagenId_edit);
         sCambio="N"; sEstado="A";
-        btGrabarCambios= findViewById(R.id.btnGuardaActivoEdit);
         btnTomarfoto= findViewById(R.id.btnTomafoto_edit);
+        btnGuarda= findViewById(R.id.btGuarda);
+        btnEdita= findViewById(R.id.btEdita);
+        btnCancela= findViewById(R.id.btCancela);
     }
     private File createImageFile() throws IOException {
         // Create an image file name

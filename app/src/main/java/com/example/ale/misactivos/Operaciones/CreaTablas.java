@@ -1,7 +1,7 @@
 package com.example.ale.misactivos.Operaciones;
 
 public class CreaTablas {
-    public static final String NOMBREDB="DBActivos";
+    public static final String NOMBREDB="DBActivof";
 
     //constantes tabla CARGOS
     public static final String  CREAR_TABLA_CARGOS="CREATE TABLE cargos (" +
@@ -54,10 +54,10 @@ public class CreaTablas {
 
     //constantes tabla EDIFICIOS
     public static final String  CREAR_TABLA_EDIFICIOS="CREATE TABLE edificios (" +
-    "id INTEGER primary key, " +
+            "id INTEGER primary key autoincrement, " +
             "codigo VARCHAR (20)," +
             "nombreedificio VARCHAR (50)," +
-            "estado         VARCHAR (1))";
+            "estado VARCHAR (1))";
 
     //constantes tabla OFICINAS
     public static final String  CREAR_TABLA_OFICINAS="CREATE TABLE oficinas (" +
@@ -90,7 +90,8 @@ public class CreaTablas {
 
     //constantes tabla ACTIVOS
     public static final String  CREAR_TABLA_ACTIVOS="CREATE TABLE activos (" +
-    "Codigo VARCHAR(20) primary key," +
+            "id integer primary key autoincrement," +
+            "codigo VARCHAR(20) unique," +
             "correlativo INTEGER," +
             "tipo VARCHAR(30)," +
             "descripcion VARCHAR(250)," +
@@ -98,9 +99,9 @@ public class CreaTablas {
             "fecha_ing VARCHAR(10)," +
             "valor REAL," +
             "valor_residual REAL," +
-            "estadofisicoid INTEGER," +
+            "estadofisico VARCHAR(15)," +
             "estadobd VARCHAR(1)," +
-            "observacionid INTEGER," +
+            "observacion VARCHAR(250)," +
             "grupo VARCHAR(10)," +
             "auxiliar VARCHAR(10)," +
             "gestion_ing INTEGER," +
@@ -117,9 +118,9 @@ public class CreaTablas {
             "origen VARCHAR(50)," +
             "cambio VARCHAR(1)," +
             "ruta_imagen VARCHAR(70)," +
-            "estado VARCHAR(1)," +
-            "FOREIGN KEY (observacionid) REFERENCES observaciones (id)," +
-            "FOREIGN KEY (estadofisicoid) REFERENCES estados (id))";
+            "estado VARCHAR(1))";
+            //"FOREIGN KEY (observacionid) REFERENCES observaciones (id)," +
+            //"FOREIGN KEY (estadofisicoid) REFERENCES estados (id))";
 
     //constantes tabla DEVOLUCIONES
     public static final String  CREAR_TABLA_DEVOLUCIONES="CREATE TABLE devoluciones (" +
@@ -158,50 +159,51 @@ public class CreaTablas {
     public static final String  CREAR_TABLA_INVENTARIOS="CREATE TABLE inventarios (" +
     "id INTEGER primary key autoincrement," +
             "fecha VARCHAR(10)," +
+            "gestion Integer," +
             "glosa VARCHAR(250)," +
-            "estado VARCHAR(1)," +
-            "oficinaid INTEGER," +
-            "custodioid INTEGER," +
-            "FOREIGN KEY (custodioid) REFERENCES funcionarios (id)," +
-            "FOREIGN KEY (oficinaid) REFERENCES oficinas (id))";
+            "estado VARCHAR(1))";
+
 
     //constantes tabla DETINVENTARIOS
     public static final String  CREAR_TABLA_DETINVENTARIOS="CREATE TABLE detinventarios (" +
     "id INTEGER primary key autoincrement," +
             "inventarioid INTEGER," +
-            "fecha_reg VARCHAR(10)," +
+            "gestion INTEGER," +
             "activoid VARCHAR(20)," +
-            "obsid INTEGER," +
-            "estadoid INTEGER," +
+            "edificioid INTEGER," +
+            "custodioid INTEGER," +
             "verificado VARCHAR(1)," +
-            "estado VARCHAR(1)," +
-            "FOREIGN KEY (estadoid) REFERENCES estados (id)," +
+            "estado VARCHAR(20)," +
+            "observacion VARCHAR(100)," +
+            "fechareg VARCHAR(10)," +
+            "FOREIGN KEY (edificioid) REFERENCES edificios (id)," +
             "FOREIGN KEY (inventarioid) REFERENCES inventarios (id)," +
-            "FOREIGN KEY (obsid) REFERENCES observaciones (id)," +
+            "FOREIGN KEY (custodioid) REFERENCES personas (id)," +
             "FOREIGN KEY (activoid) REFERENCES activos (Codigo))";
 
     //constantes tabla CUSTODIAS
     public static final String  CREAR_TABLA_CUSTODIAS="CREATE TABLE custodias (" +
     "id INTEGER primary key autoincrement," +
+            "cpbte VARCHAR(20)," +
+            "gestion INTEGER," +
             "fechacustodia VARCHAR(10)," +
-            "custodioid INTEGER," +
-            "oficinaid INTEGER," +
+            "custodioid VARCHAR(10)," +
+            "edificioid VARCHAR(10)," +
             "glosa VARCHAR(250)," +
-            "estado VARCHAR(1)," +
-            "FOREIGN KEY (custodioid) REFERENCES funcionarios (id)," +
-            "FOREIGN KEY (oficinaid) REFERENCES oficinas (id))";
+            "estado VARCHAR(1))";
 
     //constantes tabla DETCUSTODIAS
     public static final String  CREAR_TABLA_DETCUSTODIAS="CREATE TABLE detcustodias (" +
     "id INTEGER primary key autoincrement," +
-            "custodiasid INTEGER," +
-            "fecha_reg VARCHAR(10)," +
+            "cpbte VARCHAR(20)," +
+            "gestion INTEGER," +
+           //"custodiasid INTEGER," +
+            //"fecha_reg VARCHAR(10)," +
             "activoid VARCHAR(20)," +
-            "motivoid INTEGER," +
-            "estado VARCHAR(1)," +
-            "FOREIGN KEY (custodiasid) REFERENCES custodias (id)," +
-            "FOREIGN KEY (motivoid) REFERENCES motivos (id)," +
-            "FOREIGN KEY (activoid) REFERENCES activos (Codigo))";
+            "estadoactual VARCHAR(20)," +
+            "estado VARCHAR(20))";
+            //"FOREIGN KEY (custodiasid) REFERENCES custodias (id)," +
+           // "FOREIGN KEY (activoid) REFERENCES activos (Codigo))";
 
     //constantes tabla INGRESOS
     public static final String  CREAR_TABLA_INGRESOS="CREATE TABLE ingresos (" +

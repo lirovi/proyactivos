@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,46 +15,47 @@
         android:layout_marginTop="50dp"
         android:padding="@dimen/paddin_horizontal_login"
         android:layout_gravity="center_horizontal"
-
         >
 
         <ImageView
-            android:layout_width="299dp"
-            android:layout_height="149dp"
+            android:layout_width="350dp"
+            android:layout_height="220dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/ico_editar"
+            android:background="@drawable/activosregistro"
             android:contentDescription="TODO" />
 
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="119dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:maxLines="4"
+            android:singleLine="false"
+            android:text="Medinta esta opcion puede acceder de forma directa a la edicion de los activos filtrados en e modulo anterior."
+            android:textColor="#CC1C1C22"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <Button
-            android:id="@+id/createActivos"
+            android:id="@+id/btEditaActivos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text_button_getdataserver"
+            android:text="@string/text_button_editaactivos"
             android:theme="@style/RaisedButtonDark"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:onClick="goShowRegistroActivos"
+            android:layout_marginTop="10dp"
+            android:onClick="goShowEditaActivos"
             />
-
-
-        <ImageView
-            android:layout_width="299dp"
-            android:layout_height="149dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/ico_eliminar"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:contentDescription="TODO" />
-
-
         <Button
-            android:id="@+id/updateActivos"
+            android:id="@+id/btnSalirActivos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text_button_updatedataserver"
+            android:text="@string/text_button_salir"
             android:theme="@style/RaisedButtonDark"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:onClick="goShowUpdateActivos"
+            android:layout_marginTop="10dp"
+            android:onClick="goSalir"
             />
-
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

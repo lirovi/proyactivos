@@ -2,21 +2,26 @@ package com.example.ale.misactivos.entidades;
 
 public class Detcustodias {
     private int id;
-    private int custodiaid;
+    private String cpbte ;
+    private int gestion;
     private String activoid;
-    private String fecha_reg;;
-    private int estadoid;
-    private int observacionid;
-    private int motivoid;
+    private String estadoactual;
+    private String estado;
 
-    public Detcustodias(int id, int custodiaid, String activoid, String fecha_reg, int estadoid, int observacionid, int motivoid) {
-        this.id = id;
-        this.custodiaid = custodiaid;
+    public Detcustodias(int id, String cpbte, int gestion, String activoid, String estadoactual, String estado) {
+        this.id= id;
+        this.cpbte = cpbte;
+        this.gestion = gestion;
         this.activoid = activoid;
-        this.fecha_reg = fecha_reg;
-        this.estadoid = estadoid;
-        this.observacionid = observacionid;
-        this.motivoid = motivoid;
+        this.estadoactual = estadoactual;
+        this.estado = estado;
+    }
+    public Detcustodias(String cpbte, int gestion, String activoid, String estadoactual, String estado) {
+        this.cpbte = cpbte;
+        this.gestion = gestion;
+        this.activoid = activoid;
+        this.estadoactual = estadoactual;
+        this.estado = estado;
     }
 
     public int getId() {
@@ -27,12 +32,20 @@ public class Detcustodias {
         this.id = id;
     }
 
-    public int getCustodiaid() {
-        return custodiaid;
+    public String getCpbte() {
+        return cpbte;
     }
 
-    public void setCustodiaid(int custodiaid) {
-        this.custodiaid = custodiaid;
+    public void setCpbte(String cpbte) {
+        this.cpbte = cpbte;
+    }
+
+    public int getGestion() {
+        return gestion;
+    }
+
+    public void setGestion(int gestion) {
+        this.gestion = gestion;
     }
 
     public String getActivoid() {
@@ -43,35 +56,19 @@ public class Detcustodias {
         this.activoid = activoid;
     }
 
-    public String getFecha_reg() {
-        return fecha_reg;
+    public String getEstadoactual() {
+        return estadoactual;
     }
 
-    public void setFecha_reg(String fecha_reg) {
-        this.fecha_reg = fecha_reg;
+    public void setEstadoactual(String estadoactual) {
+        this.estadoactual = estadoactual;
     }
 
-    public int getEstadoid() {
-        return estadoid;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setEstadoid(int estadoid) {
-        this.estadoid = estadoid;
-    }
-
-    public int getObservacionid() {
-        return observacionid;
-    }
-
-    public void setObservacionid(int observacionid) {
-        this.observacionid = observacionid;
-    }
-
-    public int getMotivoid() {
-        return motivoid;
-    }
-
-    public void setMotivoid(int motivoid) {
-        this.motivoid = motivoid;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }
